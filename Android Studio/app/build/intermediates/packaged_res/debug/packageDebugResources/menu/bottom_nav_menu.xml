@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/nav_map"    android:icon="@drawable/ic_map"    android:title="Carte"/>
+    <item android:id="@+id/nav_stops"  android:icon="@drawable/ic_list"   android:title="Arrêts"/>
+    <item android:id="@+id/nav_search" android:icon="@drawable/ic_search" android:title="Recherche"/>
+    <item android:id="@+id/nav_lines"  android:icon="@drawable/ic_route"  android:title="Lignes"/>
+    <item android:id="@+id/nav_favs"   android:icon="@drawable/ic_star"   android:title="Favoris"/>
+    <item android:id="@+id/nav_alerts" android:icon="@drawable/ic_bell"   android:title="Alertes"/>
+</menu>

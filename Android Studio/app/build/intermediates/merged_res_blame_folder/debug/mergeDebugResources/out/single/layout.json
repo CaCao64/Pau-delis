@@ -1,0 +1,122 @@
+[
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\widget_stops.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\widget_stops.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\fragment_map.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_map.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\fragment_search.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_search.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\fragment_line_detail.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_line_detail.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\item_widget_bus.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_widget_bus.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\fragment_stop_list.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_stop_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\fragment_line_map.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_line_map.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\item_widget_stop.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_widget_stop.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\fragment_widget_stops.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_widget_stops.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\activity_main.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\view_datetime_picker.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\view_datetime_picker.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\item_line.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_line.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\activity_widget_config.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\activity_widget_config.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\item_stop_simple.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_stop_simple.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\fragment_details.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_details.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\item_search_history.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_search_history.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\item_stop.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_stop.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\fragment_more.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_more.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\fragment_settings.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_settings.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\fragment_favorites.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_favorites.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\item_stop_fav.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_stop_fav.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\widget_stop_row.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\widget_stop_row.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\item_alert.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_alert.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\fragment_nav_config.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_nav_config.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\fragment_alerts.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_alerts.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\item_nav_config.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_nav_config.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/fragment_settings.xml",
+        "source": "com.pau.busapp-main-6:/layout/fragment_settings.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\item_widget_line.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_widget_line.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\item_widget_entry.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_widget_entry.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-mergeDebugResources-3:\\layout\\fragment_lines.xml",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_lines.xml"
+    }
+]

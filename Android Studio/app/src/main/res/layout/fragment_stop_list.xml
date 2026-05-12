@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/bg_light">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/surface"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="20dp" android:paddingEnd="8dp"
+        android:paddingTop="16dp" android:paddingBottom="12dp"
+        android:elevation="2dp">
+        <TextView
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Arrêts"
+            android:textColor="@color/text_primary"
+            android:textSize="20sp" android:textStyle="bold"/>
+        <TextView
+            android:id="@+id/btn_refresh_stops"
+            android:layout_width="44dp" android:layout_height="44dp"
+            android:gravity="center" android:textSize="22sp"
+            android:text="⟳" android:textColor="@color/green_primary"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+    </LinearLayout>
+
+    <View android:layout_width="match_parent" android:layout_height="3dp"
+        android:background="@color/green_primary"/>
+
+    <include layout="@layout/view_datetime_picker"/>
+
+    <TextView
+        android:id="@+id/tv_api_status_stops"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:textSize="11sp"
+        android:visibility="gone"/>
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="@color/divider"
+        android:dividerHeight="1dp"/>
+</LinearLayout>

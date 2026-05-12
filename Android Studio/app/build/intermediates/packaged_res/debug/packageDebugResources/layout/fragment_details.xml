@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="@color/bg_light">
+    <LinearLayout android:id="@+id/header_layout"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="@color/surface" android:gravity="center_vertical"
+        android:orientation="horizontal" android:padding="14dp"
+        android:elevation="2dp">
+        <ImageButton android:id="@+id/btn_retour"
+            android:layout_width="40dp" android:layout_height="40dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_back"
+            android:tint="@color/text_secondary" android:contentDescription="@string/cd_back"/>
+        <TextView android:id="@+id/tv_stop_name"
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:layout_marginStart="12dp"
+            android:textColor="@color/text_primary" android:textSize="18sp" android:textStyle="bold"/>
+        <TextView android:id="@+id/btn_refresh"
+            android:layout_width="44dp" android:layout_height="44dp"
+            android:gravity="center" android:textSize="22sp"
+            android:text="⟳" android:textColor="@color/green_primary"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+        <TextView android:id="@+id/btn_fav"
+            android:layout_width="44dp" android:layout_height="44dp"
+            android:gravity="center" android:textSize="24sp"
+            android:text="☆" android:textColor="#AAAAAA"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:paddingEnd="4dp"/>
+        <TextView android:id="@+id/btn_locate"
+            android:layout_width="44dp" android:layout_height="44dp"
+            android:gravity="center" android:textSize="22sp"
+            android:text="📍" android:textColor="@color/text_secondary"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:paddingEnd="4dp"
+            android:contentDescription="@string/cd_locate"/>
+        <TextView android:id="@+id/btn_see_line"
+            android:layout_width="44dp" android:layout_height="44dp"
+            android:gravity="center" android:textSize="20sp"
+            android:text="🚌" android:textColor="@color/text_secondary"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:paddingEnd="4dp"
+            android:contentDescription="@string/cd_see_line"/>
+    </LinearLayout>
+
+    <View android:layout_width="match_parent" android:layout_height="3dp"
+        android:background="@color/green_primary"/>
+
+    <include layout="@layout/view_datetime_picker"/>
+
+    <TextView android:id="@+id/tv_info"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:paddingStart="20dp" android:paddingEnd="20dp"
+        android:paddingTop="12dp" android:paddingBottom="4dp"
+        android:textSize="14sp" android:textColor="@color/text_secondary"/>
+
+    <TextView
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:text="@string/next_passages"
+        android:textStyle="bold" android:textSize="15sp"
+        android:textColor="@color/blue_primary"
+        android:paddingStart="20dp" android:paddingEnd="20dp"
+        android:paddingTop="14dp" android:paddingBottom="4dp"/>
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/scroll_details"
+        android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <LinearLayout android:id="@+id/passages_container"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:paddingBottom="16dp">
+
+            <TextView android:id="@+id/tv_passages_status"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:paddingStart="20dp" android:paddingEnd="20dp"
+                android:paddingTop="8dp" android:paddingBottom="8dp"
+                android:textSize="13sp" android:textColor="@color/text_secondary"
+                android:text="@string/loading"/>
+
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+
+    <Button android:id="@+id/btn_add_alert"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_margin="20dp" android:text="@string/btn_add_alert"
+        android:backgroundTint="@color/green_primary" android:textColor="@color/white"
+        android:textSize="15sp" android:paddingVertical="14dp"/>
+</LinearLayout>

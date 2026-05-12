@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="@color/bg_light">
+
+    <!-- Barre de recherche moderne -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="@color/surface" android:padding="12dp"
+        android:gravity="center_vertical" android:orientation="horizontal"
+        android:elevation="2dp">
+        <LinearLayout
+            android:layout_width="0dp" android:layout_height="44dp" android:layout_weight="1"
+            android:background="@drawable/bg_search_bar"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingStart="12dp" android:paddingEnd="12dp">
+            <ImageView
+                android:layout_width="18dp" android:layout_height="18dp"
+                android:src="@drawable/ic_search"
+                android:alpha="0.5"
+                android:layout_marginEnd="8dp"/>
+            <EditText android:id="@+id/et_search"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/search_hint"
+                android:textSize="14sp"
+                android:textColor="@color/text_primary"
+                android:imeOptions="actionSearch" android:inputType="text"
+                android:singleLine="true"/>
+        </LinearLayout>
+        <ImageButton android:id="@+id/btn_clear_search"
+            android:layout_width="40dp" android:layout_height="40dp"
+            android:layout_marginStart="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@android:drawable/ic_menu_close_clear_cancel"
+            android:tint="@color/text_secondary"
+            android:contentDescription="@string/cd_clear_search"/>
+    </LinearLayout>
+
+    <View android:layout_width="match_parent" android:layout_height="3dp"
+        android:background="@color/green_primary"/>
+
+    <include layout="@layout/view_datetime_picker"/>
+
+    <TextView android:id="@+id/tv_section_title"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="@color/bg_light"
+        android:paddingStart="20dp" android:paddingTop="10dp" android:paddingBottom="10dp"
+        android:textSize="12sp" android:textStyle="bold"
+        android:textColor="@color/text_secondary" android:letterSpacing="0.05"/>
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <LinearLayout android:id="@+id/results_container"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView android:id="@+id/tv_empty"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:gravity="center" android:padding="40dp"
+                android:textSize="14sp" android:textColor="@color/text_secondary"
+                android:text="@string/search_empty_hint"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

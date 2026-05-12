@@ -1,0 +1,318 @@
+[
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_item_stop_simple.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_stop_simple.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\mipmap-xxxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_item_nav_config.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_nav_config.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_bg_search_bar.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\bg_search_bar.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\mipmap-xhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_fragment_more.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_more.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_bg_stop_icon.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\bg_stop_icon.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_launcher_fg.png.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_launcher_fg.png"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_fragment_favorites.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_favorites.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_item_search_history.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_search_history.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\mipmap-hdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\mipmap-hdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_add.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_add.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_crosshair.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_crosshair.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_more.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_more.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_bg_nav_floating.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\bg_nav_floating.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_notif_bus.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_notif_bus.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_notif_late.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_notif_late.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_emma.png.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_emma.png"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_notif_early.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_notif_early.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_refresh.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_refresh.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_bg_datetime_btn_active.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\bg_datetime_btn_active.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_item_line.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_line.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_fragment_widget_stops.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_widget_stops.xml"
+    },
+    {
+        "merged": "com.pau.busapp-debug-4:/layout_fragment_settings.xml.flat",
+        "source": "com.pau.busapp-main-6:/layout/fragment_settings.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_fragment_nav_config.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_nav_config.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_notif_cancelled.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_notif_cancelled.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_bell.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_bell.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_help.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_help.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_bg_header.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\bg_header.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\mipmap-hdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\mipmap-hdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\anim_theme_fade_in.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\anim\\theme_fade_in.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\mipmap-xxhdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_nearest_stop.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_nearest_stop.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_item_stop_fav.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_stop_fav.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_route.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_route.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_item_widget_stop.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_widget_stop.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_back.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_back.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_item_widget_entry.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_widget_entry.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\color_nav_color_selector.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\color\\nav_color_selector.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_map.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_map.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_activity_main.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_drag_handle.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_drag_handle.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_notif_on_time.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_notif_on_time.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_fragment_stop_list.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_stop_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_fragment_settings.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_settings.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_signal_bars.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_signal_bars.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_launcher_background.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_launcher_background.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_launcher_foreground.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_item_alert.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_alert.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_list.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_list.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_fragment_search.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_search.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_bg_nav_pill.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\bg_nav_pill.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_item_stop.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_stop.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_coxi.png.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_coxi.png"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\mipmap-mdpi_ic_launcher.png.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\mipmap-mdpi\\ic_launcher.png"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\anim_theme_fade_out.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\anim\\theme_fade_out.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_fragment_lines.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_lines.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_bg_widget.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\bg_widget.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\xml_widget_stops_info.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\xml\\widget_stops_info.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_fragment_alerts.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_alerts.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_widget_stop_row.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\widget_stop_row.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_view_datetime_picker.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\view_datetime_picker.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_search.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_search.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_fragment_line_detail.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_line_detail.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\menu_bottom_nav_menu.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\menu\\bottom_nav_menu.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_fragment_map.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_map.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_widget_stops.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\widget_stops.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\mipmap-xhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\mipmap-xhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\mipmap-xxxhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\mipmap-xxxhdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_activity_widget_config.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\activity_widget_config.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\mipmap-mdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\mipmap-mdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_bg_datetime_btn.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\bg_datetime_btn.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_item_widget_line.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_widget_line.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_star.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_star.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\drawable_ic_settings.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\drawable\\ic_settings.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_fragment_line_map.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_line_map.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_item_widget_bus.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\item_widget_bus.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\layout_fragment_details.xml.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\layout\\fragment_details.xml"
+    },
+    {
+        "merged": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-debug-4:\\mipmap-xxhdpi_ic_launcher_round.png.flat",
+        "source": "C:\\Users\\ffavr\\.gradle\\daemon\\8.13\\com.pau.busapp-main-6:\\mipmap-xxhdpi\\ic_launcher_round.png"
+    }
+]

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="@color/bg_light">
+
+    <!-- Header blanc avec accent vert en bas -->
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="@color/surface"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:paddingStart="20dp" android:paddingEnd="8dp"
+        android:paddingTop="16dp" android:paddingBottom="12dp"
+        android:elevation="2dp">
+        <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/fav_title"
+            android:textColor="@color/text_primary"
+            android:textSize="20sp" android:textStyle="bold"
+            android:letterSpacing="-0.01"/>
+        <TextView android:id="@+id/btn_refresh_favs"
+            android:layout_width="44dp" android:layout_height="44dp"
+            android:gravity="center" android:textSize="22sp"
+            android:text="⟳" android:textColor="@color/green_primary"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+    </LinearLayout>
+
+    <View android:layout_width="match_parent" android:layout_height="3dp"
+        android:background="@color/green_primary"/>
+
+    <include layout="@layout/view_datetime_picker"/>
+
+    <TextView
+        android:id="@+id/tv_api_status_favs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp"
+        android:textSize="11sp"
+        android:visibility="gone"/>
+
+    <ScrollView android:id="@+id/scroll_favs" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <com.pau.busapp.SafeLinearLayout android:id="@+id/container"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView android:id="@+id/tv_empty"
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:gravity="center" android:padding="60dp" android:textSize="15sp"
+                android:textColor="@color/text_secondary"
+                android:text="@string/fav_empty"
+                android:visibility="visible"/>
+        </com.pau.busapp.SafeLinearLayout>
+    </ScrollView>
+</LinearLayout>
