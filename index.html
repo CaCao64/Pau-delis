@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Merci pour votre soutien ! — Pau'delis</title>
+  <meta name="description" content="Page de confirmation de soutien pour l'application Pau'delis.">
+
+  <!-- Google tag (gtag.js) GA4 -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K71MXX4GCB"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-K71MXX4GCB');
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --primary: #00A859;
+      --primary-hover: #008746;
+      --primary-light: rgba(0, 168, 89, 0.12);
+      --primary-glow: rgba(0, 168, 89, 0.35);
+      --accent-orange: #FF8C00;
+      
+      --card-bg: rgba(255, 255, 255, 0.94);
+      --card-border: rgba(255, 255, 255, 0.6);
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --text-light: #64748b;
+
+      --ticket-bg: #f8fafc;
+      --ticket-border: #e2e8f0;
+      --shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35), 0 0 40px rgba(0, 168, 89, 0.2);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --card-bg: rgba(15, 23, 42, 0.85);
+        --card-border: rgba(255, 255, 255, 0.12);
+        --text-main: #f8fafc;
+        --text-muted: #cbd5e1;
+        --text-light: #94a3b8;
+        --ticket-bg: #1e293b;
+        --ticket-border: #334155;
+      }
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: radial-gradient(circle at 20% 20%, #134e2a 0%, #0b1f14 50%, #050b07 100%);
+      color: var(--text-main);
+      padding: 1.5rem;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Ambient Background Glows */
+    body::before {
+      content: '';
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      background: radial-gradient(circle, var(--primary-glow) 0%, rgba(0,0,0,0) 70%);
+      top: -100px;
+      right: -100px;
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+      animation: pulseGlow 8s ease-in-out infinite alternate;
+    }
+
+    body::after {
+      content: '';
+      position: absolute;
+      width: 350px;
+      height: 350px;
+      background: radial-gradient(circle, rgba(255, 140, 0, 0.25) 0%, rgba(0,0,0,0) 70%);
+      bottom: -80px;
+      left: -80px;
+      border-radius: 50%;
+      z-index: 0;
+      pointer-events: none;
+      animation: pulseGlow 10s ease-in-out infinite alternate-reverse;
+    }
+
+    @keyframes pulseGlow {
+      0% { transform: scale(1) translate(0, 0); opacity: 0.7; }
+      100% { transform: scale(1.2) translate(-20px, 20px); opacity: 1; }
+    }
+
+    /* Main Container Card */
+    .thank-you-card {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 520px;
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--card-border);
+      border-radius: 28px;
+      padding: 2.75rem 2.25rem 2.25rem 2.25rem;
+      box-shadow: var(--shadow);
+      text-align: center;
+      animation: cardAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes cardAppear {
+      0% { opacity: 0; transform: translateY(30px) scale(0.96); }
+      100% { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    /* Header Badge & Icon Flex Row */
+    .status-badge-header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 1.5rem;
+    }
+
+    /* Glowing Success Hero Icon */
+    .icon-badge-wrapper {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 0;
+      flex-shrink: 0;
+    }
+
+    .icon-badge-glow {
+      position: absolute;
+      width: 76px;
+      height: 76px;
+      background: var(--primary);
+      border-radius: 50%;
+      opacity: 0.3;
+      filter: blur(14px);
+      animation: iconGlow 3s ease-in-out infinite alternate;
+    }
+
+    @keyframes iconGlow {
+      0% { transform: scale(0.9); opacity: 0.25; }
+      100% { transform: scale(1.3); opacity: 0.5; }
+    }
+
+    .icon-badge {
+      position: relative;
+      width: 60px;
+      height: 60px;
+      background: linear-gradient(135deg, #00A859 0%, #00773c 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      box-shadow: 0 8px 22px -3px rgba(0, 168, 89, 0.45);
+      animation: badgePop 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+    }
+
+    .icon-badge svg {
+      width: 32px;
+      height: 32px;
+      stroke-dasharray: 50;
+      stroke-dashoffset: 50;
+      animation: checkDraw 0.6s ease-in-out 0.4s forwards;
+    }
+
+    @keyframes badgePop {
+      0% { transform: scale(0); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    @keyframes checkDraw {
+      100% { stroke-dashoffset: 0; }
+    }
+
+    /* Stripe Success Badge */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 8px 16px;
+      background: var(--primary-light);
+      border: 1px solid rgba(0, 168, 89, 0.25);
+      border-radius: 100px;
+      color: var(--primary);
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.3px;
+      margin-bottom: 0;
+      line-height: 1;
+    }
+
+    /* Typography */
+    h1 {
+      font-family: 'Space Grotesk', 'Plus Jakarta Sans', sans-serif;
+      font-size: 1.85rem;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 0.75rem;
+      letter-spacing: -0.5px;
+    }
+
+    .subtitle {
+      font-size: 1.025rem;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-bottom: 1.75rem;
+    }
+
+    .subtitle strong {
+      color: var(--primary);
+      font-weight: 700;
+    }
+
+    /* Clean Transport Ticket Stub */
+    .ticket-container {
+      position: relative;
+      background: var(--ticket-bg);
+      border: 1px solid var(--ticket-border);
+      border-radius: 16px;
+      padding: 1.25rem 1.5rem;
+      margin-top: 0.5rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      animation: ticketSlideUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+      overflow: hidden;
+    }
+
+    @keyframes ticketSlideUp {
+      0% { opacity: 0; transform: translateY(16px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Cutout Circles for Ticket Stub Look */
+    .ticket-container::before, .ticket-container::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      width: 16px;
+      height: 16px;
+      background: var(--card-bg);
+      border-radius: 50%;
+      transform: translateY(-50%);
+      z-index: 2;
+    }
+
+    .ticket-container::before { left: -9px; border-right: 1px solid var(--ticket-border); }
+    .ticket-container::after { right: -9px; border-left: 1px solid var(--ticket-border); }
+
+    .ticket-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.75rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px dashed var(--ticket-border);
+    }
+
+    .ticket-brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+
+    .ticket-brand-badge {
+      background: var(--primary);
+      color: white;
+      font-size: 0.7rem;
+      padding: 2px 8px;
+      border-radius: 6px;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+    }
+
+    .ticket-status {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--primary);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .ticket-details {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      text-align: left;
+    }
+
+    .ticket-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .ticket-label {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .ticket-value {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+    }
+  </style>
+</head>
+<body>
+
+  <main class="thank-you-card">
+    
+    <!-- Header Badge & Icon Flex Row -->
+    <div class="status-badge-header">
+      <div class="icon-badge-wrapper">
+        <div class="icon-badge-glow"></div>
+        <div class="icon-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+      </div>
+      <div class="status-badge">
+        Paiement confirmé via Stripe
+      </div>
+    </div>
+
+    <!-- Main Message Title & Description -->
+    <h1>Merci pour votre soutien !</h1>
+    
+    <p class="subtitle">
+      Votre contribution fait rouler l'application <strong>Pau'delis</strong> et <strong>motive</strong> grandement le développement de mes futurs projets.
+    </p>
+
+    <!-- Clean Transport Ticket Stub -->
+    <div class="ticket-container">
+      <div class="ticket-header">
+        <div class="ticket-brand">
+          <span>Pau'delis</span>
+          <span class="ticket-brand-badge">IDELIS PAU</span>
+        </div>
+        <div class="ticket-status">
+          ✓ Soutien Validé
+        </div>
+      </div>
+
+      <div class="ticket-details">
+        <div class="ticket-info">
+          <span class="ticket-label">Destination</span>
+          <span class="ticket-value">Développement & Projets</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+</body>
+</html>
