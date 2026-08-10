@@ -6,14 +6,47 @@
   <title>Merci pour votre soutien ! — Pau'delis</title>
   <meta name="description" content="Page de confirmation de soutien pour l'application Pau'delis.">
 
-  <!-- Google tag (gtag.js) GA4 -->
+  <!-- Anti-Bot Smart Google Tag (GA4) -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-K71MXX4GCB"></script>
   <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
+    (function() {
+      // 1. Détection des bots et crawlers automatisés (User-Agent, Headless, WebDriver)
+      var ua = (navigator.userAgent || '').toLowerCase();
+      var isBotUA = /bot|googlebot|crawler|spider|slurp|facebookexternalhit|headlesschrome|lighthouse|inspect|phantom|puppeteer|selenium|bytespider|bingbot|yandex|semrush/i.test(ua);
+      var isWebDriver = navigator.webdriver === true || !!window.__nightmare || !!window.callPhantom;
+      var isHeadless = !navigator.languages || navigator.languages.length === 0 || (window.outerWidth === 0 && window.outerHeight === 0);
 
-    gtag('config', 'G-K71MXX4GCB');
+      // Si c'est un bot automatisé, on n'initialise PAS Analytics
+      if (isBotUA || isWebDriver || isHeadless) {
+        return;
+      }
+
+      // 2. Initialisation uniquement sur vrai signal humain (sans aucune action requise)
+      var gaLoaded = false;
+      function initGA() {
+        if (gaLoaded) return;
+        gaLoaded = true;
+        
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        window.gtag = gtag;
+        gtag('js', new Date());
+        gtag('config', 'G-K71MXX4GCB');
+      }
+
+      // Se déclenche dès le premier micro-mouvement humain (souris, touch, défilement)
+      var events = ['pointermove', 'touchstart', 'scroll', 'keydown', 'click'];
+      events.forEach(function(evt) {
+        window.addEventListener(evt, initGA, { once: true, passive: true });
+      });
+
+      // Déclencheur de secours pour humains immobiles si la page est active et visible
+      setTimeout(function() {
+        if (document.visibilityState === 'visible' && document.hasFocus && document.hasFocus()) {
+          initGA();
+        }
+      }, 1500);
+    })();
   </script>
 
   <!-- Google Fonts -->
