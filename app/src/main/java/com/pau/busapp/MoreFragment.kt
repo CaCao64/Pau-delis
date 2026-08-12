@@ -1,9 +1,14 @@
 package com.pau.busapp
 
+import android.animation.ValueAnimator
 import android.content.Intent
+import android.graphics.LinearGradient
+import android.graphics.Matrix
+import android.graphics.Shader
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.view.animation.LinearInterpolator
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -95,7 +100,55 @@ class MoreFragment : Fragment() {
             }
             row.addView(label)
 
+            if (item.id == "donate") {
+                applyShinyGoldGradient(label, icon)
+            }
+
             container.addView(row)
+        }
+    }
+
+    private fun applyShinyGoldGradient(textView: TextView, iconView: ImageView) {
+        iconView.setColorFilter(0xFFFFD700.toInt())
+
+        textView.post {
+            if (_b == null) return@post
+            val width = textView.paint.measureText(textView.text.toString())
+            if (width <= 0f) return@post
+
+            val colors = intArrayOf(
+                0xFFFFD700.toInt(), // Gold
+                0xFFFFF8DC.toInt(), // White Gold Reflect
+                0xFFFFB700.toInt(), // Amber Gold
+                0xFFFFE57F.toInt(), // Neon Gold
+                0xFFFFD700.toInt()  // Gold
+            )
+
+            val shader = LinearGradient(
+                0f, 0f, width * 1.5f, 0f,
+                colors,
+                floatArrayOf(0f, 0.25f, 0.5f, 0.75f, 1f),
+                Shader.TileMode.REPEAT
+            )
+            textView.paint.shader = shader
+
+            val matrix = Matrix()
+            val animator = ValueAnimator.ofFloat(0f, width * 1.5f)
+            animator.duration = 2500L
+            animator.repeatCount = ValueAnimator.INFINITE
+            animator.repeatMode = ValueAnimator.RESTART
+            animator.interpolator = LinearInterpolator()
+            animator.addUpdateListener { anim ->
+                if (_b == null) {
+                    anim.cancel()
+                    return@addUpdateListener
+                }
+                val translate = anim.animatedValue as Float
+                matrix.setTranslate(translate, 0f)
+                shader.setLocalMatrix(matrix)
+                textView.invalidate()
+            }
+            animator.start()
         }
     }
 
