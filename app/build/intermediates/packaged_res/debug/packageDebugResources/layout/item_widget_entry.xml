@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dp"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:paddingStart="16dp" android:paddingEnd="16dp"
+    android:background="?attr/selectableItemBackground">
+
+    <CheckBox
+        android:id="@+id/cb_entry"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:buttonTint="@color/green_primary"/>
+
+    <!-- Badge coloré (ligne / bus) -->
+    <TextView
+        android:id="@+id/tv_entry_badge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:paddingStart="7dp" android:paddingEnd="7dp"
+        android:paddingTop="2dp" android:paddingBottom="2dp"
+        android:visibility="gone"/>
+
+    <!-- Texte principal -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:layout_marginStart="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_entry_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textColor="@color/text_primary"
+            android:maxLines="1"
+            android:ellipsize="end"/>
+
+        <TextView
+            android:id="@+id/tv_entry_sub"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="11sp"
+            android:textColor="@color/text_secondary"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/btn_entry_config"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:gravity="center"
+        android:text="⚙"
+        android:textSize="18sp"
+        android:textColor="@color/text_secondary"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:layout_marginEnd="4dp"/>
+
+    <ImageView
+        android:id="@+id/iv_entry_drag"
+        android:layout_width="32dp" android:layout_height="32dp"
+        android:padding="4dp"
+        android:src="@drawable/ic_drag_handle"
+        android:alpha="0.4"/>
+
+</LinearLayout>

@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout android:id="@+id/fragment_container"
+            android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"/>
+
+        <View android:layout_width="match_parent" android:layout_height="1dp"
+            android:background="@color/divider"/>
+
+        <!-- Nav bar style A : pill indicator, sans label, 56dp -->
+        <LinearLayout
+            android:id="@+id/bottom_nav"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:background="@color/nav_bg"
+            android:orientation="horizontal"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp">
+
+            <!-- Carte -->
+            <LinearLayout android:id="@+id/nav_map" style="@style/BottomNavItem">
+                <FrameLayout android:id="@+id/nav_map_pill"
+                    android:layout_width="56dp" android:layout_height="32dp" android:gravity="center">
+                    <ImageView android:id="@+id/nav_map_icon" style="@style/BottomNavIcon"
+                        android:layout_gravity="center" android:src="@drawable/ic_map"/>
+                </FrameLayout>
+                <TextView android:id="@+id/nav_map_label" style="@style/BottomNavLabel" android:text="@string/nav_map"/>
+            </LinearLayout>
+
+            <!-- Favoris -->
+            <LinearLayout android:id="@+id/nav_favs" style="@style/BottomNavItem">
+                <FrameLayout android:id="@+id/nav_favs_pill"
+                    android:layout_width="56dp" android:layout_height="32dp" android:gravity="center">
+                    <ImageView android:id="@+id/nav_favs_icon" style="@style/BottomNavIcon"
+                        android:layout_gravity="center" android:src="@drawable/ic_star"/>
+                </FrameLayout>
+                <TextView android:id="@+id/nav_favs_label" style="@style/BottomNavLabel" android:text="@string/nav_favs"/>
+            </LinearLayout>
+
+            <!-- Recherche (centre) -->
+            <LinearLayout android:id="@+id/nav_search" style="@style/BottomNavItem">
+                <FrameLayout android:id="@+id/nav_search_pill"
+                    android:layout_width="56dp" android:layout_height="32dp" android:gravity="center">
+                    <ImageView android:id="@+id/nav_search_icon" style="@style/BottomNavIcon"
+                        android:layout_gravity="center" android:src="@drawable/ic_search"/>
+                </FrameLayout>
+                <TextView android:id="@+id/nav_search_label" style="@style/BottomNavLabel" android:text="@string/nav_search"/>
+            </LinearLayout>
+
+            <!-- Alertes -->
+            <LinearLayout android:id="@+id/nav_alerts" style="@style/BottomNavItem">
+                <FrameLayout android:id="@+id/nav_alerts_pill"
+                    android:layout_width="56dp" android:layout_height="32dp" android:gravity="center">
+                    <ImageView android:id="@+id/nav_alerts_icon" style="@style/BottomNavIcon"
+                        android:layout_gravity="center" android:src="@drawable/ic_bell"/>
+                </FrameLayout>
+                <TextView android:id="@+id/nav_alerts_label" style="@style/BottomNavLabel" android:text="@string/nav_alerts"/>
+            </LinearLayout>
+
+            <!-- Arrêts (masqué par défaut) -->
+            <LinearLayout android:id="@+id/nav_stops" style="@style/BottomNavItem" android:visibility="gone">
+                <FrameLayout android:id="@+id/nav_stops_pill"
+                    android:layout_width="56dp" android:layout_height="32dp" android:gravity="center">
+                    <ImageView android:id="@+id/nav_stops_icon" style="@style/BottomNavIcon"
+                        android:layout_gravity="center" android:src="@drawable/ic_list"/>
+                </FrameLayout>
+                <TextView android:id="@+id/nav_stops_label" style="@style/BottomNavLabel" android:text="@string/nav_stops"/>
+            </LinearLayout>
+
+            <!-- Lignes (masqué par défaut) -->
+            <LinearLayout android:id="@+id/nav_lines" style="@style/BottomNavItem" android:visibility="gone">
+                <FrameLayout android:id="@+id/nav_lines_pill"
+                    android:layout_width="56dp" android:layout_height="32dp" android:gravity="center">
+                    <ImageView android:id="@+id/nav_lines_icon" style="@style/BottomNavIcon"
+                        android:layout_gravity="center" android:src="@drawable/ic_route"/>
+                </FrameLayout>
+                <TextView android:id="@+id/nav_lines_label" style="@style/BottomNavLabel" android:text="@string/nav_lines"/>
+            </LinearLayout>
+
+            <!-- Paramètres (masqué par défaut) -->
+            <LinearLayout android:id="@+id/nav_settings" style="@style/BottomNavItem" android:visibility="gone">
+                <FrameLayout android:id="@+id/nav_settings_pill"
+                    android:layout_width="56dp" android:layout_height="32dp" android:gravity="center">
+                    <ImageView android:id="@+id/nav_settings_icon" style="@style/BottomNavIcon"
+                        android:layout_gravity="center" android:src="@drawable/ic_settings"/>
+                </FrameLayout>
+                <TextView android:id="@+id/nav_settings_label" style="@style/BottomNavLabel" android:text="@string/nav_settings"/>
+            </LinearLayout>
+
+            <!-- Plus -->
+            <LinearLayout android:id="@+id/nav_more" style="@style/BottomNavItem">
+                <FrameLayout android:id="@+id/nav_more_pill"
+                    android:layout_width="56dp" android:layout_height="32dp" android:gravity="center">
+                    <ImageView android:id="@+id/nav_more_icon" style="@style/BottomNavIcon"
+                        android:layout_gravity="center" android:src="@drawable/ic_more"/>
+                </FrameLayout>
+                <TextView android:id="@+id/nav_more_label" style="@style/BottomNavLabel" android:text="Plus"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_api_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:text="●"
+        android:textSize="10sp"
+        android:textColor="#88888888"
+        android:elevation="10dp"
+        android:visibility="gone"/>
+
+</FrameLayout>

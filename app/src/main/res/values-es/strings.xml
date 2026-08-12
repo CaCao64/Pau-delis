@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Pau\'delis</string>
+    <string name="widget_desc">Próximos pasos de sus paradas favoritas</string>
+    <string name="widget_label">Pau\'delis – Paradas</string>
+
+    <!-- Navigation -->
+    <string name="nav_map">Mapa</string>
+    <string name="nav_stops">Paradas</string>
+    <string name="nav_search">Buscar</string>
+    <string name="nav_lines">Líneas</string>
+    <string name="nav_favs">Favoritos</string>
+    <string name="nav_alerts">Alertas</string>
+    <string name="nav_settings">Ajustes</string>
+    <string name="nav_donate">Donar (Cómprame un billete Idelis)</string>
+
+    <!-- Carte / Map -->
+    <string name="btn_emulate_here">📍 Emular aquí</string>
+
+    <!-- Fiche arrêt -->
+    <string name="next_passages">Próximos pasos</string>
+    <string name="loading">Cargando…</string>
+    <string name="no_stop_code">No hay código de parada disponible</string>
+    <string name="no_passage">No hay paso previsto</string>
+    <string name="no_passage_today">No hay paso previsto hoy</string>
+    <string name="offline_theoretical">Fuera de línea — horarios teóricos</string>
+    <string name="offline_theoretical_count">Fuera de línea — %d destino(s) (teórico)</string>
+    <string name="passages_count">%d destino(s)</string>
+    <string name="lines_label">Líneas: %s</string>
+    <string name="no_line">Ninguna línea asociada</string>
+    <string name="added_to_favs">Añadido a favoritos ⭐</string>
+    <string name="removed_from_favs">Eliminado de favoritos</string>
+    <string name="choose_line">Elegir una línea</string>
+    <string name="btn_add_alert">🔔  Añadir una alerta para esta parada</string>
+    <string name="cd_back">Atrás</string>
+    <string name="cd_locate">Situar en el mapa</string>
+    <string name="cd_see_line">Ver la línea</string>
+    <string name="cannot_load_schedules">Imposible cargar los horarios</string>
+
+    <!-- Fiche ligne -->
+    <string name="line_added_to_favs">Línea añadida a favoritos ⭐</string>
+    <string name="line_removed_from_favs">Línea eliminada de favoritos</string>
+    <string name="stops_in_direction">Paradas en este sentido (%d)</string>
+    <string name="btn_invert_direction">⇄  Invertir dirección</string>
+    <string name="type_febus">Fébus – BRT de Hidrógeno</string>
+    <string name="type_temporis">Temporis – Línea principal</string>
+    <string name="type_proximite">Línea de proximidad</string>
+    <string name="type_dimanche">Domingo y festivos</string>
+    <string name="type_special">Línea especial</string>
+
+    <!-- Favoris -->
+    <string name="fav_title">Favoritos</string>
+    <string name="fav_empty">Sin favoritos.\nPulse ☆ en una parada o línea.</string>
+    <string name="fav_lines_section">⭐ Líneas favoritas</string>
+    <string name="fav_stops_section">⭐ Paradas favoritas</string>
+
+    <!-- Recherche -->
+    <string name="search_hint">Buscar una parada o línea…</string>
+    <string name="search_recent">Búsquedas recientes</string>
+    <string name="search_empty_hint">Escriba para buscar una parada o línea</string>
+    <string name="search_no_result">Sin resultados</string>
+    <string name="search_results_count">%d resultado(s)</string>
+    <string name="search_section_lines">Líneas</string>
+    <string name="search_section_stops">Paradas</string>
+    <string name="cd_clear_search">Borrar</string>
+
+    <!-- Arrêts liste -->
+    <string name="stops_lines_label">  •  Líneas: %s</string>
+
+    <!-- Alertes -->
+    <string name="alerts_title">Alertas</string>
+    <string name="alerts_empty">Sin alertas.\nPulse + para añadir una.</string>
+    <string name="alert_general">📢 Alerta general</string>
+    <string name="cd_add_alert">Añadir una alerta</string>
+    <string name="alert_dialog_title">Nueva alerta</string>
+    <string name="alert_stop_label">Parada afectada</string>
+    <string name="alert_message_label">Mensaje</string>
+    <string name="alert_message_hint">Mensaje de la alerta</string>
+    <string name="alert_general_item">General</string>
+    <string name="alert_btn_add">Añadir</string>
+    <string name="alert_btn_cancel">Cancelar</string>
+    <string name="alert_added">Alerta añadida ✓</string>
+    <string name="alert_empty_message">El mensaje está vacío</string>
+
+    <!-- Paramètres -->
+    <string name="settings_title">Ajustes</string>
+    <string name="settings_section_appearance">APARIENCIA</string>
+    <string name="settings_section_tabs">PESTAÑAS</string>
+    <string name="settings_section_widget">WIDGET</string>
+    <string name="settings_section_style">ESTILO</string>
+    <string name="settings_section_language">IDIOMA</string>
+    <string name="settings_section_favs">AJUSTES</string>
+    <string name="settings_theme_label">Tema del dispositivo</string>
+    <string name="settings_tabs_desc">Elegir y reordenar pestañas</string>
+    <string name="settings_widget_desc">Elegir y reordenar paradas del widget</string>
+    <string name="settings_btn_configure">Configurar</string>
+    <string name="settings_btn_change">Cambiar</string>
+    <string name="settings_change_language">Cambiar</string>
+    <string name="settings_choose_language">Elegir idioma</string>
+    <string name="settings_favs_desc">Exporte todos sus ajustes, favoritos, alertas y configuración del widget a un archivo JSON para transferirlos a otro dispositivo.</string>
+    <string name="settings_fav_count">%1$d parada(s) favorita(s)  •  %2$d línea(s) favorita(s)</string>
+    <string name="settings_btn_export">📤  Exportar ajustes</string>
+    <string name="settings_btn_import">📥  Importar ajustes</string>
+    <string name="settings_export_ok">Ajustes exportados ✓</string>
+    <string name="settings_export_error">Error de exportación: %s</string>
+    <string name="settings_import_ok">Importado: +%1$d parada(s), +%2$d línea(s)</string>
+    <string name="settings_import_invalid">Archivo inválido: %s</string>
+    <string name="no_info">Sin información</string>
+    <string name="permission_notif_denied">Ha denegado el acceso a las notificaciones. El sistema de alertas no está disponible. Si desea acceder, actívelo en los ajustes de la aplicación.</string>
+    <string name="permission_location_denied">Ha denegado el acceso a la ubicación. El sistema de geolocalización no está disponible. Si desea acceder, modifíquelo en los ajustes de la aplicación.</string>
+    <string name="permission_settings">Ajustes</string>
+    <string name="permission_close">Cerrar</string>
+    <string name="btn_help">Ayuda</string>
+    <string name="btn_next">Siguiente →</string>
+    <string name="btn_finish">Terminar →</string>
+    <string name="btn_skip">Omitir</string>
+
+    <string name="tuto_welcome_title">Bienvenido a Pau\'delis 🚌</string>
+    <string name="tuto_welcome_body">Esta aplicación le muestra en tiempo real los próximos autobuses de la red Idelis en Pau.\n\nDeslice hacia la izquierda o pulse «Siguiente» para descubrir la aplicación. También puede pulsar el botón Ayuda arriba a la derecha de las pestañas para abrir la guía específica.</string>
+    <string name="tuto_map_title">El Mapa</string>
+    <string name="tuto_map_body">La pestaña Mapa (🗺️) en la parte inferior le muestra todas las paradas de la red en un plano.\n\nPellizque para hacer zoom. Los nombres de las paradas aparecen al acercarse. Pulse una parada para ver los próximos autobuses.</string>
+    <string name="tuto_locate_title">Localizarme en el mapa</string>
+    <string name="tuto_locate_body">Pulse el botón azul en la parte inferior derecha del mapa para situarse y ver su posición en directo.\n\nLa aplicación le pedirá permiso para acceder a su ubicación.</string>
+    <string name="tuto_nearest_title">Parada más cercana</string>
+    <string name="tuto_nearest_body">El pequeño botón 🚏 en la parte superior derecha del mapa abre directamente la información del autobús más cercano a su ubicación.\n\n¡Práctico para conocer el próximo autobús sin buscar en el mapa!</string>
+    <string name="tuto_favs_title">Los Favoritos</string>
+    <string name="tuto_favs_body">Pulse la estrella ⭐ en la ficha de una parada o línea para ponerla en favoritos.\n\nSus favoritos aparecen en la pestaña ⭐ con el próximo paso actualizado automáticamente.</string>
+    <string name="tuto_colors_title">Comprender los colores</string>
+    <string name="tuto_colors_body">En sus favoritos y horarios, los colores indican el estado del autobús:\n\n%1$s = a tiempo\n%2$s = con retraso\n%3$s = adelantado\n%4$s = cancelado\n* = horario previsto (sin información en tiempo real)</string>
+    <string name="tuto_search_title">La Búsqueda</string>
+    <string name="tuto_search_body">Pulse 🔍 para buscar una parada o línea por su nombre.\n\nLa aplicación recuerda sus últimas búsquedas para encontrar rápidamente sus hábitos.</string>
+    <string name="tuto_alerts_title">Las Alertas</string>
+    <string name="tuto_alerts_body">Pulse 🔔 para crear una alarma para su autobús.\n\nElija la parada, la línea y la hora: recibirá una notificación en su teléfono a la hora prevista.</string>
+    <string name="tuto_customize_alert_title">Personalizar una alerta</string>
+    <string name="tuto_customize_alert_body">Una alerta puede sonar todos los días, solo algunos días (ej.: lunes y miércoles), fuera de vacaciones escolares y festivos, o solo en fechas elegidas.\n\nTambién puede excluir fechas particulares.</string>
+    <string name="tuto_tabs_title">La pestaña Más</string>
+    <string name="tuto_tabs_body">El botón «···» en la parte inferior derecha da acceso a todas las funciones: lista de paradas, líneas, ajustes y este tutorial.\n\nPuede personalizar qué pestañas aparecen en la parte inferior en Ajustes.</string>
+    <string name="tuto_settings_title">Los Ajustes</string>
+    <string name="tuto_settings_body">En ⚙️ Ajustes, puede:\n\n• Cambiar el idioma\n• Elegir el tema claro u oscuro\n• Configurar el widget para la pantalla de inicio\n• Reorganizar las pestañas</string>
+    <string name="tuto_widget_title">El Widget</string>
+    <string name="tuto_widget_body">Añada el widget Pau\'delis en su pantalla de inicio: sus paradas favoritas se muestran directamente sin abrir la aplicación.\n\nPara añadirlo: mantenga el dedo sobre la pantalla de inicio → Widgets → Pau\'delis.</string>
+    <string name="tuto_go_title">¡Allá vamos!</string>
+    <string name="tuto_go_body">Ya sabe cómo usar Pau\'delis.\n\nSi necesita revisar esta guía, está disponible en cualquier momento en la pestaña «···» → Tutorial.</string>
+
+    <!-- Statut API -->
+    <string name="api_offline_http500">Fuera de servicio</string>
+    <string name="api_offline_network">Fuera de línea (conexión mala o inexistente)</string>
+    <string name="api_offline">Fuera de línea</string>
+    <string name="api_online">● En línea</string>
+    <string name="status_night">● Noche</string>
+    <string name="status_sunday">● Domingo</string>
+    <string name="status_holiday">● Festivo</string>
+    <string name="status_offline">● Fuera de línea</string>
+
+    <!-- Widget -->
+    <string name="widget_loading">Cargando...</string>
+    <string name="widget_inactive_today">Inactivo hoy</string>
+    <string name="widget_no_sunday">No pasa los domingos</string>
+    <string name="widget_updated">Widget actualizado</string>
+    <string name="widget_all_lines_added">Todas las líneas ya añadidas</string>
+    <string name="widget_choose_line">Elegir una línea</string>
+    <string name="widget_max_entries">Máximo %d entradas en el widget</string>
+
+    <!-- Carte -->
+    <string name="map_gps_searching">Buscando señal GPS…</string>
+    <string name="map_position_unknown">Posición desconocida — active la geolocalización primero</string>
+    <string name="map_emulated">Posición emulada: %.5f, %.5f</string>
+
+    <!-- Alertes dialog -->
+    <string name="alert_select_stop">Selecciona una parada</string>
+    <string name="alert_unknown_stop">Parada desconocida</string>
+    <string name="alert_select_line">Selecciona una línea</string>
+    <string name="alert_select_day">Selecciona al menos un día</string>
+    <string name="alert_select_date">Selecciona al menos una fecha</string>
+    <string name="alert_duplicate">Ya existe una alerta para esta parada, línea y hora</string>
+    <string name="alert_edit_title">Modificar alerta</string>
+    <string name="alert_deleted">Alerta eliminada</string>
+
+    <!-- Récurrence alertes -->
+    <string name="recurrence_label">Recurrencia</string>
+    <string name="recurrence_week_info">Semana actual: n°%1$d (%2$s)</string>
+    <string name="recurrence_odd_weeks">Semanas impares</string>
+    <string name="recurrence_even_weeks">Semanas pares</string>
+    <string name="recurrence_no_holidays">Fuera de vacaciones escolares y festivos</string>
+    <string name="recurrence_weekdays">Días</string>
+    <string name="recurrence_specific_dates">Fechas específicas</string>
+    <string name="recurrence_excluded_dates">Fechas excluidas</string>
+    <string name="recurrence_excluded_hint">Estas fechas no activarán la alerta</string>
+    <string name="recurrence_today_only">Solo hoy</string>
+    <string name="recurrence_every_day">Todos los días</string>
+    <string name="recurrence_no_holidays_short">Fuera vacaciones y festivos</string>
+    <string name="recurrence_no_day">Ningún día seleccionado</string>
+    <string name="recurrence_no_date">Ninguna fecha seleccionada</string>
+    <string name="recurrence_no_excluded">Ninguna fecha excluida</string>
+    <string name="recurrence_week_parity_odd">impar</string>
+    <string name="recurrence_week_parity_even">par</string>
+    <string name="recurrence_add_date">＋ Añadir una fecha</string>
+    <string name="recurrence_exclude_date">＋ Excluir una fecha</string>
+
+    <!-- Jours de la semaine (abréviations) -->
+    <string name="day_mon">Lun</string>
+    <string name="day_tue">Mar</string>
+    <string name="day_wed">Mié</string>
+    <string name="day_thu">Jue</string>
+    <string name="day_fri">Vie</string>
+    <string name="day_sat">Sáb</string>
+    <string name="day_sun">Dom</string>
+    <string name="day_today_short">Hoy</string>
+    <string name="day_tomorrow_short">Mañana</string>
+
+    <!-- Favoris -->
+    <string name="fav_bus_section">Autobuses en la parada</string>
+    <string name="fav_no_info">Sin información</string>
+    <string name="fav_no_info_short">Sin datos</string>
+    <string name="fav_bus_removed">Favorito eliminado</string>
+    <string name="fav_added">Favorito añadido</string>
+
+    <!-- Arrêts / Lignes -->
+    <string name="stop_no_sunday">No pasa los domingos</string>
+    <string name="stop_no_bus_today_holiday">No hay autobuses hoy\n(Festivo)</string>
+    <string name="stop_no_bus_today_sunday">No hay autobuses hoy\n(Domingo)</string>
+    <string name="line_all">Todas</string>
+    <string name="nav_default_restored">Configuración por defecto restaurada</string>
+
+    <!-- Tracking notif -->
+    <string name="tracking_starting">Iniciando seguimiento...</string>
+    <string name="tracking_active">Seguimiento activo</string>
+    <string name="tracking_disabled">Seguimiento desactivado</string>
+    <string name="tracking_finished">Seguimiento finalizado</string>
+    <string name="tracking_toggle_disable">Desactivar seguimiento</string>
+    <string name="tracking_toggle_resume">Reanudar seguimiento</string>
+    <string name="tracking_refresh">🔄 Actualizar</string>
+    <string name="tracking_no_data">Paso previsto a las %1$s — sin datos</string>
+    <string name="tracking_next_real">Próximo paso</string>
+    <string name="tracking_next_theo">Paso teórico</string>
+    <string name="tracking_passed">Autobús %1$s pasado 🟢</string>
+    <string name="tracking_no_passage_receiver">Paso previsto a las %1$s — sin datos disponibles</string>
+
+    <string name="notif_channel_name">Alertas de autobús</string>
+    <string name="notif_channel_desc">Recordatorios de paso de autobús</string>
+    <string name="notif_next_passage">Próximo paso: %1$s%2$s%3$s</string>
+    <string name="notif_scheduled">Paso previsto a las %1$s — Línea %2$s</string>
+    <string name="notif_passed">Autobús %1$s pasado ✓</string>
+    <string name="tuto_color_green">Verde</string>
+    <string name="tuto_color_orange">Naranja</string>
+    <string name="tuto_color_blue">Azul</string>
+    <string name="tuto_color_red_strike">Rojo tachado</string>
+    <string name="tracking_passed_explicit">Autobús pasado</string>
+</resources>

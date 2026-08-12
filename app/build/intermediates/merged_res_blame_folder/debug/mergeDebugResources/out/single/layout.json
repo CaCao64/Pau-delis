@@ -1,0 +1,122 @@
+[
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/item_search_history.xml",
+        "source": "com.pau.busapp-main-6:/layout/item_search_history.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/fragment_search.xml",
+        "source": "com.pau.busapp-main-6:/layout/fragment_search.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/fragment_more.xml",
+        "source": "com.pau.busapp-main-6:/layout/fragment_more.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/fragment_details.xml",
+        "source": "com.pau.busapp-main-6:/layout/fragment_details.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/item_stop_simple.xml",
+        "source": "com.pau.busapp-main-6:/layout/item_stop_simple.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/item_stop_fav.xml",
+        "source": "com.pau.busapp-main-6:/layout/item_stop_fav.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/fragment_line_map.xml",
+        "source": "com.pau.busapp-main-6:/layout/fragment_line_map.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/item_widget_line.xml",
+        "source": "com.pau.busapp-main-6:/layout/item_widget_line.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/item_alert.xml",
+        "source": "com.pau.busapp-main-6:/layout/item_alert.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/activity_main.xml",
+        "source": "com.pau.busapp-main-6:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/item_line.xml",
+        "source": "com.pau.busapp-main-6:/layout/item_line.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/widget_stops.xml",
+        "source": "com.pau.busapp-main-6:/layout/widget_stops.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/fragment_favorites.xml",
+        "source": "com.pau.busapp-main-6:/layout/fragment_favorites.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/item_nav_config.xml",
+        "source": "com.pau.busapp-main-6:/layout/item_nav_config.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/view_datetime_picker.xml",
+        "source": "com.pau.busapp-main-6:/layout/view_datetime_picker.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/fragment_line_detail.xml",
+        "source": "com.pau.busapp-main-6:/layout/fragment_line_detail.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/fragment_alerts.xml",
+        "source": "com.pau.busapp-main-6:/layout/fragment_alerts.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/activity_widget_config.xml",
+        "source": "com.pau.busapp-main-6:/layout/activity_widget_config.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/fragment_lines.xml",
+        "source": "com.pau.busapp-main-6:/layout/fragment_lines.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/item_widget_bus.xml",
+        "source": "com.pau.busapp-main-6:/layout/item_widget_bus.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/widget_stop_row.xml",
+        "source": "com.pau.busapp-main-6:/layout/widget_stop_row.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/item_stop.xml",
+        "source": "com.pau.busapp-main-6:/layout/item_stop.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/fragment_nav_config.xml",
+        "source": "com.pau.busapp-main-6:/layout/fragment_nav_config.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/item_widget_stop.xml",
+        "source": "com.pau.busapp-main-6:/layout/item_widget_stop.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/fragment_map.xml",
+        "source": "com.pau.busapp-main-6:/layout/fragment_map.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/fragment_stop_list.xml",
+        "source": "com.pau.busapp-main-6:/layout/fragment_stop_list.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/fragment_settings.xml",
+        "source": "com.pau.busapp-main-6:/layout/fragment_settings.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/fragment_widget_stops.xml",
+        "source": "com.pau.busapp-main-6:/layout/fragment_widget_stops.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/item_widget_entry.xml",
+        "source": "com.pau.busapp-main-6:/layout/item_widget_entry.xml"
+    },
+    {
+        "merged": "com.pau.busapp-mergeDebugResources-3:/layout/item_alert_header.xml",
+        "source": "com.pau.busapp-main-6:/layout/item_alert_header.xml"
+    }
+]

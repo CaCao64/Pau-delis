@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_light">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="24dp">
+
+        <!-- Header -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Widget Pau\'delis"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:paddingBottom="8dp"/>
+
+        <View android:layout_width="match_parent" android:layout_height="3dp"
+            android:background="@color/green_primary"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Theme -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Thème"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:paddingBottom="8dp"/>
+
+        <RadioGroup
+            android:id="@+id/rg_theme"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="24dp">
+
+            <RadioButton android:id="@+id/rb_system"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Systeme (suivre le telephone)"
+                android:textSize="15sp" android:textColor="@color/text_primary"
+                android:buttonTint="@color/green_primary"
+                android:checked="true"/>
+
+            <RadioButton android:id="@+id/rb_dark"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Sombre"
+                android:textSize="15sp" android:textColor="@color/text_primary"
+                android:buttonTint="@color/green_primary"/>
+
+            <RadioButton android:id="@+id/rb_light"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Clair"
+                android:textSize="15sp" android:textColor="@color/text_primary"
+                android:buttonTint="@color/green_primary"/>
+        </RadioGroup>
+
+        <!-- Opacity -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Opacite du fond"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:paddingBottom="4dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:paddingBottom="8dp">
+
+            <SeekBar
+                android:id="@+id/sb_opacity"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:max="255"
+                android:progress="220"
+                android:progressTint="@color/green_primary"
+                android:thumbTint="@color/green_primary"/>
+
+            <TextView
+                android:id="@+id/tv_opacity_label"
+                android:layout_width="48dp"
+                android:layout_height="wrap_content"
+                android:text="86%"
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary"
+                android:gravity="end"
+                android:layout_marginStart="12dp"/>
+        </LinearLayout>
+
+        <!-- Preview -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Apercu"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:paddingBottom="8dp"
+            android:paddingTop="8dp"/>
+
+        <FrameLayout
+            android:id="@+id/preview_frame"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginBottom="32dp">
+
+            <LinearLayout
+                android:id="@+id/preview_bg"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="12dp"
+                android:background="@drawable/bg_widget">
+
+                <TextView
+                    android:id="@+id/preview_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="🚌 Pau\'delis"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"/>
+
+                <TextView
+                    android:id="@+id/preview_stop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Bosquet Quai C"
+                    android:textSize="12sp"
+                    android:textColor="#FFFFFF"
+                    android:paddingTop="4dp"/>
+            </LinearLayout>
+        </FrameLayout>
+
+        <!-- Save -->
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Enregistrer"
+            android:backgroundTint="@color/green_primary"
+            android:textColor="@color/white"
+            android:textSize="15sp"/>
+
+    </LinearLayout>
+</ScrollView>
