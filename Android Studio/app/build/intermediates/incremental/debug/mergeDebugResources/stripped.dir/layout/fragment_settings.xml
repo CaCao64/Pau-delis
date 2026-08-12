@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="@color/bg_light">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="@color/surface" android:gravity="center_vertical"
+        android:paddingStart="20dp" android:paddingEnd="20dp"
+        android:paddingTop="16dp" android:paddingBottom="12dp"
+        android:elevation="2dp">
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:text="@string/settings_title"
+            android:textColor="@color/text_primary" android:textSize="20sp" android:textStyle="bold"/>
+    </LinearLayout>
+    <View android:layout_width="match_parent" android:layout_height="3dp"
+        android:background="@color/green_primary"/>
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="match_parent">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:padding="16dp">
+
+            <!-- Section thème -->
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="@string/settings_section_appearance"
+                android:textSize="12sp" android:textColor="@color/green_primary"
+                android:textStyle="bold" android:paddingBottom="8dp" android:paddingStart="4dp"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:background="@color/surface"
+                android:elevation="2dp" android:padding="16dp"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="20dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/tv_current_theme"
+                    android:textSize="14sp" android:textColor="@color/text_primary"
+                    android:text="@string/settings_theme_label"/>
+                <Button android:id="@+id/btn_theme"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/settings_btn_change"
+                    android:backgroundTint="@color/green_primary"
+                    android:textColor="@color/white" android:textSize="13sp"
+                    android:paddingHorizontal="16dp"/>
+            </LinearLayout>
+
+            <!-- Section configuration onglets -->
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="@string/settings_section_tabs"
+                android:textSize="12sp" android:textColor="@color/green_primary"
+                android:textStyle="bold" android:paddingBottom="8dp" android:paddingStart="4dp"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:background="@color/surface"
+                android:elevation="2dp" android:padding="16dp"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="20dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_tabs_desc"
+                    android:textSize="14sp" android:textColor="@color/text_primary"/>
+                <Button android:id="@+id/btn_nav_config"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/settings_btn_configure"
+                    android:backgroundTint="@color/green_primary"
+                    android:textColor="@color/white" android:textSize="13sp"
+                    android:paddingHorizontal="16dp"/>
+            </LinearLayout>
+
+            <!-- Section widget -->
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="@string/settings_section_widget"
+                android:textSize="12sp" android:textColor="@color/green_primary"
+                android:textStyle="bold" android:paddingBottom="8dp" android:paddingStart="4dp"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:background="@color/surface"
+                android:elevation="2dp" android:padding="16dp"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="20dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/settings_widget_desc"
+                    android:textSize="14sp" android:textColor="@color/text_primary"/>
+                <Button android:id="@+id/btn_widget_config"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/settings_btn_configure"
+                    android:backgroundTint="@color/green_primary"
+                    android:textColor="@color/white" android:textSize="13sp"
+                    android:paddingHorizontal="16dp"/>
+            </LinearLayout>
+
+            <!-- Section style de navigation -->
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="@string/settings_section_style"
+                android:textSize="12sp" android:textColor="@color/green_primary"
+                android:textStyle="bold" android:paddingBottom="8dp" android:paddingStart="4dp"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:background="@color/surface"
+                android:elevation="2dp" android:padding="16dp"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="20dp">
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/tv_current_nav_style"
+                    android:textSize="14sp" android:textColor="@color/text_primary"
+                    android:text="Pill — Fond pilule, sans labels"/>
+                <Button android:id="@+id/btn_nav_style"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/settings_btn_change"
+                    android:backgroundTint="@color/green_primary"
+                    android:textColor="@color/white" android:textSize="13sp"
+                    android:paddingHorizontal="16dp"/>
+            </LinearLayout>
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="@string/settings_section_language"
+                android:textSize="12sp" android:textColor="@color/green_primary"
+                android:textStyle="bold" android:paddingBottom="8dp" android:paddingStart="4dp"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:background="@color/surface"
+                android:elevation="2dp" android:padding="16dp"
+                android:gravity="center_vertical"
+                android:layout_marginBottom="20dp">
+
+                <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:id="@+id/tv_current_language"
+                    android:textSize="15sp" android:textColor="@color/text_primary"
+                    android:text="🇫🇷  Français"/>
+
+                <Button android:id="@+id/btn_change_language"
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:text="@string/settings_change_language"
+                    android:backgroundTint="@color/blue_primary"
+                    android:textColor="@color/white" android:textSize="13sp"
+                    android:paddingHorizontal="16dp"/>
+            </LinearLayout>
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="@string/settings_section_favs"
+                android:textSize="12sp" android:textColor="@color/blue_primary"
+                android:textStyle="bold" android:paddingBottom="8dp" android:paddingStart="4dp"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:background="@color/surface"
+                android:elevation="2dp" android:padding="16dp"
+                android:layout_marginBottom="20dp">
+
+                <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="@string/settings_favs_desc"
+                    android:textSize="14sp" android:textColor="@color/text_secondary"
+                    android:paddingBottom="16dp"/>
+
+                <TextView android:id="@+id/tv_fav_count"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textSize="13sp" android:textColor="@color/text_secondary"
+                    android:paddingBottom="16dp"/>
+
+                <Button android:id="@+id/btn_export"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="@string/settings_btn_export"
+                    android:backgroundTint="@color/blue_primary"
+                    android:textColor="@color/white" android:textSize="15sp"
+                    android:paddingVertical="12dp"
+                    android:layout_marginBottom="10dp"/>
+
+                <Button android:id="@+id/btn_import"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:text="@string/settings_btn_import"
+                    android:backgroundTint="#388E3C"
+                    android:textColor="@color/white" android:textSize="15sp"
+                    android:paddingVertical="12dp"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="@color/bg_light">
+
+    <!-- Header blanc avec badge ligne coloré -->
+    <LinearLayout android:id="@+id/header_layout"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:gravity="center_vertical" android:orientation="horizontal"
+        android:padding="14dp" android:background="@color/surface"
+        android:elevation="2dp">
+        <ImageButton android:id="@+id/btn_retour"
+            android:layout_width="38dp" android:layout_height="38dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:src="@drawable/ic_back"
+            android:tint="@color/text_secondary"
+            android:contentDescription="@string/cd_back"/>
+        <TextView android:id="@+id/tv_line_number"
+            android:layout_width="52dp" android:layout_height="52dp"
+            android:layout_marginStart="10dp" android:gravity="center"
+            android:textSize="22sp" android:textStyle="bold" android:textColor="@color/white"/>
+        <LinearLayout android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:layout_marginStart="12dp" android:orientation="vertical">
+            <TextView android:id="@+id/tv_line_type" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:textSize="12sp"
+                android:textColor="@color/text_secondary"/>
+            <TextView android:id="@+id/tv_line_description" android:layout_width="match_parent"
+                android:layout_height="wrap_content" android:textSize="11sp"
+                android:textColor="@color/text_secondary"/>
+        </LinearLayout>
+        <TextView android:id="@+id/btn_fav"
+            android:layout_width="44dp" android:layout_height="44dp"
+            android:gravity="center" android:textSize="24sp"
+            android:text="☆" android:textColor="#AAAAAA"
+            android:background="?attr/selectableItemBackgroundBorderless"/>
+        <TextView android:id="@+id/btn_map"
+            android:layout_width="44dp" android:layout_height="44dp"
+            android:gravity="center" android:textSize="22sp"
+            android:text="🗺️" android:textColor="@color/text_secondary"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:contentDescription="@string/cd_see_line"/>
+    </LinearLayout>
+
+    <View android:layout_width="match_parent" android:layout_height="3dp"
+        android:background="@color/green_primary"/>
+
+    <!-- Terminus -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical" android:background="@color/surface"
+        android:paddingStart="20dp" android:paddingEnd="20dp"
+        android:paddingTop="14dp" android:paddingBottom="14dp">
+        <TextView android:id="@+id/tv_terminus1" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:textSize="14sp"
+            android:textStyle="bold" android:textColor="@color/text_primary"/>
+        <Button android:id="@+id/btn_invert"
+            android:layout_width="wrap_content" android:layout_height="36dp"
+            android:layout_gravity="center_horizontal" android:layout_marginVertical="8dp"
+            android:text="@string/btn_invert_direction" android:textSize="13sp"
+            android:backgroundTint="@color/green_light" android:textColor="@color/green_dark"
+            android:paddingHorizontal="16dp"/>
+        <TextView android:id="@+id/tv_terminus2" android:layout_width="match_parent"
+            android:layout_height="wrap_content" android:textSize="14sp"
+            android:textStyle="bold" android:textColor="@color/text_primary"/>
+    </LinearLayout>
+
+    <View android:layout_width="match_parent" android:layout_height="1dp"
+        android:background="@color/divider"/>
+
+    <include layout="@layout/view_datetime_picker"/>
+
+    <TextView android:id="@+id/tv_stops_title"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:background="@color/bg_light" android:paddingStart="20dp"
+        android:paddingTop="10dp" android:paddingBottom="10dp"
+        android:textSize="12sp" android:textStyle="bold"
+        android:textColor="@color/text_secondary" android:letterSpacing="0.05"/>
+
+    <ScrollView android:id="@+id/scroll_stops" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <LinearLayout android:id="@+id/list_stops"
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:paddingBottom="16dp"/>
+    </ScrollView>
+</LinearLayout>

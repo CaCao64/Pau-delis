@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <org.osmdroid.views.MapView
+        android:id="@+id/osm_map"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clickable="true"/>
+
+    <!-- Bandeau statut API -->
+    <TextView
+        android:id="@+id/tv_map_api_status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:gravity="center"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:textSize="11sp"
+        android:textColor="@color/white"
+        android:elevation="8dp"
+        android:visibility="gone"/>
+
+    <!-- Croix de ciblage émulation, visible uniquement en mode émulation -->
+    <ImageView
+        android:id="@+id/crosshair"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_gravity="center"
+        android:src="@drawable/ic_crosshair"
+        android:visibility="gone"
+        android:elevation="4dp"/>
+
+    <!-- Bouton "Placer ici" visible en mode émulation — décalé sous le bandeau statut -->
+    <Button
+        android:id="@+id/btn_place_here"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="40dp"
+        android:text="@string/btn_emulate_here"
+        android:backgroundTint="@color/blue_primary"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:paddingHorizontal="20dp"
+        android:paddingVertical="10dp"
+        android:elevation="6dp"
+        android:visibility="gone"/>
+
+    <!-- Coordonnées affichées en mode émulation -->
+    <TextView
+        android:id="@+id/tv_emu_coords"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center_horizontal"
+        android:layout_marginTop="92dp"
+        android:background="#CC000000"
+        android:textColor="@color/white"
+        android:textSize="11sp"
+        android:padding="4dp"
+        android:elevation="6dp"
+        android:visibility="gone"/>
+
+    <!-- Bouton arrêt le plus proche (haut droite) -->
+    <TextView
+        android:id="@+id/btn_nearest_stop"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="16dp"
+        android:text="🚏"
+        android:textSize="20sp"
+        android:gravity="center"
+        android:background="@color/surface"
+        android:elevation="6dp"
+        android:contentDescription="Arrêt le plus proche"/>
+
+    <!-- FAB colonne droite, de bas en haut -->
+
+    <!-- Bouton ma position GPS -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_my_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:src="@android:drawable/ic_menu_mylocation"
+        android:contentDescription="Ma position"
+        app:backgroundTint="@color/surface"
+        app:tint="@color/blue_primary"
+        app:elevation="6dp"/>
+
+    <!-- Bouton toggle émulation -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/btn_emulation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="80dp"
+        android:src="@android:drawable/ic_menu_compass"
+        android:contentDescription="Émulation position"
+        app:backgroundTint="@color/surface"
+        app:tint="@color/text_secondary"
+        app:elevation="6dp"/>
+
+</FrameLayout>

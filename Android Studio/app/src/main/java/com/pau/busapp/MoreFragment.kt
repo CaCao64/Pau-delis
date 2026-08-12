@@ -1,0 +1,95 @@
+package com.pau.busapp
+
+import android.os.Bundle
+import android.view.*
+import android.widget.*
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import com.pau.busapp.databinding.FragmentMoreBinding
+
+class MoreFragment : Fragment() {
+    private var _b: FragmentMoreBinding? = null
+    private val b get() = _b!!
+
+    private data class MoreItem(val id: String, val iconRes: Int, val label: String, val onClick: () -> Unit)
+
+    override fun onCreateView(i: LayoutInflater, c: ViewGroup?, s: Bundle?): View {
+        _b = FragmentMoreBinding.inflate(i, c, false); return b.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        buildItems()
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+        if (!hidden) buildItems()
+    }
+
+    private fun buildItems() {
+        val ctx = requireContext()
+        val visibleTabs = NavConfigManager.getVisibleTabs(ctx).toSet()
+        val container = b.llMoreItems
+        container.removeAllViews()
+
+        val allItems = listOf(
+            MoreItem("favs",    R.drawable.ic_star,     getString(R.string.nav_favs)) { (activity as? MainActivity)?.showFragment(FavoritesFragment(), true) },
+            MoreItem("search",  R.drawable.ic_search,   getString(R.string.nav_search))    { (activity as? MainActivity)?.showFragment(SearchFragment(), true) },
+            MoreItem("alerts",  R.drawable.ic_bell,     getString(R.string.nav_alerts))    { (activity as? MainActivity)?.checkNotifPermissionThenOpenAlerts() },
+            MoreItem("stops",   R.drawable.ic_list,     getString(R.string.nav_stops))     { (activity as? MainActivity)?.showFragment(StopListFragment(), true) },
+            MoreItem("lines",   R.drawable.ic_route,    getString(R.string.nav_lines))     { (activity as? MainActivity)?.showFragment(LinesFragment(), true) },
+            MoreItem("settings",R.drawable.ic_settings, getString(R.string.nav_settings))  { (activity as? MainActivity)?.showFragment(SettingsFragment(), true) },
+            MoreItem("tutorial",R.drawable.ic_help,     "Tutoriel")                        { (activity as? MainActivity)?.showTutorial() }
+        )
+
+        val items = allItems.filter { it.id !in visibleTabs || it.id == "settings" || it.id == "tutorial" }
+
+        items.forEachIndexed { index, item ->
+            if (index > 0) {
+                val divider = View(ctx).apply {
+                    layoutParams = LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.MATCH_PARENT, 1
+                    ).also { it.marginStart = (56 * resources.displayMetrics.density).toInt() }
+                    setBackgroundColor(ContextCompat.getColor(ctx, R.color.divider))
+                }
+                container.addView(divider)
+            }
+
+            val row = LinearLayout(ctx).apply {
+                orientation = LinearLayout.HORIZONTAL
+                gravity = Gravity.CENTER_VERTICAL
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT, (56 * resources.displayMetrics.density).toInt()
+                )
+                setBackgroundColor(ContextCompat.getColor(ctx, R.color.surface))
+                setPadding((20 * resources.displayMetrics.density).toInt(), 0, (20 * resources.displayMetrics.density).toInt(), 0)
+                setOnClickListener { item.onClick() }
+            }
+
+            val icon = ImageView(ctx).apply {
+                layoutParams = LinearLayout.LayoutParams(
+                    (24 * resources.displayMetrics.density).toInt(),
+                    (24 * resources.displayMetrics.density).toInt()
+                )
+                setImageResource(item.iconRes)
+                setColorFilter(ContextCompat.getColor(ctx, R.color.text_primary))
+            }
+            row.addView(icon)
+
+            val label = TextView(ctx).apply {
+                layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).also {
+                    it.marginStart = (16 * resources.displayMetrics.density).toInt()
+                }
+                text = item.label
+                textSize = 16f
+                setTextColor(ContextCompat.getColor(ctx, R.color.text_primary))
+            }
+            row.addView(label)
+
+            container.addView(row)
+        }
+    }
+
+    override fun onDestroyView() { super.onDestroyView(); _b = null }
+}
