@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Capability for opening specific app features with Google Assistant -->
+    <capability android:name="actions.intent.OPEN_APP_FEATURE">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.pau.busapp"
+            android:targetClass="com.pau.busapp.MainActivity">
+            <parameter
+                android:name="feature"
+                android:key="feature"/>
+        </intent>
+    </capability>
+
+    <!-- Shortcut to instantly open the Map -->
+    <shortcut
+        android:shortcutId="open_map"
+        android:enabled="true"
+        android:shortcutShortLabel="@string/shortcut_map_title"
+        android:shortcutLongLabel="@string/shortcut_map_desc">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.pau.busapp"
+            android:targetClass="com.pau.busapp.MainActivity"
+            android:data="busapp://map">
+            <extra android:name="feature" android:value="map" />
+        </intent>
+    </shortcut>
+
+    <!-- Shortcut to instantly open Favorites -->
+    <shortcut
+        android:shortcutId="open_favs"
+        android:enabled="true"
+        android:shortcutShortLabel="@string/shortcut_favs_title"
+        android:shortcutLongLabel="@string/shortcut_favs_desc">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.pau.busapp"
+            android:targetClass="com.pau.busapp.MainActivity"
+            android:data="busapp://favorites">
+            <extra android:name="feature" android:value="favorites" />
+        </intent>
+    </shortcut>
+</shortcuts>
