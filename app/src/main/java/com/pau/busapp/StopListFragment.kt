@@ -11,16 +11,15 @@ import androidx.lifecycle.lifecycleScope
 import com.pau.busapp.databinding.FragmentStopListBinding
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import kotlinx.coroutines.Dispatchers
 
 class StopListFragment : Fragment() {
     private var _b: FragmentStopListBinding? = null
     private val b get() = _b!!
 
-    override fun onCreateView(i: LayoutInflater, c: ViewGroup?, s: Bundle?): View {
-        _b = FragmentStopListBinding.inflate(i, c, false); return b.root
-    }
-
-    private var sortByDistance = false
+    private enum class SortMode { NAME, DISTANCE, NEXT_PASSAGE }
+    private var currentSortMode = SortMode.NAME
     private val stops = mutableListOf<BusStop>()
     private val jobs  = mutableMapOf<Int, Job>()
     private var autoRefreshJob: Job? = null
@@ -29,18 +28,50 @@ class StopListFragment : Fragment() {
 
     private var searchQuery = ""
 
+    private fun normalizeString(s: String): String {
+        val normalized = java.text.Normalizer.normalize(s, java.text.Normalizer.Form.NFD)
+        val pattern = java.util.regex.Pattern.compile("\\p{InCombiningDiacriticalMarks}+")
+        return pattern.matcher(normalized).replaceAll("").lowercase()
+    }
+
+    override fun onCreateView(i: LayoutInflater, c: ViewGroup?, s: Bundle?): View {
+        _b = FragmentStopListBinding.inflate(i, c, false); return b.root
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dtPicker = DateTimePickerHelper(this, view.findViewById(R.id.datetime_bar)) { refreshAll() }
         b.btnRefreshStops.setOnClickListener { refreshAll() }
-        b.btnSortStops.setOnClickListener {
-            sortByDistance = !sortByDistance
-            if (sortByDistance && AppData.userLocation == null) {
-                Toast.makeText(requireContext(), "Position inconnue 📍", Toast.LENGTH_SHORT).show()
-                sortByDistance = false
-            } else {
-                updateList()
+        b.btnSortStops.setOnClickListener { v ->
+            val popup = PopupMenu(requireContext(), v)
+            popup.menu.add(0, 1, 0, getString(R.string.sort_name))
+            popup.menu.add(0, 2, 1, getString(R.string.sort_distance))
+            popup.menu.add(0, 3, 2, getString(R.string.sort_next_passage))
+            popup.setOnMenuItemClickListener { item ->
+                when (item.itemId) {
+                    1 -> {
+                        currentSortMode = SortMode.NAME
+                        updateList()
+                        true
+                    }
+                    2 -> {
+                        if (AppData.userLocation == null) {
+                            Toast.makeText(requireContext(), "Position GPS inconnue 📍", Toast.LENGTH_SHORT).show()
+                        } else {
+                            currentSortMode = SortMode.DISTANCE
+                            updateList()
+                        }
+                        true
+                    }
+                    3 -> {
+                        currentSortMode = SortMode.NEXT_PASSAGE
+                        updateList()
+                        true
+                    }
+                    else -> false
+                }
             }
+            popup.show()
         }
 
         b.etSearchStops.addTextChangedListener(object : android.text.TextWatcher {
@@ -61,22 +92,52 @@ class StopListFragment : Fragment() {
         var raw = AppData.busStops.toList()
 
         if (searchQuery.isNotEmpty()) {
-            raw = raw.filter { it.name.lowercase().contains(searchQuery) }
+            val q = normalizeString(searchQuery)
+            raw = raw.filter { normalizeString(it.name).contains(q) }
         }
 
-        if (sortByDistance && AppData.userLocation != null) {
-            val user = AppData.userLocation!!
-            stops.addAll(raw.sortedBy { s ->
-                val res = FloatArray(1)
-                android.location.Location.distanceBetween(user.first, user.second, s.lat, s.lon, res)
-                res[0]
-            })
-            b.btnSortStops.text = "📍"
-        } else {
-            stops.addAll(raw.sortedBy { it.name })
-            b.btnSortStops.text = "Az"
+        when (currentSortMode) {
+            SortMode.DISTANCE -> {
+                if (AppData.userLocation != null) {
+                    val user = AppData.userLocation!!
+                    stops.addAll(raw.sortedBy { s ->
+                        val res = FloatArray(1)
+                        android.location.Location.distanceBetween(user.first, user.second, s.lat, s.lon, res)
+                        res[0]
+                    })
+                } else {
+                    stops.addAll(raw.sortedBy { it.name })
+                }
+                b.btnSortStops.text = "📍"
+                setupAdapter()
+            }
+            SortMode.NEXT_PASSAGE -> {
+                b.btnSortStops.text = "🕒"
+                val ctx = requireContext()
+                viewLifecycleOwner.lifecycleScope.launch {
+                    val sortedList = withContext(Dispatchers.Default) {
+                        val now = java.time.LocalTime.now()
+                        val date = java.time.LocalDate.now()
+                        val stopTimes = raw.associateWith { stop ->
+                            val passages = GtfsReader.getTheoreticalPassages(ctx, stop.codes, now, date)
+                            passages.flatMap { it.passages }
+                                .mapNotNull { PassageHelper.parseArrivee(it.arrivee) }
+                                .map { it.hour * 60 + it.minute }
+                                .minOrNull() ?: Int.MAX_VALUE
+                        }
+                        raw.sortedWith(compareBy({ stopTimes[it] ?: Int.MAX_VALUE }, { it.name }))
+                    }
+                    stops.clear()
+                    stops.addAll(sortedList)
+                    setupAdapter()
+                }
+            }
+            SortMode.NAME -> {
+                stops.addAll(raw.sortedBy { it.name })
+                b.btnSortStops.text = "Az"
+                setupAdapter()
+            }
         }
-        setupAdapter()
     }
 
     private fun setupAdapter() {
@@ -137,6 +198,17 @@ class StopListFragment : Fragment() {
         b.listView.setOnItemClickListener { _, _, pos, _ ->
             (activity as? MainActivity)?.openDetails(stops[pos])
         }
+
+        val pendingScroll = (activity as? MainActivity)?.pendingScrollStopName
+        if (pendingScroll != null) {
+            val idx = stops.indexOfFirst { it.name == pendingScroll }
+            if (idx >= 0) {
+                b.listView.post {
+                    b.listView.setSelection(idx)
+                }
+                (activity as? MainActivity)?.pendingScrollStopName = null
+            }
+        }
     }
 
     private fun refreshAll() {
@@ -157,6 +229,20 @@ class StopListFragment : Fragment() {
         } else {
             stopAutoRefresh()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (isVisible) {
+            if (::dtPicker.isInitialized) dtPicker.refreshUI()
+            refreshAll()
+            startAutoRefresh()
+        }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        stopAutoRefresh()
     }
 
     private fun startAutoRefresh() {
