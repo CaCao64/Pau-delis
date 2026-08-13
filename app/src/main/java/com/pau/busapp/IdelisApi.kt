@@ -102,19 +102,27 @@ object IdelisApi {
             val destination = obj.optString("destination")
             val pmr = obj.optBoolean("pmr", false)
             val passagesArr = obj.optJSONArray("passages")
-            val passages = mutableListOf<Passage>()
+            val rawPassages = mutableListOf<JSONObject>()
             if (passagesArr != null) {
                 for (i in 0 until passagesArr.length()) {
-                    val p = passagesArr.optJSONObject(i) ?: continue
-                    passages.add(
-                        Passage(
-                            arrivee = p.optString("arrivee"),
-                            type = p.optString("type"),
-                            premier = p.optBoolean("premier", false),
-                            dernier = p.optBoolean("dernier", false)
-                        )
-                    )
+                    passagesArr.optJSONObject(i)?.let(rawPassages::add)
                 }
+            }
+            val theoreticalMinutes = rawPassages
+                .filter { it.optString("type") == "theorique" }
+                .mapNotNull { PassageHelper.parseArrivee(it.optString("arrivee")) }
+                .map { it.hour * 60 + it.minute }
+
+            val passages = rawPassages.map { p ->
+                val base = Passage(
+                    arrivee = p.optString("arrivee"),
+                    type = p.optString("type"),
+                    premier = p.optBoolean("premier", false),
+                    dernier = p.optBoolean("dernier", false)
+                )
+                val ecart = PassageHelper.computeEcart(base, theoreticalMinutes.ifEmpty { null })
+                val statut = if (base.type == "reel") PassageHelper.toStatut(ecart) else PassageStatut.THEORIQUE
+                base.copy(statut = statut, ecartMin = ecart ?: 0)
             }
             result.add(StopInfo(ligne, destination, pmr, passages))
         }
