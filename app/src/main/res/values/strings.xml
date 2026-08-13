@@ -80,6 +80,7 @@
     <string name="alert_btn_add">Ajouter</string>
     <string name="alert_btn_cancel">Annuler</string>
     <string name="alert_added">Alerte ajoutée ✓</string>
+    <string name="alert_updated">Alerte modifiée ✓</string>
     <string name="alert_empty_message">Le message est vide</string>
 
     <!-- Paramètres -->
@@ -246,4 +247,12 @@
     <string name="tuto_color_red_strike">Rouge barré</string>
     <string name="tracking_passed_explicit">Bus passé</string>
     <string name="settings_emulation_toggle">Activer le bouton d\'émulation de position GPS</string>
+    <string name="sort_name">Nom</string>
+    <string name="sort_distance">Distance</string>
+    <string name="sort_next_passage">Prochain passage</string>
+    <string name="tracking_connection_lost">Connexion perdue...</string>
+    <string name="shortcut_map_title">Carte des bus</string>
+    <string name="shortcut_map_desc">Afficher la carte des bus et arrêts</string>
+    <string name="shortcut_favs_title">Favoris</string>
+    <string name="shortcut_favs_desc">Afficher mes arrêts favoris</string>
 </resources>

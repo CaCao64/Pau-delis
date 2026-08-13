@@ -80,6 +80,7 @@
     <string name="alert_btn_add">Añadir</string>
     <string name="alert_btn_cancel">Cancelar</string>
     <string name="alert_added">Alerta añadida ✓</string>
+    <string name="alert_updated">Alerta modificada ✓</string>
     <string name="alert_empty_message">El mensaje está vacío</string>
 
     <!-- Paramètres -->
@@ -164,7 +165,7 @@
     <!-- Carte -->
     <string name="map_gps_searching">Buscando señal GPS…</string>
     <string name="map_position_unknown">Posición desconocida — active la geolocalización primero</string>
-    <string name="map_emulated">Posición emulada: %.5f, %.5f</string>
+    <string name="map_emulated" formatted="false">Posición emulada: %.5f, %.5f</string>
 
     <!-- Alertes dialog -->
     <string name="alert_select_stop">Selecciona una parada</string>
@@ -246,4 +247,13 @@
     <string name="tuto_color_blue">Azul</string>
     <string name="tuto_color_red_strike">Rojo tachado</string>
     <string name="tracking_passed_explicit">Autobús pasado</string>
+    <string name="settings_emulation_toggle">Activar el botón de emulación de posición GPS</string>
+    <string name="sort_name">Nombre</string>
+    <string name="sort_distance">Distancia</string>
+    <string name="sort_next_passage">Próximo paso</string>
+    <string name="tracking_connection_lost">Conexión perdida...</string>
+    <string name="shortcut_map_title">Mapa de autobuses</string>
+    <string name="shortcut_map_desc">Mostrar el mapa de autobuses y paradas</string>
+    <string name="shortcut_favs_title">Favoritos</string>
+    <string name="shortcut_favs_desc">Mostrar mis paradas favoritas</string>
 </resources>

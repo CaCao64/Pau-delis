@@ -80,6 +80,7 @@
     <string name="alert_btn_add">Add</string>
     <string name="alert_btn_cancel">Cancel</string>
     <string name="alert_added">Alert added ✓</string>
+    <string name="alert_updated">Alert updated ✓</string>
     <string name="alert_empty_message">Message is empty</string>
 
     <!-- Paramètres -->
@@ -164,7 +165,7 @@
     <!-- Carte -->
     <string name="map_gps_searching">Searching for GPS signal…</string>
     <string name="map_position_unknown">Position unknown — activate geolocation first</string>
-    <string name="map_emulated">Emulated position: %.5f, %.5f</string>
+    <string name="map_emulated" formatted="false">Emulated position: %.5f, %.5f</string>
 
     <!-- Alertes dialog -->
     <string name="alert_select_stop">Select a stop</string>
@@ -246,4 +247,13 @@
     <string name="tuto_color_blue">Blue</string>
     <string name="tuto_color_red_strike">Strikethrough Red</string>
     <string name="tracking_passed_explicit">Bus passed</string>
+    <string name="settings_emulation_toggle">Enable GPS position emulation button</string>
+    <string name="sort_name">Name</string>
+    <string name="sort_distance">Distance</string>
+    <string name="sort_next_passage">Next passage</string>
+    <string name="tracking_connection_lost">Connection lost...</string>
+    <string name="shortcut_map_title">Bus map</string>
+    <string name="shortcut_map_desc">Display bus map and stops</string>
+    <string name="shortcut_favs_title">Favorites</string>
+    <string name="shortcut_favs_desc">Display my favorite stops</string>
 </resources>
