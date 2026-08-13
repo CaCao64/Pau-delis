@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "840903165295",
+    "project_id": "pau-delis",
+    "storage_bucket": "pau-delis.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:840903165295:android:ab0829eb10ae5b6967549a",
+        "android_client_info": {
+          "package_name": "com.pau.busapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtjP9mZjiXNckWPq2GjWaTk8ezNtL6OI4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
