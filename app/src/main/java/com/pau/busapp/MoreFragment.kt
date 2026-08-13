@@ -41,14 +41,41 @@ class MoreFragment : Fragment() {
         container.removeAllViews()
 
         val allItems = listOf(
-            MoreItem("favs",    R.drawable.ic_star,     getString(R.string.nav_favs)) { (activity as? MainActivity)?.showFragment(FavoritesFragment(), true) },
-            MoreItem("search",  R.drawable.ic_search,   getString(R.string.nav_search))    { (activity as? MainActivity)?.showFragment(SearchFragment(), true) },
-            MoreItem("alerts",  R.drawable.ic_bell,     getString(R.string.nav_alerts))    { (activity as? MainActivity)?.checkNotifPermissionThenOpenAlerts() },
-            MoreItem("stops",   R.drawable.ic_list,     getString(R.string.nav_stops))     { (activity as? MainActivity)?.showFragment(StopListFragment(), true) },
-            MoreItem("lines",   R.drawable.ic_route,    getString(R.string.nav_lines))     { (activity as? MainActivity)?.showFragment(LinesFragment(), true) },
-            MoreItem("settings",R.drawable.ic_settings, getString(R.string.nav_settings))  { (activity as? MainActivity)?.showFragment(SettingsFragment(), true) },
-            MoreItem("tutorial",R.drawable.ic_help,     "Tutoriel")                        { (activity as? MainActivity)?.showTutorial() },
-            MoreItem("donate",  R.drawable.ic_ticket,   getString(R.string.nav_donate))    {
+            MoreItem("favs",    R.drawable.ic_star,     getString(R.string.nav_favs)) {
+                AnalyticsTracker.trackAction(ctx, "open", "more_favorites", "Plus")
+                AnalyticsTracker.screenView(ctx, "Favoris", "FavoritesFragment")
+                (activity as? MainActivity)?.showFragment(FavoritesFragment(), true)
+            },
+            MoreItem("search",  R.drawable.ic_search,   getString(R.string.nav_search)) {
+                AnalyticsTracker.trackAction(ctx, "open", "more_search", "Plus")
+                AnalyticsTracker.screenView(ctx, "Recherche", "SearchFragment")
+                (activity as? MainActivity)?.showFragment(SearchFragment(), true)
+            },
+            MoreItem("alerts",  R.drawable.ic_bell,     getString(R.string.nav_alerts)) {
+                AnalyticsTracker.trackAction(ctx, "open", "more_alerts", "Plus")
+                (activity as? MainActivity)?.checkNotifPermissionThenOpenAlerts()
+            },
+            MoreItem("stops",   R.drawable.ic_list,     getString(R.string.nav_stops)) {
+                AnalyticsTracker.trackAction(ctx, "open", "more_stops", "Plus")
+                AnalyticsTracker.screenView(ctx, "Arrêts", "StopListFragment")
+                (activity as? MainActivity)?.showFragment(StopListFragment(), true)
+            },
+            MoreItem("lines",   R.drawable.ic_route,    getString(R.string.nav_lines)) {
+                AnalyticsTracker.trackAction(ctx, "open", "more_lines", "Plus")
+                AnalyticsTracker.screenView(ctx, "Lignes", "LinesFragment")
+                (activity as? MainActivity)?.showFragment(LinesFragment(), true)
+            },
+            MoreItem("settings",R.drawable.ic_settings, getString(R.string.nav_settings)) {
+                AnalyticsTracker.trackAction(ctx, "open", "more_settings", "Plus")
+                AnalyticsTracker.screenView(ctx, "Paramètres", "SettingsFragment")
+                (activity as? MainActivity)?.showFragment(SettingsFragment(), true)
+            },
+            MoreItem("tutorial",R.drawable.ic_help,     "Tutoriel") {
+                AnalyticsTracker.trackAction(ctx, "open", "more_tutorial", "Plus")
+                (activity as? MainActivity)?.showTutorial()
+            },
+            MoreItem("donate",  R.drawable.ic_ticket,   getString(R.string.nav_donate)) {
+                AnalyticsTracker.trackAction(ctx, "open_external", "donate_button", "Plus")
                 runCatching {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://donate.stripe.com/5kQaEXe7ea138GL9AhgjC00"))
                     startActivity(intent)

@@ -59,6 +59,7 @@ class LinesFragment : Fragment() {
         }
         b.listLines.adapter = adapter
         b.listLines.setOnItemClickListener { _, _, pos, _ ->
+            AnalyticsTracker.trackAction(requireContext(), "open", "lines_list_item", "Lignes", mapOf("line_name" to AppData.busLines[pos].number))
             (activity as? MainActivity)?.openLineDetail(AppData.busLines[pos])
         }
         view.post { (activity as? MainActivity)?.refreshApiStatusViews() }

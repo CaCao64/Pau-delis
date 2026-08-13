@@ -33,11 +33,15 @@ class SearchFragment : Fragment() {
 
         b.etSearch.setOnEditorActionListener { _, _, _ ->
             val q = b.etSearch.text.toString().trim()
-            if (q.isNotEmpty()) SearchHistoryManager.addQuery(requireContext(), q)
+            if (q.isNotEmpty()) {
+                SearchHistoryManager.addQuery(requireContext(), q)
+                AnalyticsTracker.search(requireContext(), q)
+            }
             false
         }
 
         b.btnClearSearch.setOnClickListener {
+            AnalyticsTracker.trackAction(requireContext(), "clear", "search_field", "Recherche")
             b.etSearch.setText("")
             showHistory()
         }
@@ -99,10 +103,12 @@ class SearchFragment : Fragment() {
             .inflate(R.layout.item_search_history, b.resultsContainer, false)
         row.findViewById<TextView>(R.id.tv_history_query).text = query
         row.setOnClickListener {
+            AnalyticsTracker.trackAction(requireContext(), "select_history", "search_history", "Recherche", mapOf("query" to query))
             b.etSearch.setText(query)
             b.etSearch.setSelection(query.length)
         }
         row.findViewById<ImageButton>(R.id.btn_remove_history).setOnClickListener {
+            AnalyticsTracker.trackAction(requireContext(), "delete", "search_history_entry", "Recherche", mapOf("query" to query))
             SearchHistoryManager.removeQuery(requireContext(), query)
             showHistory()
         }
@@ -134,6 +140,7 @@ class SearchFragment : Fragment() {
         tvNum.setTextColor(line.textColor)
         row.setOnClickListener {
             SearchHistoryManager.addQuery(requireContext(), line.number)
+            AnalyticsTracker.trackAction(requireContext(), "open", "search_line_result", "Recherche", mapOf("line" to line.number))
             (activity as? MainActivity)?.openLineDetail(line)
         }
         return row
@@ -149,6 +156,7 @@ class SearchFragment : Fragment() {
         }
         row.setOnClickListener {
             SearchHistoryManager.addQuery(requireContext(), q.stop.name)
+            AnalyticsTracker.trackAction(requireContext(), "open", "search_stop_result", "Recherche", mapOf("stop_name" to q.stop.name))
             (activity as? MainActivity)?.openDetails(q.stop)
         }
         return row

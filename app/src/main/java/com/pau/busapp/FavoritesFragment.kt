@@ -33,7 +33,10 @@ class FavoritesFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dtPicker = DateTimePickerHelper(this, view.findViewById(R.id.datetime_bar)) { render() }
-        b.btnRefreshFavs.setOnClickListener { render() }
+        b.btnRefreshFavs.setOnClickListener {
+            AnalyticsTracker.trackAction(requireContext(), "refresh", "favorites_list", "Favoris")
+            render()
+        }
 
         // Le drag est géré directement dans les handles (voir setOnTouchListener dans render())
 
@@ -112,7 +115,10 @@ class FavoritesFragment : Fragment() {
                     gravity = android.view.Gravity.CENTER_VERTICAL
                     setPadding(dp4 * 4, dp4 * 3, dp4 * 4, dp4 * 3)
                     setBackgroundColor(ContextCompat.getColor(ctx, R.color.surface))
-                    setOnClickListener { if (stop != null) (activity as? MainActivity)?.openDetails(stop) }
+                    setOnClickListener {
+                        AnalyticsTracker.trackAction(ctx, "open", "favorite_bus_row", "Favoris", mapOf("stop_name" to stopName, "line_name" to ligne, "destination" to destination))
+                        if (stop != null) (activity as? MainActivity)?.openDetails(stop)
+                    }
                 }
 
                 // Badge ligne coloré
@@ -162,6 +168,7 @@ class FavoritesFragment : Fragment() {
                     textSize = 20f
                     setPadding(dp4 * 2, 0, 0, 0)
                     setOnClickListener {
+                        AnalyticsTracker.trackAction(ctx, "remove", "favorite_bus", "Favoris", mapOf("stop_name" to stopName, "line_name" to ligne, "destination" to destination))
                         FavoritesManager.toggleBus(ctx, stopName, ligne, destination)
                         Toast.makeText(ctx, getString(R.string.fav_bus_removed), Toast.LENGTH_SHORT).show()
                         render()
@@ -222,6 +229,7 @@ class FavoritesFragment : Fragment() {
                 defaultBtns.add(stop.name to btnDefault)
                 btnDefault.alpha = if (FavoritesManager.isDefaultStop(ctx, stop.name)) 1f else 0.3f
                 btnDefault.setOnClickListener {
+                    AnalyticsTracker.trackAction(ctx, "set_default", "favorite_stop_default", "Favoris", mapOf("stop_name" to stop.name))
                     FavoritesManager.setDefaultStop(ctx, stop.name)
                     defaultBtns.forEach { (name, btn) ->
                         btn.alpha = if (FavoritesManager.isDefaultStop(ctx, name)) 1f else 0.3f
@@ -229,6 +237,7 @@ class FavoritesFragment : Fragment() {
                 }
 
                 btnRemoveFav.setOnClickListener {
+                    AnalyticsTracker.trackAction(ctx, "remove", "favorite_stop", "Favoris", mapOf("stop_name" to stop.name))
                     FavoritesManager.toggleStop(ctx, stop.name)
                     Toast.makeText(ctx, getString(R.string.removed_from_favs), Toast.LENGTH_SHORT).show()
                     render()
@@ -237,7 +246,10 @@ class FavoritesFragment : Fragment() {
                 llPassages.addView(makePlaceholder(ctx))
 
                 row.tag = "stop_row"
-                row.setOnClickListener { (activity as? MainActivity)?.openDetails(stop) }
+                row.setOnClickListener {
+                    AnalyticsTracker.trackAction(ctx, "open", "favorite_stop_row", "Favoris", mapOf("stop_name" to stop.name))
+                    (activity as? MainActivity)?.openDetails(stop)
+                }
                 b.container.addView(row)
 
                 val capturedTokenStop = myToken
@@ -294,6 +306,7 @@ class FavoritesFragment : Fragment() {
                         LinearLayout.LayoutParams.WRAP_CONTENT
                     ).also { it.gravity = android.view.Gravity.CENTER_VERTICAL }
                     setOnClickListener {
+                        AnalyticsTracker.trackAction(ctx, "remove", "favorite_line", "Favoris", mapOf("line_name" to line.number))
                         FavoritesManager.toggleLine(ctx, line.number)
                         Toast.makeText(ctx, getString(R.string.line_removed_from_favs), Toast.LENGTH_SHORT).show()
                         render()
@@ -301,7 +314,10 @@ class FavoritesFragment : Fragment() {
                 })
 
                 row.tag = "line_row"
-                row.setOnClickListener { (activity as? MainActivity)?.openLineDetail(line) }
+                row.setOnClickListener {
+                    AnalyticsTracker.trackAction(ctx, "open", "favorite_line_row", "Favoris", mapOf("line_name" to line.number))
+                    (activity as? MainActivity)?.openLineDetail(line)
+                }
                 b.container.addView(row)
             }
         }

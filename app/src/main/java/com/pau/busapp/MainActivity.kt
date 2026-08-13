@@ -169,6 +169,7 @@ class MainActivity : AppCompatActivity() {
         }
         val stop = AppData.busStops.find { it.name == stopName } ?: return
         pendingScrollStopName = stopName
+        AnalyticsTracker.openContent(this, "widget_stop_detail", stopName, "Carte", mapOf("highlight_line" to (highlightLine ?: "")))
         showFragment(DetailsFragment.newInstance(stop, highlightLine), true)
     }
 
@@ -187,7 +188,7 @@ class MainActivity : AppCompatActivity() {
                 navItems.forEach { item ->
                     nav.findViewById<TextView>(item.labelId)?.visibility = View.GONE
                 }
-                setSelected(currentSelectedId)
+                setSelected(currentSelectedId, trackAnalytics = false)
             }
             NavStyle.B -> {
                 nav.layoutParams = (nav.layoutParams as LinearLayout.LayoutParams).also { it.height = dpToPx(64) }
@@ -198,11 +199,11 @@ class MainActivity : AppCompatActivity() {
                     }
                     nav.findViewById<View>(item.pillId)?.background = null
                 }
-                setSelected(currentSelectedId)
+                setSelected(currentSelectedId, trackAnalytics = false)
             }
             NavStyle.C -> {
                 nav.layoutParams = (nav.layoutParams as LinearLayout.LayoutParams).also { it.height = dpToPx(64) }
-                setSelected(currentSelectedId)
+                setSelected(currentSelectedId, trackAnalytics = false)
             }
             NavStyle.D -> {
                 nav.layoutParams = (nav.layoutParams as LinearLayout.LayoutParams).also { it.height = dpToPx(52) }
@@ -213,7 +214,7 @@ class MainActivity : AppCompatActivity() {
                     nav.findViewById<TextView>(item.labelId)?.visibility = View.GONE
                     nav.findViewById<View>(item.pillId)?.background = null
                 }
-                setSelected(currentSelectedId)
+                setSelected(currentSelectedId, trackAnalytics = false)
             }
             NavStyle.E -> {
                 nav.layoutParams = (nav.layoutParams as LinearLayout.LayoutParams).also { it.height = dpToPx(64) }
@@ -223,7 +224,7 @@ class MainActivity : AppCompatActivity() {
                     nav.findViewById<TextView>(item.labelId)?.visibility = View.GONE
                     nav.findViewById<View>(item.pillId)?.background = null
                 }
-                setSelected(currentSelectedId)
+                setSelected(currentSelectedId, trackAnalytics = false)
             }
         }
     }
@@ -241,6 +242,7 @@ class MainActivity : AppCompatActivity() {
     private val moreItem = NavItem(R.id.nav_more, R.id.nav_more_icon, R.id.nav_more_label, R.id.nav_more_pill) { MoreFragment() }
 
     private lateinit var navViewCache: Map<Int, View>
+    private var lastTrackedTabId: Int? = null
 
     private fun initNavViewCache() {
         val allItems = tabIdMap.values.toList() + moreItem
@@ -300,7 +302,7 @@ class MainActivity : AppCompatActivity() {
     private var _currentNavItems: List<NavItem> = emptyList()
     internal val navItems: List<NavItem> get() = _currentNavItems
 
-    fun setSelected(selectedId: Int) {
+    fun setSelected(selectedId: Int, trackAnalytics: Boolean = true) {
         currentSelectedId = selectedId
         val tabName = when (selectedId) {
             R.id.nav_map -> "Carte"
@@ -313,7 +315,11 @@ class MainActivity : AppCompatActivity() {
             R.id.nav_more -> "Plus"
             else -> "Inconnu ($selectedId)"
         }
-        android.util.Log.d("Analytics", "Google Analytics Tab Change: Selected Tab = $tabName")
+        if (trackAnalytics && lastTrackedTabId != selectedId) {
+            AnalyticsTracker.trackTab(this, tabName)
+            AnalyticsTracker.screenView(this, tabName, "MainActivity")
+            lastTrackedTabId = selectedId
+        }
 
         val style         = NavStyleManager.get(this)
         val activeColor   = ContextCompat.getColor(this, R.color.green_primary)
@@ -473,15 +479,26 @@ class MainActivity : AppCompatActivity() {
         notifPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
     }
 
-    fun openDetails(stop: BusStop)     = showFragment(DetailsFragment.newInstance(stop, null), true)
-    fun openLineDetail(line: BusLine)  = showFragment(LineDetailFragment.newInstance(line), true)
-    fun openAddAlert(stopName: String = "") =
+    fun openDetails(stop: BusStop) {
+        AnalyticsTracker.openContent(this, "stop_detail", stop.name, "main")
+        showFragment(DetailsFragment.newInstance(stop, null), true)
+    }
+
+    fun openLineDetail(line: BusLine) {
+        AnalyticsTracker.openContent(this, "line_detail", line.number, "main")
+        showFragment(LineDetailFragment.newInstance(line), true)
+    }
+
+    fun openAddAlert(stopName: String = "") {
+        AnalyticsTracker.trackAction(this, "open", "add_alert_dialog", "Alertes", mapOf("stop_name" to stopName))
         AddAlertDialog.newInstance(stopName).show(supportFragmentManager, "add_alert")
+    }
     fun refreshAlerts() {
         (supportFragmentManager.findFragmentById(R.id.fragment_container) as? AlertsFragment)?.refresh()
     }
 
     fun locateOnMap(lat: Double, lon: Double) {
+        AnalyticsTracker.trackAction(this, "locate", "map_marker", "Carte", mapOf("lat" to lat.toString(), "lon" to lon.toString()))
         mapFragment.zoomTo(lat, lon)
         fadeTransition {
             clearBack()

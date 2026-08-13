@@ -32,8 +32,14 @@ class AlertsFragment : Fragment() {
         AppData.alerts.clear()
         AppData.alerts.addAll(loaded)
         renderList()
-        binding.fabAddAlert.setOnClickListener { (activity as? MainActivity)?.requestNotifThenAddAlert("") }
-        binding.btnRefreshAlerts.setOnClickListener { refreshAlerts() }
+        binding.fabAddAlert.setOnClickListener {
+            AnalyticsTracker.trackAction(requireContext(), "open", "add_alert_fab", "Alertes")
+            (activity as? MainActivity)?.requestNotifThenAddAlert("")
+        }
+        binding.btnRefreshAlerts.setOnClickListener {
+            AnalyticsTracker.trackAction(requireContext(), "refresh", "alerts_list", "Alertes")
+            refreshAlerts()
+        }
     }
 
     private fun refreshAlerts() {
@@ -95,6 +101,7 @@ class AlertsFragment : Fragment() {
                     val arrow = if (item in collapsedStops) "▶" else "▼"
                     row.findViewById<TextView>(R.id.tv_header_title).text = "$arrow $item"
                     row.setOnClickListener {
+                        AnalyticsTracker.trackAction(ctx, "toggle", "alerts_group", "Alertes", mapOf("stop_name" to item))
                         if (item in collapsedStops) {
                             collapsedStops.remove(item)
                         } else {
@@ -161,6 +168,7 @@ class AlertsFragment : Fragment() {
                 btnToggle.text = if (a.enabled) "⏸" else "▶"
                 btnToggle.setTextColor(if (a.enabled) ContextCompat.getColor(ctx, R.color.text_secondary) else Color.parseColor("#F7C100"))
                 btnToggle.setOnClickListener {
+                    AnalyticsTracker.trackAction(ctx, "toggle", "alert_enabled", "Alertes", mapOf("alert_id" to a.id.toString(), "stop_name" to a.stopName, "line_name" to a.lineName))
                     val currentAlerts = AppData.alerts.toMutableList()
                     val idx = currentAlerts.indexOfFirst { it.id == a.id }
                     if (idx != -1) {
@@ -173,9 +181,11 @@ class AlertsFragment : Fragment() {
                     }
                 }
                 btnEdit.setOnClickListener {
+                    AnalyticsTracker.trackAction(ctx, "edit", "alert_item", "Alertes", mapOf("alert_id" to a.id.toString(), "stop_name" to a.stopName, "line_name" to a.lineName))
                     AddAlertDialog.newInstanceEdit(a).show(parentFragmentManager, "edit_alert")
                 }
                 btnDelete.setOnClickListener {
+                    AnalyticsTracker.trackAction(ctx, "delete", "alert_item", "Alertes", mapOf("alert_id" to a.id.toString(), "stop_name" to a.stopName, "line_name" to a.lineName))
                     AlertManager.cancel(ctx, a)
                     val currentAlerts = AppData.alerts.toMutableList()
                     currentAlerts.removeAll { it.id == a.id }
