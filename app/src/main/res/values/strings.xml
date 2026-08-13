@@ -115,6 +115,14 @@
     <string name="btn_next">Suivant →</string>
     <string name="btn_finish">Terminer →</string>
     <string name="btn_skip">Passer</string>
+    <string name="consent_title">Votre consentement</string>
+    <string name="consent_intro">Avant de commencer, Pau\'delis te demande si tu acceptes l\'analyse d\'usage de l\'application.</string>
+    <string name="consent_card_title">Statistiques d\'utilisation</string>
+    <string name="consent_body">Si tu acceptes, l\'application pourra envoyer des événements anonymes pour comprendre quels onglets, écrans et boutons sont les plus utilisés. Cela aide à améliorer l\'app sans afficher de pop-up pendant l\'usage normal.</string>
+    <string name="consent_no_personal">Aucune donnée personnelle ni position GPS brute n\'est tracée pour ce suivi.</string>
+    <string name="consent_accept">J\'accepte les statistiques</string>
+    <string name="consent_decline">Je refuse</string>
+    <string name="consent_footer">Tu peux changer ce choix plus tard dans les paramètres de l\'app si une option de confidentialité est ajoutée.</string>
 
     <string name="tuto_welcome_title">Bienvenue sur Pau\'delis 🚌</string>
     <string name="tuto_welcome_body">Cette application vous montre en temps réel les prochains bus du réseau Idelis à Pau.\n\nGlissez vers la gauche ou appuyez sur « Suivant » pour découvrir l\'application. Vous pouvez aussi appuyer sur le bouton Aide en haut à droite des onglets pour ouvrir le guide spécifique.</string>

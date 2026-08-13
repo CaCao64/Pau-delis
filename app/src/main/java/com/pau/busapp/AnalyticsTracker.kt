@@ -109,6 +109,7 @@ object AnalyticsTracker {
     }
 
     private fun logEvent(context: Context, name: String, params: Bundle) {
+        if (!ConsentManager.isAnalyticsAllowed(context)) return
         val firebase = resolve(context.applicationContext)
         if (firebase != null) {
             firebase.logEvent(name, params)

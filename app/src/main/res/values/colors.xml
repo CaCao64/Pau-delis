@@ -21,6 +21,7 @@
 
     <!-- Surfaces -->
     <color name="bg_light">#F7F8F9</color>
+    <color name="bg_dark">#101318</color>
     <color name="surface">#FFFFFF</color>
     <color name="divider">#EEEEEE</color>
     <color name="text_primary">#1A1A1A</color>

@@ -11,7 +11,7 @@ class App : Application() {
         super.onCreate()
         // Appliquer le thème sauvegardé avant tout affichage
         ThemeManager.apply(this)
-        AnalyticsTracker.init(this)
+        if (ConsentManager.isAnalyticsAllowed(this)) AnalyticsTracker.init(this)
         val prefs = getSharedPreferences("osmdroid", Context.MODE_PRIVATE)
         Configuration.getInstance().load(applicationContext, prefs)
         Configuration.getInstance().userAgentValue = packageName
