@@ -19,6 +19,7 @@ class AlertsFragment : Fragment() {
     private val binding get() = _binding!!
     private val alerts get() = AppData.alerts
     private val passageJobs = mutableMapOf<Long, Job>()
+    private val collapsedStops = mutableSetOf<String>()
 
     override fun onCreateView(i: LayoutInflater, c: ViewGroup?, s: Bundle?): View {
         _binding = FragmentAlertsBinding.inflate(i, c, false)
@@ -73,7 +74,9 @@ class AlertsFragment : Fragment() {
                 currentStop = alert.stopName
                 groupedItems.add(currentStop)
             }
-            groupedItems.add(alert)
+            if (currentStop !in collapsedStops) {
+                groupedItems.add(alert)
+            }
         }
 
         binding.listAlerts.adapter = object : BaseAdapter() {
@@ -89,7 +92,16 @@ class AlertsFragment : Fragment() {
 
                 if (item is String) {
                     val row = cv ?: LayoutInflater.from(ctx).inflate(R.layout.item_alert_header, parent, false)
-                    row.findViewById<TextView>(R.id.tv_header_title).text = item
+                    val arrow = if (item in collapsedStops) "▶" else "▼"
+                    row.findViewById<TextView>(R.id.tv_header_title).text = "$arrow $item"
+                    row.setOnClickListener {
+                        if (item in collapsedStops) {
+                            collapsedStops.remove(item)
+                        } else {
+                            collapsedStops.add(item)
+                        }
+                        renderList()
+                    }
                     return row
                 }
 

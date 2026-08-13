@@ -97,9 +97,33 @@ class AddAlertDialog : DialogFragment() {
         if (stopArg.isNotEmpty()) {
             updateLineSpinner(ctx, stopArg)
             if (editAlert != null) {
-                val lines = AppData.busStops.find { it.name == editAlert.stopName }?.lines ?: emptyList()
-                val idx = lines.indexOf(editAlert.lineName)
-                if (idx >= 0) spinnerLine.post { spinnerLine.setSelection(idx) }
+                val targetText = if (editAlert.destination.isNotEmpty()) {
+                    "${editAlert.lineName} → ${editAlert.destination}"
+                } else {
+                    editAlert.lineName
+                }
+                var idx = -1
+                for (i in 0 until spinnerLine.adapter.count) {
+                    val item = spinnerLine.adapter.getItem(i).toString()
+                    if (item.equals(targetText, ignoreCase = true)) {
+                        idx = i
+                        break
+                    }
+                }
+                if (idx == -1 && editAlert.destination.isNotEmpty()) {
+                    // Fallback to startsWith
+                    for (i in 0 until spinnerLine.adapter.count) {
+                        val item = spinnerLine.adapter.getItem(i).toString()
+                        if (item.startsWith("${editAlert.lineName} →", ignoreCase = true)) {
+                            idx = i
+                            break
+                        }
+                    }
+                }
+                if (idx >= 0) {
+                    val finalIdx = idx
+                    spinnerLine.post { spinnerLine.setSelection(finalIdx) }
+                }
             }
         }
 
@@ -407,7 +431,8 @@ class AddAlertDialog : DialogFragment() {
         AppData.alerts.clear()
         AppData.alerts.addAll(existing)
         (activity as? MainActivity)?.refreshAlerts()
-        Toast.makeText(ctx, ctx.getString(R.string.alert_added), Toast.LENGTH_SHORT).show()
+        val msgId = if (editId != -1L) R.string.alert_updated else R.string.alert_added
+        Toast.makeText(ctx, ctx.getString(msgId), Toast.LENGTH_SHORT).show()
     }
 
     private fun updateLineSpinner(ctx: android.content.Context, stopName: String) {

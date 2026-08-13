@@ -160,8 +160,13 @@ class AlertReceiver : BroadcastReceiver() {
     private fun showNotification(ctx: Context, title: String, body: String, color: Int, icon: Int,
                                  notifId: Int, stopName: String, lineName: String, hour: Int, minute: Int) {
         val nm = ctx.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+        val openIntent = ctx.packageManager.getLaunchIntentForPackage(ctx.packageName)?.apply {
+            flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
+            putExtra(StopsWidgetProvider.EXTRA_STOP_NAME, "${WidgetOrderManager.PREFIX_STOP}$stopName")
+            putExtra("highlight_line", lineName)
+        }
         val pi = PendingIntent.getActivity(
-            ctx, 0, ctx.packageManager.getLaunchIntentForPackage(ctx.packageName),
+            ctx, notifId + 30000, openIntent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 

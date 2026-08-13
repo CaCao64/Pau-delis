@@ -73,13 +73,15 @@ class TrackingService : Service() {
 
                 // Mettre à jour la notification immédiatement pour refléter le nouvel état
                 scope.launch {
-                    val passage = fetchNextPassage(stopName, lineName, destination)
+                    val (passage, isConn) = fetchNextPassage(stopName, lineName, destination)
                     val (body, color, icon) = buildContent(passage, hour, minute)
-                    val label = if (nowEnabled) getString(R.string.tracking_active) else getString(R.string.tracking_disabled)
+                    val statusLabel = if (isConn) getString(R.string.tracking_connection_lost)
+                                      else if (nowEnabled) getString(R.string.tracking_active)
+                                      else getString(R.string.tracking_disabled)
                     val dest = passage?.destination ?: destination
                     val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                     nm.notify(notifId, buildNotif(notifId, stopName, lineName,
-                        "$body\n$label", color, icon, hour, minute, destination = dest))
+                        "$body\n$statusLabel", color, icon, hour, minute, destination = dest))
                 }
             }
 
@@ -91,13 +93,15 @@ class TrackingService : Service() {
                 val hour     = intent.getIntExtra(EXTRA_HOUR, 0)
                 val minute   = intent.getIntExtra(EXTRA_MINUTE, 0)
                 scope.launch {
-                    val passage = fetchNextPassage(stopName, lineName, destination)
+                    val (passage, isConn) = fetchNextPassage(stopName, lineName, destination)
                     val (body, color, icon) = buildContent(passage, hour, minute)
                     val dest = passage?.destination ?: destination
-                    val label = if (isEnabled(notifId)) getString(R.string.tracking_active) else getString(R.string.tracking_disabled)
+                    val statusLabel = if (isConn) getString(R.string.tracking_connection_lost)
+                                      else if (isEnabled(notifId)) getString(R.string.tracking_active)
+                                      else getString(R.string.tracking_disabled)
                     val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
                     nm.notify(notifId, buildNotif(notifId, stopName, lineName,
-                        "$body\n$label", color, icon, hour, minute, destination = dest))
+                        "$body\n$statusLabel", color, icon, hour, minute, destination = dest))
                 }
             }
 
@@ -120,11 +124,12 @@ class TrackingService : Service() {
         val nm = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
 
         // Fetch initial
-        val first = fetchNextPassage(stopName, lineName, destination)
+        val (first, isConn0) = fetchNextPassage(stopName, lineName, destination)
         val (body0, color0, icon0) = buildContent(first, hour, minute)
         val dest0 = first?.destination ?: destination
+        val statusText0 = if (isConn0) getString(R.string.tracking_connection_lost) else getString(R.string.tracking_active)
         nm.notify(notifId, buildNotif(notifId, stopName, lineName,
-            "$body0\n${getString(R.string.tracking_active)}", color0, icon0, hour, minute, destination = dest0))
+            "$body0\n$statusText0", color0, icon0, hour, minute, destination = dest0))
 
         val firstHeureReelle = first?.heureReelle
         var lastDest = dest0
@@ -150,18 +155,22 @@ class TrackingService : Service() {
             // Si suivi en pause, ne pas mettre à jour la notif mais continuer à tourner
             if (!isEnabled(notifId)) continue
 
-            val updated = fetchNextPassage(stopName, lineName, destination)
+            val (updated, isConnectionLost) = fetchNextPassage(stopName, lineName, destination)
             if (updated?.destination?.isNotEmpty() == true) lastDest = updated.destination
 
             // Détecter si le bus est passé
             val cal = java.util.Calendar.getInstance()
             val nowMin = cal.get(java.util.Calendar.HOUR_OF_DAY) * 60 + cal.get(java.util.Calendar.MINUTE)
-            val hasPassed = if (firstHeureReelle != null) {
-                val firstMin = firstHeureReelle.first * 60 + firstHeureReelle.second
-                // L'heure actuelle doit être APRÈS le passage prévu avant de conclure qu'il est passé
-                nowMin >= firstMin && (updated == null || (updated.heureReelle != null && updated.heureReelle != firstHeureReelle))
+            val hasPassed = if (!isConnectionLost) {
+                if (firstHeureReelle != null) {
+                    val firstMin = firstHeureReelle.first * 60 + firstHeureReelle.second
+                    // L'heure actuelle doit être APRÈS le passage prévu avant de conclure qu'il est passé
+                    nowMin >= firstMin && (updated == null || (updated.heureReelle != null && updated.heureReelle != firstHeureReelle))
+                } else {
+                    nowMin > (hour * 60 + minute) + 3
+                }
             } else {
-                nowMin > (hour * 60 + minute) + 3
+                false
             }
 
             if (hasPassed) {
@@ -174,8 +183,9 @@ class TrackingService : Service() {
             }
 
             val (bodyU, colorU, iconU) = buildContent(updated, hour, minute)
+            val statusTextU = if (isConnectionLost) getString(R.string.tracking_connection_lost) else getString(R.string.tracking_active)
             nm.notify(notifId, buildNotif(notifId, stopName, lineName,
-                "$bodyU\n${getString(R.string.tracking_active)}", colorU, iconU, hour, minute, destination = lastDest))
+                "$bodyU\n$statusTextU", colorU, iconU, hour, minute, destination = lastDest))
         }
     }
 
@@ -191,6 +201,7 @@ class TrackingService : Service() {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
             putExtra(StopsWidgetProvider.EXTRA_STOP_NAME,
                 "${WidgetOrderManager.PREFIX_STOP}$stopName")
+            putExtra("highlight_line", lineName)
         }
         val openPi = PendingIntent.getActivity(
             this, notifId + 30000, openIntent,
@@ -249,16 +260,17 @@ class TrackingService : Service() {
 
     // ── Fetch ─────────────────────────────────────────────────────────────────
 
+    private data class FetchResult(val passage: PassageInfo?, val isConnectionLost: Boolean)
     private data class PassageInfo(val arrivee: String, val statut: PassageStatut, val heureReelle: Pair<Int,Int>?, val destination: String = "")
 
-    private suspend fun fetchNextPassage(stopName: String, lineName: String, destination: String = ""): PassageInfo? {
-        val stop = AppData.busStops.find { it.name == stopName } ?: return null
-        if (stop.codes.isEmpty()) return gtfsFallback(stop, lineName, destination)
+    private suspend fun fetchNextPassage(stopName: String, lineName: String, destination: String = ""): FetchResult {
+        val stop = AppData.busStops.find { it.name == stopName } ?: return FetchResult(null, false)
+        if (stop.codes.isEmpty()) return FetchResult(gtfsFallback(stop, lineName, destination), false)
         return try {
             val infos = IdelisApi.getStopMonitoring(stop.codes.first(), 5)
             val info  = infos.find { it.ligne == lineName && (destination.isEmpty() || it.destination.contains(destination, ignoreCase = true) || destination.contains(it.destination, ignoreCase = true)) }
-            if (info != null) {
-                val first = info.passages.firstOrNull() ?: return gtfsFallback(stop, lineName, destination)
+            val passageInfo = if (info != null) {
+                val first = info.passages.firstOrNull() ?: return FetchResult(gtfsFallback(stop, lineName, destination), false)
                 val statut = if (first.type != "reel") PassageStatut.THEORIQUE
                 else {
                     val theoMin = info.passages.filter { it.type == "theorique" }
@@ -270,7 +282,12 @@ class TrackingService : Service() {
                     PassageHelper.parseArrivee(first.arrivee)?.let { Pair(it.hour, it.minute) },
                     info.destination)
             } else gtfsFallback(stop, lineName, destination)
-        } catch (_: Exception) { gtfsFallback(stop, lineName, destination) }
+            FetchResult(passageInfo, false)
+        } catch (e: Exception) {
+            val msg = e.message ?: ""
+            val isConn = e is java.io.IOException || msg.contains("timeout", ignoreCase = true) || msg.contains("connect", ignoreCase = true)
+            FetchResult(gtfsFallback(stop, lineName, destination), isConn)
+        }
     }
 
     private suspend fun gtfsFallback(stop: BusStop, lineName: String, destination: String = ""): PassageInfo? {
