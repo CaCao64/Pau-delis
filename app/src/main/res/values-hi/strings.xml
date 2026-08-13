@@ -103,7 +103,7 @@
     <string name="widget_updated">विजेट अपडेट हुआ</string>
     <string name="map_gps_searching">GPS सिग्नल खोज रहे हैं…</string>
     <string name="map_position_unknown">स्थान अज्ञात — पहले जियोलोकेशन सक्षम करें</string>
-    <string name="map_emulated">अनुकृत स्थान: %.5f, %.5f</string>
+    <string name="map_emulated">अनुकृत स्थान: %1$.5f, %2$.5f</string>
     <string name="alert_select_stop">एक स्टॉप चुनें</string>
     <string name="alert_unknown_stop">अज्ञात स्टॉप</string>
     <string name="alert_select_line">एक लाइन चुनें</string>

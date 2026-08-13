@@ -26,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
     var currentSelectedId = R.id.nav_map
     var pendingScrollStopName: String? = null
+    var pendingScrollLineNumber: String? = null
 
     // Lanceur permission notification — stocké en attendant le résultat
     private var pendingAlertStopName: String? = null
@@ -160,6 +161,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleWidgetIntent(intent: Intent?) {
         val key = intent?.getStringExtra(StopsWidgetProvider.EXTRA_STOP_NAME) ?: return
+        val openMode = intent.getStringExtra("open_mode")
         val highlightLine = intent?.getStringExtra("highlight_line")
         // Clés préfixées : "stop:NomArrêt", "bus:NomArrêt|ligne|dest", "ligne:T3"
         val stopName = when {
@@ -168,9 +170,19 @@ class MainActivity : AppCompatActivity() {
             else -> key  // ancienne clé sans préfixe ou ligne — on tente tel quel
         }
         val stop = AppData.busStops.find { it.name == stopName } ?: return
-        pendingScrollStopName = stopName
-        AnalyticsTracker.openContent(this, "widget_stop_detail", stopName, "Carte", mapOf("highlight_line" to (highlightLine ?: "")))
-        showFragment(DetailsFragment.newInstance(stop, highlightLine), true)
+        if (openMode == "stop_list") {
+            pendingScrollStopName = stopName
+            AnalyticsTracker.openContent(this, "notification_stop_list", stopName, "Arrêts", mapOf("highlight_line" to (highlightLine ?: "")))
+            fadeTransition {
+                clearBack()
+                commitShowFragment(StopListFragment(), false)
+            }
+            setSelected(R.id.nav_stops)
+        } else {
+            pendingScrollStopName = stopName
+            AnalyticsTracker.openContent(this, "widget_stop_detail", stopName, "Carte", mapOf("highlight_line" to (highlightLine ?: "")))
+            showFragment(DetailsFragment.newInstance(stop, highlightLine), true)
+        }
     }
 
     fun applyNavStyle(style: NavStyle) {

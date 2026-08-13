@@ -103,7 +103,7 @@
     <string name="widget_updated">Widget güncellendi</string>
     <string name="map_gps_searching">GPS sinyali aranıyor…</string>
     <string name="map_position_unknown">Konum bilinmiyor — önce konum hizmetlerini etkinleştirin</string>
-    <string name="map_emulated">Simüle edilen konum: %.5f, %.5f</string>
+    <string name="map_emulated">Simüle edilen konum: %1$.5f, %2$.5f</string>
     <string name="alert_select_stop">Bir durak seçin</string>
     <string name="alert_unknown_stop">Bilinmeyen durak</string>
     <string name="alert_select_line">Bir hat seçin</string>

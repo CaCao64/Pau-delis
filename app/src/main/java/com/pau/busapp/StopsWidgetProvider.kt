@@ -7,6 +7,7 @@ import android.appwidget.AppWidgetProvider
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.RemoteViews
@@ -104,15 +105,10 @@ class StopsWidgetProvider : AppWidgetProvider() {
 
         fun isNetworkAvailable(ctx: Context): Boolean {
             val cm = ctx.getSystemService(Context.CONNECTIVITY_SERVICE) as android.net.ConnectivityManager
-            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.M) {
-                val net = cm.activeNetwork ?: return false
-                val caps = cm.getNetworkCapabilities(net) ?: return false
-                return caps.hasCapability(android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET) &&
-                       caps.hasCapability(android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED)
-            } else {
-                @Suppress("DEPRECATION")
-                return cm.activeNetworkInfo?.isConnected == true
-            }
+            val net = cm.activeNetwork ?: return false
+            val caps = cm.getNetworkCapabilities(net) ?: return false
+            return caps.hasCapability(android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET) &&
+                   caps.hasCapability(android.net.NetworkCapabilities.NET_CAPABILITY_VALIDATED)
         }
 
         private fun computeContextStatus(socketOk: Boolean, ctx: Context, isDark: Boolean): Pair<String, Int> {
@@ -160,7 +156,15 @@ class StopsWidgetProvider : AppWidgetProvider() {
         val opacity = WidgetConfigActivity.getOpacity(ctx, widgetId)
         val baseColor = android.graphics.Color.parseColor(if (isDark) "#0D3B14" else "#E8F5E9")
         val widgetBgColor = android.graphics.Color.argb(opacity, android.graphics.Color.red(baseColor), android.graphics.Color.green(baseColor), android.graphics.Color.blue(baseColor))
-        views.setColorStateList(R.id.widget_root, "setBackgroundTintList", android.content.res.ColorStateList.valueOf(widgetBgColor))
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+            views.setColorStateList(
+                R.id.widget_root,
+                "setBackgroundTintList",
+                android.content.res.ColorStateList.valueOf(widgetBgColor)
+            )
+        } else {
+            views.setInt(R.id.widget_root, "setBackgroundColor", widgetBgColor)
+        }
 
         val textColor = if (isDark) android.graphics.Color.WHITE else android.graphics.Color.BLACK
         views.setTextColor(R.id.widget_title, textColor)

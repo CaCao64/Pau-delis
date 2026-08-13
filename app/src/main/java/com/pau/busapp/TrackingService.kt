@@ -201,6 +201,7 @@ class TrackingService : Service() {
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_SINGLE_TOP
             putExtra(StopsWidgetProvider.EXTRA_STOP_NAME,
                 "${WidgetOrderManager.PREFIX_STOP}$stopName")
+            putExtra("open_mode", "stop_list")
             putExtra("highlight_line", lineName)
         }
         val openPi = PendingIntent.getActivity(

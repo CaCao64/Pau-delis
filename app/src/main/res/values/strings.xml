@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Pau\'delis</string>
     <string name="widget_desc">Prochains passages de vos arrets favoris</string>
     <string name="widget_label">Pau\'delis – Arrêts</string>
@@ -12,7 +12,7 @@
     <string name="nav_favs">Favoris</string>
     <string name="nav_alerts">Alertes</string>
     <string name="nav_settings">Paramètres</string>
-    <string name="nav_donate">Don (Buy me a Ticket Idelis)</string>
+    <string name="nav_donate" tools:ignore="MissingTranslation">Don (Buy me a Ticket Idelis)</string>
 
     <!-- Carte / Map -->
     <string name="btn_emulate_here">📍 Émuler ici</string>
@@ -80,22 +80,22 @@
     <string name="alert_btn_add">Ajouter</string>
     <string name="alert_btn_cancel">Annuler</string>
     <string name="alert_added">Alerte ajoutée ✓</string>
-    <string name="alert_updated">Alerte modifiée ✓</string>
+    <string name="alert_updated" tools:ignore="MissingTranslation">Alerte modifiée ✓</string>
     <string name="alert_empty_message">Le message est vide</string>
 
     <!-- Paramètres -->
     <string name="settings_title">Paramètres</string>
-    <string name="settings_section_appearance">APPARENCE</string>
-    <string name="settings_section_tabs">ONGLETS</string>
-    <string name="settings_section_widget">WIDGET</string>
-    <string name="settings_section_style">STYLE</string>
+    <string name="settings_section_appearance" tools:ignore="MissingTranslation">APPARENCE</string>
+    <string name="settings_section_tabs" tools:ignore="MissingTranslation">ONGLETS</string>
+    <string name="settings_section_widget" tools:ignore="MissingTranslation">WIDGET</string>
+    <string name="settings_section_style" tools:ignore="MissingTranslation">STYLE</string>
     <string name="settings_section_language">LANGUE</string>
     <string name="settings_section_favs">PARAMÈTRES</string>
-    <string name="settings_theme_label">Thème de l\'appareil</string>
-    <string name="settings_tabs_desc">Choisir et réordonner les onglets</string>
-    <string name="settings_widget_desc">Choisir et réordonner les arrêts du widget</string>
-    <string name="settings_btn_configure">Configurer</string>
-    <string name="settings_btn_change">Changer</string>
+    <string name="settings_theme_label" tools:ignore="MissingTranslation">Thème de l\'appareil</string>
+    <string name="settings_tabs_desc" tools:ignore="MissingTranslation">Choisir et réordonner les onglets</string>
+    <string name="settings_widget_desc" tools:ignore="MissingTranslation">Choisir et réordonner les arrêts du widget</string>
+    <string name="settings_btn_configure" tools:ignore="MissingTranslation">Configurer</string>
+    <string name="settings_btn_change" tools:ignore="MissingTranslation">Changer</string>
     <string name="settings_change_language">Changer</string>
     <string name="settings_choose_language">Choisir la langue</string>
     <string name="settings_favs_desc">Exportez tous vos paramètres, favoris, alertes et configuration du widget en fichier JSON pour les transférer sur un autre appareil.</string>
@@ -172,7 +172,7 @@
     <!-- Carte -->
     <string name="map_gps_searching">Recherche du signal GPS…</string>
     <string name="map_position_unknown">Position inconnue — activez la géolocalisation d\'abord</string>
-    <string name="map_emulated" formatted="false">Position émulée : %.5f, %.5f</string>
+    <string name="map_emulated">Position émulée : %1$.5f, %2$.5f</string>
 
     <!-- Alertes dialog -->
     <string name="alert_select_stop">Sélectionne un arrêt</string>

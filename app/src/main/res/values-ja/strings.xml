@@ -103,7 +103,7 @@
     <string name="widget_updated">ウィジェット更新済み</string>
     <string name="map_gps_searching">GPS信号を検索中…</string>
     <string name="map_position_unknown">位置不明 — まず位置情報を有効にしてください</string>
-    <string name="map_emulated">エミュレート位置: %.5f, %.5f</string>
+    <string name="map_emulated">エミュレート位置: %1$.5f, %2$.5f</string>
     <string name="alert_select_stop">バス停を選択してください</string>
     <string name="alert_unknown_stop">不明なバス停</string>
     <string name="alert_select_line">路線を選択してください</string>

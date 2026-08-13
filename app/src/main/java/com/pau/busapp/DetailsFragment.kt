@@ -499,6 +499,12 @@ class DetailsFragment : Fragment() {
         }
         return TextView(ctx).apply {
             text = icon; textSize = 14f
+            setTextColor(when {
+                icon.contains("🕐") || icon.contains("ðŸ•") -> Color.parseColor("#E65100")
+                icon.contains("⚡") || icon.contains("âš¡") -> Color.parseColor("#1565C0")
+                icon.contains("❌") || icon.contains("âŒ") -> Color.parseColor("#C62828")
+                else -> ContextCompat.getColor(ctx, R.color.text_primary)
+            })
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
             ).also { it.marginEnd = dp(6) }

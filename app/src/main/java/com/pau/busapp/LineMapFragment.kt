@@ -121,7 +121,44 @@ class LineMapFragment : Fragment() {
             }
         }
 
+        fun addTerminusLabel(stop: BusStop?, title: String, topAnchor: Boolean) {
+            if (stop == null) return
+            val marker = Marker(map).apply {
+                position = GeoPoint(stop.lat, stop.lon)
+                this.title = title
+                infoWindow = null
+                icon = android.graphics.drawable.BitmapDrawable(resources, makeLabelBitmap(title, line.color))
+                setAnchor(Marker.ANCHOR_CENTER, if (topAnchor) Marker.ANCHOR_TOP else Marker.ANCHOR_BOTTOM)
+            }
+            map.overlays.add(marker)
+        }
+
+        addTerminusLabel(dir1Points.firstOrNull(), line.terminus1, false)
+        addTerminusLabel(dir1Points.lastOrNull(), line.terminus2, true)
+
         map.invalidate()
+    }
+
+    private fun makeLabelBitmap(text: String, color: Int): Bitmap {
+        val label = text.take(24)
+        val fillColor = color
+        val textPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            textSize = 28f
+            typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
+            this.color = Color.WHITE
+        }
+        val bgPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
+            this.color = Color.argb(215, Color.red(fillColor), Color.green(fillColor), Color.blue(fillColor))
+        }
+        val fm = textPaint.fontMetrics
+        val width = (textPaint.measureText(label) + 32f).toInt().coerceAtLeast(140)
+        val height = ((fm.bottom - fm.top) + 24f).toInt().coerceAtLeast(56)
+        val bmp = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+        val canvas = Canvas(bmp)
+        val rect = RectF(0f, 0f, width.toFloat(), height.toFloat())
+        canvas.drawRoundRect(rect, 18f, 18f, bgPaint)
+        canvas.drawText(label, 16f, height / 2f - (fm.ascent + fm.descent) / 2f, textPaint)
+        return bmp
     }
 
     private fun makeStopDot(color: Int, isTerminus: Boolean, isHighlight: Boolean = false): Bitmap {

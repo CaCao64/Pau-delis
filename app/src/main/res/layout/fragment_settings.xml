@@ -128,7 +128,7 @@
                     android:layout_weight="1"
                     android:text="@string/settings_emulation_toggle"
                     android:textSize="14sp" android:textColor="@color/text_primary"/>
-                <Switch android:id="@+id/switch_emulation"
+                <androidx.appcompat.widget.SwitchCompat android:id="@+id/switch_emulation"
                     android:layout_width="wrap_content" android:layout_height="wrap_content"/>
             </LinearLayout>
 

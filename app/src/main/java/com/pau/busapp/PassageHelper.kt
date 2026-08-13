@@ -6,6 +6,7 @@ import java.time.format.DateTimeFormatter
 import java.time.temporal.ChronoUnit
 
 object PassageHelper {
+    private const val MINUTES_PER_DAY = 24 * 60
 
     // Parse "3 min", "Imminent", "14:32" → LocalTime (heure estimée d'arrivée)
     fun parseArrivee(arrivee: String): LocalTime? {
@@ -31,11 +32,18 @@ object PassageHelper {
         if (theoreticalMinutes.isNullOrEmpty()) return null
         val realTime = parseArrivee(passage.arrivee) ?: return null
         val realMin  = realTime.hour * 60 + realTime.minute
+        return computeEcartMinutes(realMin, theoreticalMinutes)
+    }
 
-        // Trouver le passage théorique le plus proche (dans une fenêtre de ±30 min)
-        val closest = theoreticalMinutes.minByOrNull { Math.abs(it - realMin) } ?: return null
-        if (Math.abs(closest - realMin) > 30) return null
-        return realMin - closest  // positif = retard, négatif = avance
+    internal fun computeEcartMinutes(realMinutes: Int, theoreticalMinutes: List<Int>): Int? {
+        if (theoreticalMinutes.isEmpty()) return null
+
+        // On compare aussi avec le jour précédent / suivant pour éviter les faux statuts
+        // quand le passage est proche de minuit.
+        val closest = theoreticalMinutes.minByOrNull { circularDistance(realMinutes, it) } ?: return null
+        val delta = circularSignedDelta(realMinutes, closest)
+        if (kotlin.math.abs(delta) > 45) return null
+        return delta  // positif = retard, négatif = avance
     }
 
     fun toStatut(ecart: Int?): PassageStatut = when {
@@ -44,4 +52,13 @@ object PassageHelper {
         ecart < -1          -> PassageStatut.AVANCE
         else                -> PassageStatut.A_LHEURE
     }
+
+    private fun circularSignedDelta(realMinutes: Int, theoreticalMinutes: Int): Int {
+        val base = realMinutes - theoreticalMinutes
+        val candidates = listOf(base, base + MINUTES_PER_DAY, base - MINUTES_PER_DAY)
+        return candidates.minByOrNull { kotlin.math.abs(it) } ?: base
+    }
+
+    private fun circularDistance(realMinutes: Int, theoreticalMinutes: Int): Int =
+        kotlin.math.abs(circularSignedDelta(realMinutes, theoreticalMinutes))
 }

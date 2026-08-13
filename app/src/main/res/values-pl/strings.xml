@@ -103,7 +103,7 @@
     <string name="widget_updated">Widget zaktualizowany</string>
     <string name="map_gps_searching">Szukam sygnału GPS…</string>
     <string name="map_position_unknown">Nieznana pozycja — najpierw włącz geolokalizację</string>
-    <string name="map_emulated">Emulowana pozycja: %.5f, %.5f</string>
+    <string name="map_emulated">Emulowana pozycja: %1$.5f, %2$.5f</string>
     <string name="alert_select_stop">Wybierz przystanek</string>
     <string name="alert_unknown_stop">Nieznany przystanek</string>
     <string name="alert_select_line">Wybierz linię</string>

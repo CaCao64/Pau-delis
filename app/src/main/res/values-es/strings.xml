@@ -14,6 +14,16 @@
     <string name="nav_settings">Ajustes</string>
     <string name="nav_donate">Donar (Cómprame un billete Idelis)</string>
 
+    <!-- Consentimiento -->
+    <string name="consent_title">Ayúdanos a mejorar Pau\'delis</string>
+    <string name="consent_intro">Antes del tutorial, elija si desea compartir analíticas anónimas.</string>
+    <string name="consent_card_title">Analíticas y privacidad</string>
+    <string name="consent_body">Solo recopilamos datos de uso anónimos como cambios de pestaña, pulsaciones de botones y vistas de pantalla. Sin datos personales ni recorrido GPS exacto.</string>
+    <string name="consent_no_personal">No se recopilan datos personales ni ubicación precisa para esta función.</string>
+    <string name="consent_accept">Aceptar analíticas</string>
+    <string name="consent_decline">Rechazar</string>
+    <string name="consent_footer">Puede seguir usando la app en cualquier caso.</string>
+
     <!-- Carte / Map -->
     <string name="btn_emulate_here">📍 Emular aquí</string>
 
@@ -165,7 +175,7 @@
     <!-- Carte -->
     <string name="map_gps_searching">Buscando señal GPS…</string>
     <string name="map_position_unknown">Posición desconocida — active la geolocalización primero</string>
-    <string name="map_emulated" formatted="false">Posición emulada: %.5f, %.5f</string>
+    <string name="map_emulated">Posición emulada: %1$.5f, %2$.5f</string>
 
     <!-- Alertes dialog -->
     <string name="alert_select_stop">Selecciona una parada</string>

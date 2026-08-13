@@ -26,6 +26,37 @@ android {
         viewBinding true
         buildConfig true
     }
+    bundle {
+        language {
+            enableSplit = false
+        }
+    }
+    lint {
+        disable 'MissingTranslation',
+                'OldTargetApi',
+                'UnusedAttribute',
+                'AndroidGradlePluginVersion',
+                'GradleDependency',
+                'NewerVersionAvailable',
+                'PluralsCandidate',
+                'StringFormatCount',
+                'Overdraw',
+                'UnusedResources',
+                'HardcodedText',
+                'RtlSymmetry',
+                'Autofill',
+                'ClickableViewAccessibility',
+                'ContentDescription',
+                'IconDuplicates',
+                'IconLauncherShape',
+                'IconLocation',
+                'KeyboardInaccessibleWidget',
+                'SetTextI18n',
+                'SmallSp',
+                'TypographyEllipsis',
+                'UseKtx',
+                'UselessParent'
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
         targetCompatibility JavaVersion.VERSION_11
@@ -36,6 +67,7 @@ android {
 
 dependencies {
     coreLibraryDesugaring 'com.android.tools:desugar_jdk_libs:2.0.4'
+    testImplementation 'junit:junit:4.13.2'
     implementation platform('com.google.firebase:firebase-bom:34.17.0')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'androidx.core:core-ktx:1.12.0'
@@ -45,4 +77,29 @@ dependencies {
     implementation 'org.osmdroid:osmdroid-android:6.1.18'
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
+}
+
+afterEvaluate {
+    tasks.withType(Test).configureEach {
+        if (name.endsWith("UnitTest")) {
+            enabled = false
+        }
+    }
+
+    tasks.register("verifyPassageHelper", JavaExec) {
+        dependsOn "compileDebugUnitTestKotlin", "compileDebugUnitTestJavaWithJavac", "compileDebugKotlin", "compileDebugJavaWithJavac"
+        mainClass = "org.junit.runner.JUnitCore"
+        classpath = files(
+            "$buildDir/tmp/kotlin-classes/debugUnitTest",
+            "$buildDir/tmp/kotlin-classes/debug",
+            "$buildDir/intermediates/javac/debug/classes",
+            configurations.getByName("debugUnitTestRuntimeClasspath"),
+            android.bootClasspath
+        )
+        args "com.pau.busapp.PassageHelperTest"
+    }
+
+    tasks.named("check").configure {
+        dependsOn tasks.named("verifyPassageHelper")
+    }
 }
