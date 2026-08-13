@@ -108,165 +108,166 @@
 57-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:19:9-54
 58        android:supportsRtl="true"
 58-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:20:9-35
-59        android:theme="@style/Theme.BusPau"
-59-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:22:9-44
-60        android:usesCleartextTraffic="true" >
-60-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:21:9-44
-61        <activity
-61-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:23:9-29:20
-62            android:name="com.pau.busapp.MainActivity"
-62-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:23:19-47
-63            android:exported="true"
-63-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:23:48-71
-64            android:launchMode="singleTop" >
-64-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:24:13-43
-65            <intent-filter>
-65-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:25:13-28:29
-66                <action android:name="android.intent.action.MAIN" />
-66-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:26:17-69
-66-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:26:25-66
-67
-68                <category android:name="android.intent.category.LAUNCHER" />
-68-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:27:17-77
-68-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:27:27-74
-69            </intent-filter>
-70        </activity>
-71        <activity
-71-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:30:9-31:50
-72            android:name="com.pau.busapp.WidgetConfigActivity"
-72-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:30:19-55
-73            android:exported="false"
-73-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:30:56-80
-74            android:theme="@style/Theme.BusPau" />
-74-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:31:13-48
-75
-76        <service
-76-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:32:9-34:55
-77            android:name="com.pau.busapp.TrackingService"
-77-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:32:18-49
-78            android:exported="false"
-78-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:33:13-37
-79            android:foregroundServiceType="dataSync" />
-79-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:34:13-53
-80        <service
-80-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:35:9-37:39
-81            android:name="com.pau.busapp.WidgetListService"
-81-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:35:18-51
-82            android:exported="false"
-82-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:37:13-37
-83            android:permission="android.permission.BIND_REMOTEVIEWS" />
-83-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:36:13-69
-84
-85        <receiver
-85-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:38:9-76
-86            android:name="com.pau.busapp.AlertReceiver"
-86-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:38:19-48
-87            android:exported="false" />
-87-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:38:49-73
-88        <receiver
-88-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:39:9-45:20
-89            android:name="com.pau.busapp.StopsWidgetProvider"
-89-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:39:19-54
-90            android:exported="true"
-90-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:39:55-78
-91            android:label="@string/widget_label" >
-91-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:39:79-115
-92            <intent-filter>
-92-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:40:13-43:29
-93                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-93-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:41:17-84
-93-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:41:25-81
-94                <action android:name="com.pau.busapp.WIDGET_REFRESH" />
-94-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:42:17-72
-94-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:42:25-69
-95            </intent-filter>
-96
-97            <meta-data
-97-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:44:13-110
-98                android:name="android.appwidget.provider"
-98-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:44:24-65
-99                android:resource="@xml/widget_stops_info" />
-99-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:44:66-107
-100        </receiver>
-101        <receiver
-101-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:46:9-50:20
-102            android:name="com.pau.busapp.BootReceiver"
-102-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:46:19-47
-103            android:exported="true" >
-103-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:46:48-71
-104            <intent-filter>
-104-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:47:13-49:29
-105                <action android:name="android.intent.action.BOOT_COMPLETED" />
-105-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:48:17-79
-105-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:48:25-76
-106            </intent-filter>
-107        </receiver>
-108
-109        <provider
-109-->[androidx.emoji2:emoji2:1.2.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\5752f90c4c595dd8650556aa3a796a8e\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
-110            android:name="androidx.startup.InitializationProvider"
-110-->[androidx.emoji2:emoji2:1.2.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\5752f90c4c595dd8650556aa3a796a8e\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
-111            android:authorities="com.pau.busapp.androidx-startup"
-111-->[androidx.emoji2:emoji2:1.2.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\5752f90c4c595dd8650556aa3a796a8e\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
-112            android:exported="false" >
-112-->[androidx.emoji2:emoji2:1.2.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\5752f90c4c595dd8650556aa3a796a8e\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
-113            <meta-data
-113-->[androidx.emoji2:emoji2:1.2.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\5752f90c4c595dd8650556aa3a796a8e\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
-114                android:name="androidx.emoji2.text.EmojiCompatInitializer"
-114-->[androidx.emoji2:emoji2:1.2.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\5752f90c4c595dd8650556aa3a796a8e\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
-115                android:value="androidx.startup" />
-115-->[androidx.emoji2:emoji2:1.2.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\5752f90c4c595dd8650556aa3a796a8e\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
-116            <meta-data
-116-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\ffavr\.gradle\caches\8.13\transforms\e4f0cf2cacf76605f629de516d233783\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:29:13-31:52
-117                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
-117-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\ffavr\.gradle\caches\8.13\transforms\e4f0cf2cacf76605f629de516d233783\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:30:17-78
-118                android:value="androidx.startup" />
-118-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\ffavr\.gradle\caches\8.13\transforms\e4f0cf2cacf76605f629de516d233783\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:31:17-49
-119            <meta-data
-119-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
-120                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
-120-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
-121                android:value="androidx.startup" />
-121-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
-122        </provider>
-123
-124        <receiver
-124-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
-125            android:name="androidx.profileinstaller.ProfileInstallReceiver"
-125-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
-126            android:directBootAware="false"
-126-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
-127            android:enabled="true"
-127-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
-128            android:exported="true"
-128-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
-129            android:permission="android.permission.DUMP" >
-129-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
-130            <intent-filter>
-130-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
-131                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
-131-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
-131-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
-132            </intent-filter>
-133            <intent-filter>
-133-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
-134                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
-134-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
-134-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
-135            </intent-filter>
-136            <intent-filter>
-136-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
-137                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
-137-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
-137-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
-138            </intent-filter>
-139            <intent-filter>
-139-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
-140                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
-140-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
-140-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
-141            </intent-filter>
-142        </receiver>
-143    </application>
-144
-145</manifest>
+59        android:testOnly="true"
+60        android:theme="@style/Theme.BusPau"
+60-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:22:9-44
+61        android:usesCleartextTraffic="true" >
+61-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:21:9-44
+62        <activity
+62-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:23:9-29:20
+63            android:name="com.pau.busapp.MainActivity"
+63-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:23:19-47
+64            android:exported="true"
+64-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:23:48-71
+65            android:launchMode="singleTop" >
+65-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:24:13-43
+66            <intent-filter>
+66-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:25:13-28:29
+67                <action android:name="android.intent.action.MAIN" />
+67-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:26:17-69
+67-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:26:25-66
+68
+69                <category android:name="android.intent.category.LAUNCHER" />
+69-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:27:17-77
+69-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:27:27-74
+70            </intent-filter>
+71        </activity>
+72        <activity
+72-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:30:9-31:50
+73            android:name="com.pau.busapp.WidgetConfigActivity"
+73-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:30:19-55
+74            android:exported="false"
+74-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:30:56-80
+75            android:theme="@style/Theme.BusPau" />
+75-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:31:13-48
+76
+77        <service
+77-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:32:9-34:55
+78            android:name="com.pau.busapp.TrackingService"
+78-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:32:18-49
+79            android:exported="false"
+79-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:33:13-37
+80            android:foregroundServiceType="dataSync" />
+80-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:34:13-53
+81        <service
+81-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:35:9-37:39
+82            android:name="com.pau.busapp.WidgetListService"
+82-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:35:18-51
+83            android:exported="false"
+83-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:37:13-37
+84            android:permission="android.permission.BIND_REMOTEVIEWS" />
+84-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:36:13-69
+85
+86        <receiver
+86-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:38:9-76
+87            android:name="com.pau.busapp.AlertReceiver"
+87-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:38:19-48
+88            android:exported="false" />
+88-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:38:49-73
+89        <receiver
+89-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:39:9-45:20
+90            android:name="com.pau.busapp.StopsWidgetProvider"
+90-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:39:19-54
+91            android:exported="true"
+91-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:39:55-78
+92            android:label="@string/widget_label" >
+92-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:39:79-115
+93            <intent-filter>
+93-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:40:13-43:29
+94                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+94-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:41:17-84
+94-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:41:25-81
+95                <action android:name="com.pau.busapp.WIDGET_REFRESH" />
+95-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:42:17-72
+95-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:42:25-69
+96            </intent-filter>
+97
+98            <meta-data
+98-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:44:13-110
+99                android:name="android.appwidget.provider"
+99-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:44:24-65
+100                android:resource="@xml/widget_stops_info" />
+100-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:44:66-107
+101        </receiver>
+102        <receiver
+102-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:46:9-50:20
+103            android:name="com.pau.busapp.BootReceiver"
+103-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:46:19-47
+104            android:exported="true" >
+104-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:46:48-71
+105            <intent-filter>
+105-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:47:13-49:29
+106                <action android:name="android.intent.action.BOOT_COMPLETED" />
+106-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:48:17-79
+106-->C:\Caolan\Documents\Programmation\NouveauIdelis\ClaudeCode\BusV6\app\src\main\AndroidManifest.xml:48:25-76
+107            </intent-filter>
+108        </receiver>
+109
+110        <provider
+110-->[androidx.emoji2:emoji2:1.2.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\5752f90c4c595dd8650556aa3a796a8e\transformed\emoji2-1.2.0\AndroidManifest.xml:24:9-32:20
+111            android:name="androidx.startup.InitializationProvider"
+111-->[androidx.emoji2:emoji2:1.2.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\5752f90c4c595dd8650556aa3a796a8e\transformed\emoji2-1.2.0\AndroidManifest.xml:25:13-67
+112            android:authorities="com.pau.busapp.androidx-startup"
+112-->[androidx.emoji2:emoji2:1.2.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\5752f90c4c595dd8650556aa3a796a8e\transformed\emoji2-1.2.0\AndroidManifest.xml:26:13-68
+113            android:exported="false" >
+113-->[androidx.emoji2:emoji2:1.2.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\5752f90c4c595dd8650556aa3a796a8e\transformed\emoji2-1.2.0\AndroidManifest.xml:27:13-37
+114            <meta-data
+114-->[androidx.emoji2:emoji2:1.2.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\5752f90c4c595dd8650556aa3a796a8e\transformed\emoji2-1.2.0\AndroidManifest.xml:29:13-31:52
+115                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+115-->[androidx.emoji2:emoji2:1.2.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\5752f90c4c595dd8650556aa3a796a8e\transformed\emoji2-1.2.0\AndroidManifest.xml:30:17-75
+116                android:value="androidx.startup" />
+116-->[androidx.emoji2:emoji2:1.2.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\5752f90c4c595dd8650556aa3a796a8e\transformed\emoji2-1.2.0\AndroidManifest.xml:31:17-49
+117            <meta-data
+117-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\ffavr\.gradle\caches\8.13\transforms\e4f0cf2cacf76605f629de516d233783\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:29:13-31:52
+118                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+118-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\ffavr\.gradle\caches\8.13\transforms\e4f0cf2cacf76605f629de516d233783\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:30:17-78
+119                android:value="androidx.startup" />
+119-->[androidx.lifecycle:lifecycle-process:2.6.1] C:\Users\ffavr\.gradle\caches\8.13\transforms\e4f0cf2cacf76605f629de516d233783\transformed\lifecycle-process-2.6.1\AndroidManifest.xml:31:17-49
+120            <meta-data
+120-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:29:13-31:52
+121                android:name="androidx.profileinstaller.ProfileInstallerInitializer"
+121-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:30:17-85
+122                android:value="androidx.startup" />
+122-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:31:17-49
+123        </provider>
+124
+125        <receiver
+125-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:34:9-52:20
+126            android:name="androidx.profileinstaller.ProfileInstallReceiver"
+126-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:35:13-76
+127            android:directBootAware="false"
+127-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:36:13-44
+128            android:enabled="true"
+128-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:37:13-35
+129            android:exported="true"
+129-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:38:13-36
+130            android:permission="android.permission.DUMP" >
+130-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:39:13-57
+131            <intent-filter>
+131-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:40:13-42:29
+132                <action android:name="androidx.profileinstaller.action.INSTALL_PROFILE" />
+132-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:41:17-91
+132-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:41:25-88
+133            </intent-filter>
+134            <intent-filter>
+134-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:43:13-45:29
+135                <action android:name="androidx.profileinstaller.action.SKIP_FILE" />
+135-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:44:17-85
+135-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:44:25-82
+136            </intent-filter>
+137            <intent-filter>
+137-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:46:13-48:29
+138                <action android:name="androidx.profileinstaller.action.SAVE_PROFILE" />
+138-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:47:17-88
+138-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:47:25-85
+139            </intent-filter>
+140            <intent-filter>
+140-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:49:13-51:29
+141                <action android:name="androidx.profileinstaller.action.BENCHMARK_OPERATION" />
+141-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:50:17-95
+141-->[androidx.profileinstaller:profileinstaller:1.3.0] C:\Users\ffavr\.gradle\caches\8.13\transforms\4512e89f8aaf2b604d2a4fa9e47ba170\transformed\profileinstaller-1.3.0\AndroidManifest.xml:50:25-92
+142            </intent-filter>
+143        </receiver>
+144    </application>
+145
+146</manifest>
