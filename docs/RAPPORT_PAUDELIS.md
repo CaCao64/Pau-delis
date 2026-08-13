@@ -20,8 +20,8 @@ Le projet est structure autour d'une architecture `Single-Activity` avec navigat
 Le depot contient aussi plusieurs artefacts non applicatifs :
 
 - `index.html`, qui ressemble a une page de remerciement / soutien avec Google Analytics
-- `hs_err_pid18080.log`, journal de crash JVM
-- `replay_pid18080.log`, fichier vide de relecture
+- `logs/hs_err_pid18080.log`, journal de crash JVM
+- `logs/replay_pid18080.log`, fichier vide de relecture
 - Un dossier `Android Studio/` qui ressemble a une copie miroir du projet
 - Le dossier `build/` et `app/build/`, qui contiennent les artefacts generes
 
@@ -38,7 +38,7 @@ Fichiers principaux a la racine :
 - `gradlew.bat`
 - `app/build.gradle`
 - `app/src/main/AndroidManifest.xml`
-- `task.md`
+- `docs/task.md`
 - `index.html`
 
 ### 2.2. Structure applicative principale
@@ -303,7 +303,7 @@ Le code n'utilise pas une abstraction HTTP classique ici :
 - decodage manuel du chunked transfer encoding
 - parsing JSON en sortie
 
-Cette approche est coherente avec `task.md`, qui parle de sockets SSL et d'une dependance legere.
+Cette approche est coherente avec `docs/task.md`, qui parle de sockets SSL et d'une dependance legere.
 
 ### 8.2. Gestion des statuts
 
@@ -642,11 +642,11 @@ Le dossier `app/src/main/res` est riche :
 
 Elle semble plutot liee a la communication ou a un support externe.
 
-## 15. Analyse de `task.md`
+## 15. Analyse de `docs/task.md`
 
 ### 15.1. Nature du document
 
-`task.md` est un document de specification technique et d'architecture pour Pau'delis, nomme "BusV6".
+`docs/task.md` est un document de specification technique et d'architecture pour Pau'delis, nomme "BusV6".
 
 Il couvre :
 
@@ -732,7 +732,7 @@ Il est structure en 8 grandes sections :
 7. Tutoriel et ergonomie visuelle
 8. Tableau de bord Jira
 
-### 15.3. Ce que `task.md` confirme
+### 15.3. Ce que `docs/task.md` confirme
 
 Le document est tres coherent avec le code trouve :
 
@@ -750,7 +750,7 @@ Le document est tres coherent avec le code trouve :
 
 Quelques ecarts / points d'attention ressortent :
 
-- `task.md` annonce 45 tickets Jira, mais le tableau enumererait 46 identifiants dans les sections visibles
+- `docs/task.md` annonce 45 tickets Jira, mais le tableau enumererait 46 identifiants dans les sections visibles
 - le tableau backlog contient une duplication semantique autour de l'indisponibilite API :
   - BUS-33
   - BUS-34
@@ -825,7 +825,7 @@ Parmi les tickets deja termines :
 - absence de dossiers de tests observes
 - plusieurs fichiers build / crash logs dans le depot
 - cle API IDELIS presente dans la configuration Gradle
-- nombreux tickets encore ouverts dans `task.md`
+- nombreux tickets encore ouverts dans `docs/task.md`
 - la couche widget est tres complexe et peut etre fragile
 - la logique de passage en temps reel et de fallback GTFS semble subtile et merite des tests fonctionnels
 
@@ -842,4 +842,4 @@ Le code couvre bien :
 - les widgets
 - la personnalisation
 
-`task.md` confirme cette direction et sert de vraie feuille de route produit / backlog. Le principal travail restant semble moins structurel que fonctionnel : corrections de bugs, harmonisation des notifications, fiabilisation du realtime, optimisation batterie, et finalisation de certaines experiences utilisateur.
+`docs/task.md` confirme cette direction et sert de vraie feuille de route produit / backlog. Le principal travail restant semble moins structurel que fonctionnel : corrections de bugs, harmonisation des notifications, fiabilisation du realtime, optimisation batterie, et finalisation de certaines experiences utilisateur.
