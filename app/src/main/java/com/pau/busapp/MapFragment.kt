@@ -14,6 +14,9 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import com.pau.busapp.databinding.FragmentMapBinding
 import org.osmdroid.config.Configuration
 import org.osmdroid.events.MapListener
@@ -200,49 +203,57 @@ class MapFragment : Fragment() {
     private fun onNearestStopClicked() {
         val ctx = requireContext()
 
-        // L'émulation est prioritaire dans tous les cas
-        if (emulationActive) {
-            val c = map.mapCenter
-            openNearestStop(c.latitude, c.longitude)
-            return
-        }
+        b.layoutSearchLoader.visibility = View.VISIBLE
 
-        // Sans émulation : position GPS requise
-        val hasFine   = ContextCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
-        val hasCoarse = ContextCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+        viewLifecycleOwner.lifecycleScope.launch {
+            delay(1200)
+            if (_b == null) return@launch
+            b.layoutSearchLoader.visibility = View.GONE
 
-        if (!hasFine && !hasCoarse) {
-            locationPermission.launch(arrayOf(
-                Manifest.permission.ACCESS_FINE_LOCATION,
-                Manifest.permission.ACCESS_COARSE_LOCATION))
-            return
-        }
-
-        // Position GPS connue (dernière position ou point bleu déjà affiché)
-        val lat: Double
-        val lon: Double
-        if (!locationDotOverlay.currentLat.isNaN()) {
-            lat = locationDotOverlay.currentLat
-            lon = locationDotOverlay.currentLon
-        } else {
-            val lm = ctx.getSystemService(android.content.Context.LOCATION_SERVICE) as android.location.LocationManager
-            val loc = try {
-                if (hasFine)
-                    lm.getLastKnownLocation(android.location.LocationManager.GPS_PROVIDER)
-                        ?: lm.getLastKnownLocation(android.location.LocationManager.NETWORK_PROVIDER)
-                else
-                    lm.getLastKnownLocation(android.location.LocationManager.NETWORK_PROVIDER)
-            } catch (_: SecurityException) { null }
-
-            if (loc == null) {
-                Toast.makeText(ctx, getString(R.string.map_position_unknown), Toast.LENGTH_SHORT).show()
-                return
+            // L'émulation est prioritaire dans tous les cas
+            if (emulationActive) {
+                val c = map.mapCenter
+                openNearestStop(c.latitude, c.longitude)
+                return@launch
             }
-            lat = loc.latitude
-            lon = loc.longitude
-        }
 
-        openNearestStop(lat, lon)
+            // Sans émulation : position GPS requise
+            val hasFine   = ContextCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
+            val hasCoarse = ContextCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
+
+            if (!hasFine && !hasCoarse) {
+                locationPermission.launch(arrayOf(
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION))
+                return@launch
+            }
+
+            // Position GPS connue (dernière position ou point bleu déjà affiché)
+            val lat: Double
+            val lon: Double
+            if (!locationDotOverlay.currentLat.isNaN()) {
+                lat = locationDotOverlay.currentLat
+                lon = locationDotOverlay.currentLon
+            } else {
+                val lm = ctx.getSystemService(android.content.Context.LOCATION_SERVICE) as android.location.LocationManager
+                val loc = try {
+                    if (hasFine)
+                        lm.getLastKnownLocation(android.location.LocationManager.GPS_PROVIDER)
+                            ?: lm.getLastKnownLocation(android.location.LocationManager.NETWORK_PROVIDER)
+                    else
+                        lm.getLastKnownLocation(android.location.LocationManager.NETWORK_PROVIDER)
+                } catch (_: SecurityException) { null }
+
+                if (loc == null) {
+                    Toast.makeText(ctx, getString(R.string.map_position_unknown), Toast.LENGTH_SHORT).show()
+                    return@launch
+                }
+                lat = loc.latitude
+                lon = loc.longitude
+            }
+
+            openNearestStop(lat, lon)
+        }
     }
 
     private fun openNearestStop(lat: Double, lon: Double) {
@@ -323,8 +334,8 @@ class MapFragment : Fragment() {
 
         // Mises à jour en continu
         if (!gpsListening) {
-            if (hasFine)   lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,     2000L, 5f, gpsListener)
-            if (hasCoarse) lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 2000L, 5f, gpsListener)
+            if (hasFine)   lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,     10000L, 15f, gpsListener)
+            if (hasCoarse) lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000L, 15f, gpsListener)
             gpsListening = true
         }
     }
@@ -390,7 +401,12 @@ class MapFragment : Fragment() {
     // ── Marker builders ───────────────────────────────────────────────────────
 
     private fun stopColors(stop: BusStop): List<Int> {
-        val colors = stop.lines.mapNotNull { num -> AppData.busLines.find { it.number == num }?.color }
+        val colors = stop.lines
+            .filter { num ->
+                val line = AppData.busLines.find { it.number == num }
+                line != null && (line.stopsDir1.contains(stop.name) || line.stopsDir2.contains(stop.name))
+            }
+            .mapNotNull { num -> AppData.busLines.find { it.number == num }?.color }
         return colors.ifEmpty { listOf(0xFF_00843D.toInt()) }
     }
 

@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     var currentSelectedId = R.id.nav_map
+    var pendingScrollStopName: String? = null
 
     // Lanceur permission notification — stocké en attendant le résultat
     private var pendingAlertStopName: String? = null
@@ -159,6 +160,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun handleWidgetIntent(intent: Intent?) {
         val key = intent?.getStringExtra(StopsWidgetProvider.EXTRA_STOP_NAME) ?: return
+        val highlightLine = intent?.getStringExtra("highlight_line")
         // Clés préfixées : "stop:NomArrêt", "bus:NomArrêt|ligne|dest", "ligne:T3"
         val stopName = when {
             key.startsWith(WidgetOrderManager.PREFIX_STOP) -> key.removePrefix(WidgetOrderManager.PREFIX_STOP)
@@ -166,7 +168,8 @@ class MainActivity : AppCompatActivity() {
             else -> key  // ancienne clé sans préfixe ou ligne — on tente tel quel
         }
         val stop = AppData.busStops.find { it.name == stopName } ?: return
-        openDetails(stop)
+        pendingScrollStopName = stopName
+        showFragment(DetailsFragment.newInstance(stop, highlightLine), true)
     }
 
     fun applyNavStyle(style: NavStyle) {
@@ -299,6 +302,19 @@ class MainActivity : AppCompatActivity() {
 
     fun setSelected(selectedId: Int) {
         currentSelectedId = selectedId
+        val tabName = when (selectedId) {
+            R.id.nav_map -> "Carte"
+            R.id.nav_favs -> "Favoris"
+            R.id.nav_search -> "Recherche"
+            R.id.nav_alerts -> "Alertes"
+            R.id.nav_stops -> "Arrêts"
+            R.id.nav_lines -> "Lignes"
+            R.id.nav_settings -> "Paramètres"
+            R.id.nav_more -> "Plus"
+            else -> "Inconnu ($selectedId)"
+        }
+        android.util.Log.d("Analytics", "Google Analytics Tab Change: Selected Tab = $tabName")
+
         val style         = NavStyleManager.get(this)
         val activeColor   = ContextCompat.getColor(this, R.color.green_primary)
         val inactiveColor = Color.parseColor("#9E9E9E")
@@ -457,7 +473,7 @@ class MainActivity : AppCompatActivity() {
         notifPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
     }
 
-    fun openDetails(stop: BusStop)     = showFragment(DetailsFragment.newInstance(stop), true)
+    fun openDetails(stop: BusStop)     = showFragment(DetailsFragment.newInstance(stop, null), true)
     fun openLineDetail(line: BusLine)  = showFragment(LineDetailFragment.newInstance(line), true)
     fun openAddAlert(stopName: String = "") =
         AddAlertDialog.newInstance(stopName).show(supportFragmentManager, "add_alert")

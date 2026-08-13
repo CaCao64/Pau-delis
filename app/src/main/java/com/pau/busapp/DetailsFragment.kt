@@ -16,13 +16,14 @@ class DetailsFragment : Fragment() {
     private val b get() = _b!!
 
     companion object {
-        fun newInstance(stop: BusStop) = DetailsFragment().apply {
+        fun newInstance(stop: BusStop, highlightLine: String? = null) = DetailsFragment().apply {
             arguments = Bundle().apply {
                 putString("name", stop.name)
                 putString("lines", stop.lines.joinToString(","))
                 putStringArrayList("codes", ArrayList(stop.codes))
                 putDouble("lat", stop.lat)
                 putDouble("lon", stop.lon)
+                putString("highlight_line", highlightLine)
             }
         }
     }
@@ -46,6 +47,27 @@ class DetailsFragment : Fragment() {
         b.tvInfo.text =
             if (lines.isNotEmpty()) getString(R.string.lines_label, lines.joinToString(", "))
             else getString(R.string.no_line)
+
+        // Appliquer un dégradé au bandeau avec les couleurs des lignes y passant
+        val sortedLines = lines.sortedWith(compareBy<String> { it.toIntOrNull() ?: Int.MAX_VALUE }.thenBy { it })
+        val topLines = sortedLines.take(4)
+        val headerColors = topLines.mapNotNull { num -> AppData.busLines.find { it.number == num }?.color }.distinct()
+        
+        if (headerColors.isNotEmpty()) {
+            val gd = if (headerColors.size == 1) {
+                GradientDrawable().apply { setColor(headerColors[0]) }
+            } else {
+                GradientDrawable(GradientDrawable.Orientation.LEFT_RIGHT, headerColors.toIntArray())
+            }
+            b.headerLayout.background = gd
+            
+            // Adapter les couleurs du texte et des icônes pour la lisibilité
+            b.tvStopName.setTextColor(Color.WHITE)
+            b.btnRetour.imageTintList = android.content.res.ColorStateList.valueOf(Color.WHITE)
+            b.btnRefresh.setTextColor(Color.WHITE)
+            b.btnLocate.setTextColor(Color.WHITE)
+            b.btnSeeLine.setTextColor(Color.WHITE)
+        }
 
         updateStar()
         b.btnFav.setOnClickListener {
@@ -89,12 +111,14 @@ class DetailsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         val codes = arguments?.getStringArrayList("codes") ?: return
+        if (dtPicker.isNow) {
+            loadPassages(codes)
+        }
         autoRefreshJob?.cancel()
         autoRefreshJob = viewLifecycleOwner.lifecycleScope.launch {
-            kotlinx.coroutines.delay(40_000)
             while (true) {
-                if (_b != null && dtPicker.isNow) loadPassages(codes)
                 kotlinx.coroutines.delay(40_000)
+                if (_b != null && dtPicker.isNow) loadPassages(codes)
             }
         }
     }
@@ -103,6 +127,43 @@ class DetailsFragment : Fragment() {
         super.onPause()
         autoRefreshJob?.cancel()
         autoRefreshJob = null
+    }
+
+    private fun addPassageRows(list: List<StopInfo>, highlightLine: String?) {
+        list.forEach { info ->
+            val row = passageRow(info)
+            if (info.ligne == highlightLine) {
+                row.tag = "highlight"
+            }
+            b.passagesContainer.addView(row)
+        }
+    }
+
+    private fun scrollAndHighlight(savedScroll: Int, highlightLine: String?) {
+        b.scrollDetails.post {
+            if (highlightLine != null) {
+                var targetView: View? = null
+                for (i in 0 until b.passagesContainer.childCount) {
+                    val child = b.passagesContainer.getChildAt(i)
+                    if (child.tag == "highlight") {
+                        targetView = child
+                        break
+                    }
+                }
+                if (targetView != null) {
+                    b.scrollDetails.scrollTo(0, targetView.top)
+                    val originalBg = targetView.background
+                    targetView.setBackgroundColor(Color.parseColor("#FFE082"))
+                    targetView.postDelayed({
+                        targetView.background = originalBg
+                    }, 2500)
+                } else {
+                    b.scrollDetails.scrollTo(0, savedScroll)
+                }
+            } else {
+                b.scrollDetails.scrollTo(0, savedScroll)
+            }
+        }
     }
 
     private fun loadPassages(codes: List<String>) {
@@ -116,9 +177,10 @@ class DetailsFragment : Fragment() {
         b.passagesContainer.removeAllViews()
 
         viewLifecycleOwner.lifecycleScope.launch {
+            val highlightLine = arguments?.getString("highlight_line")
             if (!dtPicker.isNow) {
-                loadTheoreticalAtTime(codes)
-                b.scrollDetails.post { b.scrollDetails.scrollTo(0, savedScroll) }
+                loadTheoreticalAtTime(codes, highlightLine)
+                scrollAndHighlight(savedScroll, highlightLine)
                 return@launch
             }
 
@@ -135,16 +197,20 @@ class DetailsFragment : Fragment() {
             val allInfos = mutableListOf<StopInfo>()
             var serverReachable = false
             var lastError: String? = null
+            val currentHour = cal.get(java.util.Calendar.HOUR_OF_DAY)
+            val isNightTime = currentHour >= 22 || currentHour < 6
+            val isOffSchedule = isSunday || isFerie || isNightTime
+
             for (code in codes) {
                 try {
                     allInfos.addAll(IdelisApi.getStopMonitoring(code, 5))
                     serverReachable = true
                 } catch (e: Exception) {
                     val msg = e.message ?: ""
-                    if (msg.contains("500")) {
+                    if (msg.contains("500") && isOffSchedule) {
                         serverReachable = true
                     } else {
-                        lastError = "${e.javaClass.simpleName}: ${msg.take(60)}"
+                        lastError = if (msg.contains("500")) "HTTP 500 (API Indisponible)" else "${e.javaClass.simpleName}: ${msg.take(60)}"
                         android.util.Log.e("IdelisApi", "Erreur code=$code : $lastError")
                     }
                 }
@@ -177,9 +243,9 @@ class DetailsFragment : Fragment() {
                             b.tvPassagesStatus.setTextColor(android.graphics.Color.WHITE)
                         } else {
                             b.tvPassagesStatus.text = getString(R.string.offline_theoretical_count, theoretical.size)
-                            theoretical.forEach { b.passagesContainer.addView(passageRow(it)) }
+                            addPassageRows(theoretical, highlightLine)
                         }
-                        b.scrollDetails.post { b.scrollDetails.scrollTo(0, savedScroll) }
+                        scrollAndHighlight(savedScroll, highlightLine)
                     } catch (e: Exception) {
                         if (_b == null) return@launch
                         b.tvPassagesStatus.text = getString(R.string.no_passage_today)
@@ -190,8 +256,8 @@ class DetailsFragment : Fragment() {
                     }
                 } else {
                     b.tvPassagesStatus.text = getString(R.string.passages_count, merged.size)
-                    merged.forEach { b.passagesContainer.addView(passageRow(it)) }
-                    b.scrollDetails.post { b.scrollDetails.scrollTo(0, savedScroll) }
+                    addPassageRows(merged, highlightLine)
+                    scrollAndHighlight(savedScroll, highlightLine)
                 }
             } else {
                 if ((isSunday || isFerie) && !hasSundayLine) {
@@ -211,9 +277,9 @@ class DetailsFragment : Fragment() {
                         b.tvPassagesStatus.setTextColor(android.graphics.Color.WHITE)
                     } else {
                         b.tvPassagesStatus.text = getString(R.string.offline_theoretical_count, theoretical.size)
-                        theoretical.forEach { b.passagesContainer.addView(passageRow(it)) }
+                        addPassageRows(theoretical, highlightLine)
                     }
-                    b.scrollDetails.post { b.scrollDetails.scrollTo(0, savedScroll) }
+                    scrollAndHighlight(savedScroll, highlightLine)
                 } catch (e: Exception) {
                     if (_b == null) return@launch
                     b.tvPassagesStatus.text = getString(R.string.cannot_load_schedules)
@@ -226,7 +292,7 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    private suspend fun loadTheoreticalAtTime(codes: List<String>) {
+    private suspend fun loadTheoreticalAtTime(codes: List<String>, highlightLine: String? = null) {
         try {
             val cal = dtPicker.calendar
             val date = java.time.LocalDate.of(cal.get(java.util.Calendar.YEAR), cal.get(java.util.Calendar.MONTH) + 1, cal.get(java.util.Calendar.DAY_OF_MONTH))
@@ -237,7 +303,7 @@ class DetailsFragment : Fragment() {
                 b.tvPassagesStatus.text = getString(R.string.no_passage_today)
             } else {
                 b.tvPassagesStatus.text = getString(R.string.offline_theoretical_count, theoretical.size)
-                theoretical.forEach { b.passagesContainer.addView(passageRow(it)) }
+                addPassageRows(theoretical, highlightLine)
             }
         } catch (e: Exception) {
             if (_b == null) return
@@ -446,8 +512,13 @@ class DetailsFragment : Fragment() {
         val isFav = FavoritesManager.isStopFav(requireContext(),
             arguments?.getString("name") ?: "")
         b.btnFav.text = if (isFav) "⭐" else "☆"
+        
+        val lines = arguments?.getString("lines")?.takeIf { it.isNotEmpty() }?.split(",") ?: emptyList()
+        val hasGradient = lines.isNotEmpty()
+        
         b.btnFav.setTextColor(
             if (isFav) Color.parseColor("#F7C100")
+            else if (hasGradient) Color.WHITE
             else Color.GRAY
         )
     }

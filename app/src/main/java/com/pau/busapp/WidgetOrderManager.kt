@@ -71,10 +71,12 @@ object WidgetOrderManager {
         }
         toFix.forEach { bare ->
             val idx = existing.indexOf(bare)
-            val key = "$PREFIX_STOP$bare"
-            existing[idx] = key
-            if (bare in enabledSet) { enabledSet.remove(bare); enabledSet.add(key) }
-            changed = true
+            if (idx >= 0) {
+                val key = "$PREFIX_STOP$bare"
+                existing[idx] = key
+                if (bare in enabledSet) { enabledSet.remove(bare); enabledSet.add(key) }
+                changed = true
+            }
         }
 
         // 2. Ajouter les arrêts widget de l'ancien manager (toujours actifs)

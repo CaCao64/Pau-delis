@@ -115,16 +115,16 @@ class StopsWidgetProvider : AppWidgetProvider() {
             }
         }
 
-        private fun computeContextStatus(socketOk: Boolean, ctx: Context): Pair<String, Int> {
+        private fun computeContextStatus(socketOk: Boolean, ctx: Context, isDark: Boolean): Pair<String, Int> {
             val cal = Calendar.getInstance()
             val hour = cal.get(Calendar.HOUR_OF_DAY)
-            val blue = android.graphics.Color.parseColor("#80D4FF")
+            val blue = android.graphics.Color.parseColor(if (isDark) "#80D4FF" else "#006699")
 
-            if (!socketOk) return Pair(ctx.getString(R.string.status_offline), android.graphics.Color.parseColor("#FFCCCC"))
+            if (!socketOk) return Pair(ctx.getString(R.string.status_offline), android.graphics.Color.parseColor(if (isDark) "#FF8888" else "#CC0000"))
             if (isFrenchHoliday(cal)) return Pair(ctx.getString(R.string.status_holiday), blue)
             if (cal.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) return Pair(ctx.getString(R.string.status_sunday), blue)
             if (hour >= 20 || hour < 6) return Pair(ctx.getString(R.string.status_night), blue)
-            return Pair(ctx.getString(R.string.api_online), android.graphics.Color.BLACK)
+            return Pair(ctx.getString(R.string.api_online), if (isDark) android.graphics.Color.parseColor("#81C784") else android.graphics.Color.parseColor("#2E7D32"))
         }
     }
 
@@ -155,8 +155,21 @@ class StopsWidgetProvider : AppWidgetProvider() {
         updateJob?.cancel()
     }
 
+    private fun applyTheme(ctx: Context, views: RemoteViews, widgetId: Int) {
+        val isDark = WidgetConfigActivity.isDark(ctx, widgetId)
+        val opacity = WidgetConfigActivity.getOpacity(ctx, widgetId)
+        val baseColor = android.graphics.Color.parseColor(if (isDark) "#0D3B14" else "#E8F5E9")
+        val widgetBgColor = android.graphics.Color.argb(opacity, android.graphics.Color.red(baseColor), android.graphics.Color.green(baseColor), android.graphics.Color.blue(baseColor))
+        views.setColorStateList(R.id.widget_root, "setBackgroundTintList", android.content.res.ColorStateList.valueOf(widgetBgColor))
+
+        val textColor = if (isDark) android.graphics.Color.WHITE else android.graphics.Color.BLACK
+        views.setTextColor(R.id.widget_title, textColor)
+        views.setTextColor(R.id.btn_refresh, textColor)
+    }
+
     private fun setupListAdapter(ctx: Context, mgr: AppWidgetManager, widgetId: Int) {
         val views = RemoteViews(ctx.packageName, R.layout.widget_stops)
+        applyTheme(ctx, views, widgetId)
 
         // Adapter pour la liste défilable
         val svcIntent = Intent(ctx, WidgetListService::class.java).apply {
@@ -221,24 +234,26 @@ class StopsWidgetProvider : AppWidgetProvider() {
         val timeFmt  = SimpleDateFormat("HH:mm", Locale.FRANCE)
 
         // Init liste widget
-        WidgetListFactory.stopNames.clear()
-        WidgetListFactory.stopTimes.clear()
-        WidgetListFactory.stopKeys.clear()
-        WidgetListFactory.stopTextSizes.clear()
-        entries.forEach { key ->
-            val label = when {
-                key.startsWith(WidgetOrderManager.PREFIX_LINE) ->
-                    "Ligne ${key.removePrefix(WidgetOrderManager.PREFIX_LINE)}"
-                key.startsWith(WidgetOrderManager.PREFIX_BUS) -> {
-                    val parts = key.removePrefix(WidgetOrderManager.PREFIX_BUS).split("|")
-                    "[${parts.getOrElse(1){"?"}}] ${parts.getOrElse(0){"?"}}"
+        synchronized(WidgetListFactory.lock) {
+            WidgetListFactory.stopNames.clear()
+            WidgetListFactory.stopTimes.clear()
+            WidgetListFactory.stopKeys.clear()
+            WidgetListFactory.stopTextSizes.clear()
+            entries.forEach { key ->
+                val label = when {
+                    key.startsWith(WidgetOrderManager.PREFIX_LINE) ->
+                        "Ligne ${key.removePrefix(WidgetOrderManager.PREFIX_LINE)}"
+                    key.startsWith(WidgetOrderManager.PREFIX_BUS) -> {
+                        val parts = key.removePrefix(WidgetOrderManager.PREFIX_BUS).split("|")
+                        "[${parts.getOrElse(1){"?"}}] ${parts.getOrElse(0){"?"}}"
+                    }
+                    else -> key.removePrefix(WidgetOrderManager.PREFIX_STOP)
                 }
-                else -> key.removePrefix(WidgetOrderManager.PREFIX_STOP)
+                WidgetListFactory.stopNames.add(label)
+                WidgetListFactory.stopTimes.add(ctx.getString(R.string.widget_loading))
+                WidgetListFactory.stopKeys.add(key)
+                WidgetListFactory.stopTextSizes.add(12)
             }
-            WidgetListFactory.stopNames.add(label)
-            WidgetListFactory.stopTimes.add(ctx.getString(R.string.widget_loading))
-            WidgetListFactory.stopKeys.add(key)
-            WidgetListFactory.stopTextSizes.add(12)
         }
         mgr.notifyAppWidgetViewDataChanged(widgetId, R.id.widget_list)
 
@@ -247,13 +262,15 @@ class StopsWidgetProvider : AppWidgetProvider() {
         // Afficher "Chargement..." avec statut réseau initial
         val networkOk = isNetworkAvailable(ctx)
         val headerViews = RemoteViews(ctx.packageName, R.layout.widget_stops)
+        val isDark = WidgetConfigActivity.isDark(ctx, widgetId)
+        applyTheme(ctx, headerViews, widgetId)
         val refreshPi = PendingIntent.getBroadcast(ctx, widgetId,
             Intent(ctx, StopsWidgetProvider::class.java).apply { action = ACTION_REFRESH },
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
         headerViews.setOnClickPendingIntent(R.id.btn_refresh, refreshPi)
         headerViews.setViewVisibility(R.id.tv_widget_status, View.VISIBLE)
         run {
-            val (t, c) = computeContextStatus(networkOk, ctx)
+            val (t, c) = computeContextStatus(networkOk, ctx, isDark)
             headerViews.setTextViewText(R.id.tv_widget_status, t)
             headerViews.setTextColor(R.id.tv_widget_status, c)
         }
@@ -266,7 +283,9 @@ class StopsWidgetProvider : AppWidgetProvider() {
         for ((i, key) in entries.withIndex()) {
             val cfg = WidgetStopConfigManager.get(ctx, key)
             if (!WidgetStopConfigManager.isActiveToday(cfg)) {
-                if (i < WidgetListFactory.stopTimes.size) WidgetListFactory.stopTimes[i] = ctx.getString(R.string.widget_inactive_today)
+                synchronized(WidgetListFactory.lock) {
+                    if (i < WidgetListFactory.stopTimes.size) WidgetListFactory.stopTimes[i] = ctx.getString(R.string.widget_inactive_today)
+                }
                 mgr.notifyAppWidgetViewDataChanged(widgetId, R.id.widget_list)
                 continue
             }
@@ -277,17 +296,21 @@ class StopsWidgetProvider : AppWidgetProvider() {
                     val stop = AppData.busStops.find { it.name == stopName }
                     val (time, apiOk) = if (stop != null) fetchTimeWithStatus(ctx, stop) else "—" to false
                     if (apiOk) apiReachedAtLeastOnce = true
-                    if (i < WidgetListFactory.stopTimes.size) WidgetListFactory.stopTimes[i] = time
-                    if (i < WidgetListFactory.stopTextSizes.size) WidgetListFactory.stopTextSizes[i] = cfg.textSize
+                    synchronized(WidgetListFactory.lock) {
+                        if (i < WidgetListFactory.stopTimes.size) WidgetListFactory.stopTimes[i] = time
+                        if (i < WidgetListFactory.stopTextSizes.size) WidgetListFactory.stopTextSizes[i] = cfg.textSize
+                    }
                 }
                 key.startsWith(WidgetOrderManager.PREFIX_LINE) -> {
                     val num = key.removePrefix(WidgetOrderManager.PREFIX_LINE)
                     val (stopLabel, time, apiOk) = fetchLineNextStopWithStatus(ctx, num, location)
                     if (apiOk) apiReachedAtLeastOnce = true
-                    if (i < WidgetListFactory.stopNames.size)
-                        WidgetListFactory.stopNames[i] = "Ligne $num — $stopLabel"
-                    if (i < WidgetListFactory.stopTimes.size) WidgetListFactory.stopTimes[i] = time
-                    if (i < WidgetListFactory.stopTextSizes.size) WidgetListFactory.stopTextSizes[i] = cfg.textSize
+                    synchronized(WidgetListFactory.lock) {
+                        if (i < WidgetListFactory.stopNames.size)
+                            WidgetListFactory.stopNames[i] = "Ligne $num — $stopLabel"
+                        if (i < WidgetListFactory.stopTimes.size) WidgetListFactory.stopTimes[i] = time
+                        if (i < WidgetListFactory.stopTextSizes.size) WidgetListFactory.stopTextSizes[i] = cfg.textSize
+                    }
                 }
                 key.startsWith(WidgetOrderManager.PREFIX_BUS) -> {
                     val parts    = key.removePrefix(WidgetOrderManager.PREFIX_BUS).split("|")
@@ -295,7 +318,9 @@ class StopsWidgetProvider : AppWidgetProvider() {
                     val lineNum  = parts.getOrElse(1) { "" }
                     val dest     = parts.getOrElse(2) { "" }.split(" ").take(2).joinToString(" ")
                     val label = "[$lineNum] $stopName → $dest"
-                    if (i < WidgetListFactory.stopNames.size) WidgetListFactory.stopNames[i] = label
+                    synchronized(WidgetListFactory.lock) {
+                        if (i < WidgetListFactory.stopNames.size) WidgetListFactory.stopNames[i] = label
+                    }
                     // Récupérer le prochain passage pour cette ligne à cet arrêt
                     val stop = AppData.busStops.find { it.name == stopName }
                     val (time, apiOk) = if (stop != null) {
@@ -319,8 +344,10 @@ class StopsWidgetProvider : AppWidgetProvider() {
                         }
                     } else "—" to false
                     if (apiOk) apiReachedAtLeastOnce = true
-                    if (i < WidgetListFactory.stopTimes.size) WidgetListFactory.stopTimes[i] = time
-                    if (i < WidgetListFactory.stopTextSizes.size) WidgetListFactory.stopTextSizes[i] = cfg.textSize
+                    synchronized(WidgetListFactory.lock) {
+                        if (i < WidgetListFactory.stopTimes.size) WidgetListFactory.stopTimes[i] = time
+                        if (i < WidgetListFactory.stopTextSizes.size) WidgetListFactory.stopTextSizes[i] = cfg.textSize
+                    }
                 }
             }
             mgr.notifyAppWidgetViewDataChanged(widgetId, R.id.widget_list)
@@ -328,7 +355,7 @@ class StopsWidgetProvider : AppWidgetProvider() {
 
         // Statut final basé sur les appels réels
         val finalOnline = networkOk && apiReachedAtLeastOnce
-        val (finalStatus, finalColor) = computeContextStatus(finalOnline, ctx)
+        val (finalStatus, finalColor) = computeContextStatus(finalOnline, ctx, isDark)
         headerViews.setTextViewText(R.id.tv_widget_status, finalStatus)
         headerViews.setTextColor(R.id.tv_widget_status, finalColor)
         headerViews.setTextViewText(R.id.widget_title, "🚌 ${ctx.getString(R.string.app_name)}  ·  ${timeFmt.format(Date())}")
