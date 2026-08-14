@@ -573,7 +573,7 @@ Le projet contient des dossiers :
 - `values-hi`
 - `values-nl`
 
-Cela montre une couverture de traduction bien plus large que ce que la spec laisse entendre.
+Cela montre une couverture de traduction bien plus large que ce que la spec laisse entendre, avec l'application traduite dans toutes les langues visibles dans le sélecteur d'interface.
 
 ### 12.2. Theme et navigation
 
@@ -665,7 +665,7 @@ Il couvre :
 
 | Ticket | Type | Demande / Description Jira | CE (Attente Capture) | Composant Code Impacte | Statut | Plan d'Action Technique |
 | :---: | :---: | :--- | :---: | :--- | :---: | :--- |
-| **BUS-3** | Bug | Traduction incomplete de l'application (EN / ES) | Non | `strings.xml` (`values-en`, `values-es`) | En cours | Traduction integrale de tous les composants de l'application et du tutoriel. |
+| **BUS-3** | Bug | Traduction incomplete de l'application (EN / ES) | Non | `strings.xml` (`values-*`) | Fait | Traduction integrale de tous les composants de l'application et du tutoriel. |
 | **BUS-16** | Story | Gestion des 2 directions pour un meme arret dans les notifs | Non | `AddAlertDialog.kt`, `Alert.kt` | A faire | Stocker la destination explicite dans le modele `Alert` pour cibler la bonne direction. |
 | **BUS-17** | Story | Ecrire "Bus passe" au lieu de l'horaire perime dans la notif | Non | `TrackingService.kt` | A faire | Mettre a jour le texte de la notification avec `R.string.bus_passed` au franchissement de l'heure. |
 | **BUS-18** | Story | Clic sur notification -> Defilement auto jusqu'a l'arret | Non | `MainActivity.kt`, `StopListFragment.kt` | A faire | Transmettre l'ID de l'arret dans le `PendingIntent` de notification et scroller la liste. |
@@ -843,3 +843,15 @@ Le code couvre bien :
 - la personnalisation
 
 `docs/task.md` confirme cette direction et sert de vraie feuille de route produit / backlog. Le principal travail restant semble moins structurel que fonctionnel : corrections de bugs, harmonisation des notifications, fiabilisation du realtime, optimisation batterie, et finalisation de certaines experiences utilisateur.
+
+## 19. Mise a jour recente
+
+Derniere verification effectuee :
+
+- ajout de Firebase Analytics pour les stats d'usage, avec ecran de consentement au premier demarrage avant le tutoriel
+- finalisation de la traduction de l'application dans toutes les langues disponibles du sélecteur
+- nettoyage lint pousse jusqu'a obtenir `./gradlew check` vert
+- rapport lint final sans erreurs ni warnings
+- validation du helper `PassageHelper` avec `3 tests OK`
+- branche de travail `codex/lint-green` poussee sur GitHub
+- `index.html` est reste intouchable comme demande
