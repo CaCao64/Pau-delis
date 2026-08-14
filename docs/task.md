@@ -144,7 +144,7 @@ L'application propose des widgets de bureau entièrement configurables :
 | **BUS-19** | 📖 Story | Ranger les alertes par nom d'arrêt (menus déroulants) | Non | `AlertsFragment.kt` | pas encore fait | Implémentation d'un RecyclerView à en-têtes extensibles (*Expandable Grouping*). |
 | **BUS-22** | 🐛 Bug | Notification qui disparaît lors d'une perte de connexion | Non | `TrackingService.kt` | pas encore fait | Conserver la notification en indiquant "Connexion perdue..." sans appeler `cancel()`. |
 | **BUS-24** | 📖 Story | Trier les arrêts par prochain passage | Non | `StopListFragment.kt` | pas encore fait | Ajouter un comparateur sur les minutes restantes du prochain bus. |
-| **BUS-25** | 📖 Story | Clic sur notification -> Défilement auto jusqu'à la ligne | Non | `MainActivity.kt`, `DetailsFragment.kt` | pas encore fait | Transmettre l'ID de la ligne via l'Intent de la notif et scroller le RecyclerView. |
+| **BUS-25** | 📖 Story | Clic sur notification -> Défilement auto jusqu'à la ligne | Non | `MainActivity.kt`, `DetailsFragment.kt` | fait | Transmettre l'ID de la ligne via l'Intent de la notif et scroller le RecyclerView. |
 | **BUS-26** | 🐛 Bug | Crash au clic sur "Organiser le widget" | Non | `WidgetConfigActivity.kt`, `WidgetOrderManager.kt` | pas encore fait | Fix `NullPointerException` dans l'Intent ou la liste d'ordonnancement du widget. |
 | **BUS-27** | 📖 Story | Moderniser le widget | Non | `StopsWidgetProvider.kt`, `res/layout/widget_*` | pas encore fait | Redesign des RemoteViews avec coins arrondis et style Material You. |
 | **BUS-28** | 🐛 Bug | Bug général d'affichage / crash ponctuel | Non | Plusieurs fragments | pas encore fait | Diagnostic et correction selon les logs de crash. |

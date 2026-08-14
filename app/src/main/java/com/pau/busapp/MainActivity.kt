@@ -172,6 +172,7 @@ class MainActivity : AppCompatActivity() {
         val stop = AppData.busStops.find { it.name == stopName } ?: return
         if (openMode == "stop_list") {
             pendingScrollStopName = stopName
+            pendingScrollLineNumber = highlightLine
             AnalyticsTracker.openContent(this, "notification_stop_list", stopName, "Arrêts", mapOf("highlight_line" to (highlightLine ?: "")))
             fadeTransition {
                 clearBack()
@@ -491,9 +492,9 @@ class MainActivity : AppCompatActivity() {
         notifPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS)
     }
 
-    fun openDetails(stop: BusStop) {
+    fun openDetails(stop: BusStop, highlightLine: String? = null) {
         AnalyticsTracker.openContent(this, "stop_detail", stop.name, "main")
-        showFragment(DetailsFragment.newInstance(stop, null), true)
+        showFragment(DetailsFragment.newInstance(stop, highlightLine), true)
     }
 
     fun openLineDetail(line: BusLine) {

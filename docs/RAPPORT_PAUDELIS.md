@@ -672,7 +672,7 @@ Il couvre :
 | **BUS-19** | Story | Ranger les alertes par nom d'arret (menus deroulants) | Non | `AlertsFragment.kt` | A faire | Implementation d'un RecyclerView a en-tetes extensibles (Expandable Grouping). |
 | **BUS-22** | Bug | Notification qui disparait lors d'une perte de connexion | Non | `TrackingService.kt` | A faire | Conserver la notification en indiquant "Connexion perdue..." sans appeler `cancel()`. |
 | **BUS-24** | Story | Trier les arrets par prochain passage | Non | `StopListFragment.kt` | A faire | Ajouter un comparateur sur les minutes restantes du prochain bus. |
-| **BUS-25** | Story | Clic sur notification -> Defilement auto jusqu'a la ligne | Non | `MainActivity.kt`, `DetailsFragment.kt` | A faire | Transmettre l'ID de la ligne via l'Intent de la notif et scroller le RecyclerView. |
+| **BUS-25** | Story | Clic sur notification -> Defilement auto jusqu'a la ligne | Non | `MainActivity.kt`, `DetailsFragment.kt` | Fait | Transmettre l'ID de la ligne via l'Intent de la notif et scroller le RecyclerView. |
 | **BUS-26** | Bug | Crash au clic sur "Organiser le widget" | Non | `WidgetConfigActivity.kt`, `WidgetOrderManager.kt` | A faire | Fix `NullPointerException` dans l'Intent ou la liste d'ordonnancement du widget. |
 | **BUS-27** | Story | Moderniser le widget | Non | `StopsWidgetProvider.kt`, `res/layout/widget_*` | A faire | Redesign des RemoteViews avec coins arrondis et style Material You. |
 | **BUS-28** | Bug | Bug general d'affichage / crash ponctuel | Non | Plusieurs fragments | A faire | Diagnostic et correction selon les logs de crash. |

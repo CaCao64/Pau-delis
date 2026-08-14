@@ -199,14 +199,22 @@ class StopListFragment : Fragment() {
             (activity as? MainActivity)?.openDetails(stops[pos])
         }
 
-        val pendingScroll = (activity as? MainActivity)?.pendingScrollStopName
+        val mainActivity = activity as? MainActivity
+        val pendingScroll = mainActivity?.pendingScrollStopName
+        val pendingLine = mainActivity?.pendingScrollLineNumber
         if (pendingScroll != null) {
             val idx = stops.indexOfFirst { it.name == pendingScroll }
             if (idx >= 0) {
                 b.listView.post {
                     b.listView.setSelection(idx)
                 }
-                (activity as? MainActivity)?.pendingScrollStopName = null
+                mainActivity?.pendingScrollStopName = null
+                if (pendingLine != null) {
+                    mainActivity?.pendingScrollLineNumber = null
+                    b.listView.post {
+                        mainActivity?.openDetails(stops[idx], pendingLine)
+                    }
+                }
             }
         }
     }
