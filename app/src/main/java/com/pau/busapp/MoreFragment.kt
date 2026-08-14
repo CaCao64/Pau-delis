@@ -1,6 +1,8 @@
 package com.pau.busapp
 
 import android.animation.ValueAnimator
+import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.graphics.LinearGradient
 import android.graphics.Matrix
@@ -80,10 +82,14 @@ class MoreFragment : Fragment() {
                     val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://donate.stripe.com/5kQaEXe7ea138GL9AhgjC00"))
                     startActivity(intent)
                 }
+            },
+            MoreItem("about",   R.drawable.ic_help,     "À propos") {
+                AnalyticsTracker.trackAction(ctx, "open", "more_about", "Plus")
+                showAboutDialog(ctx)
             }
         )
 
-        val items = allItems.filter { it.id !in visibleTabs || it.id == "settings" || it.id == "tutorial" || it.id == "donate" }
+        val items = allItems.filter { it.id !in visibleTabs || it.id == "settings" || it.id == "tutorial" || it.id == "donate" || it.id == "about" }
 
         items.forEachIndexed { index, item ->
             if (index > 0) {
@@ -134,39 +140,43 @@ class MoreFragment : Fragment() {
             container.addView(row)
         }
 
-        // Vibe coded footer
-        val footerContainer = LinearLayout(ctx).apply {
+        
+    }
+
+    private fun showAboutDialog(ctx: Context) {
+        val dialogLayout = LinearLayout(ctx).apply {
             orientation = LinearLayout.VERTICAL
             gravity = Gravity.CENTER
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
-            ).also {
-                it.topMargin = (32 * resources.displayMetrics.density).toInt()
-                it.bottomMargin = (16 * resources.displayMetrics.density).toInt()
-            }
+            val padding = (24 * resources.displayMetrics.density).toInt()
+            setPadding(padding, padding, padding, padding)
         }
 
-        val footerText1 = TextView(ctx).apply {
-            text = "© 2026 Pau'delis · Projet commencé à 14 ans"
-            textSize = 12f
+        val creatorText = TextView(ctx).apply {
+            text = "Créé par Caolan"
+            textSize = 16f
             gravity = Gravity.CENTER
-            setTextColor(ContextCompat.getColor(ctx, R.color.text_secondary))
+            setTextColor(ContextCompat.getColor(ctx, R.color.text_primary))
+            setTypeface(null, android.graphics.Typeface.BOLD)
         }
-        footerContainer.addView(footerText1)
+        dialogLayout.addView(creatorText)
 
-        val footerText2 = TextView(ctx).apply {
+        val vibeText = TextView(ctx).apply {
             text = "✨ Entièrement vibe codé ✨"
-            textSize = 14f
+            textSize = 18f
             gravity = Gravity.CENTER
             setTypeface(null, android.graphics.Typeface.BOLD)
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
-            ).also { it.topMargin = (6 * resources.displayMetrics.density).toInt() }
+            ).also { it.topMargin = (16 * resources.displayMetrics.density).toInt() }
         }
-        footerContainer.addView(footerText2)
-        applyVibeCodedGradient(footerText2)
+        dialogLayout.addView(vibeText)
+        applyVibeCodedGradient(vibeText)
 
-        container.addView(footerContainer)
+        AlertDialog.Builder(ctx)
+            .setTitle("À propos")
+            .setView(dialogLayout)
+            .setPositiveButton("Fermer", null)
+            .show()
     }
 
     private fun applyShinyGoldGradient(textView: TextView, iconView: ImageView) {
@@ -200,7 +210,7 @@ class MoreFragment : Fragment() {
             animator.repeatMode = ValueAnimator.RESTART
             animator.interpolator = LinearInterpolator()
             animator.addUpdateListener { anim ->
-                if (_b == null) {
+                if (_b == null || !textView.isAttachedToWindow) {
                     anim.cancel()
                     return@addUpdateListener
                 }
@@ -242,7 +252,7 @@ class MoreFragment : Fragment() {
             animator.repeatMode = ValueAnimator.RESTART
             animator.interpolator = LinearInterpolator()
             animator.addUpdateListener { anim ->
-                if (_b == null) {
+                if (_b == null || !textView.isAttachedToWindow) {
                     anim.cancel()
                     return@addUpdateListener
                 }
