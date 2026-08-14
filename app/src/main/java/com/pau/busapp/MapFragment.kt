@@ -280,7 +280,7 @@ class MapFragment : Fragment() {
                         val lonIdx = headers.indexOf("stop_lon")
                         var line = reader.readLine()
                         while (line != null) {
-                            val cols = line.split(",")
+                            val cols = splitCsvLine(line)
                             if (idIdx < cols.size && latIdx < cols.size && lonIdx < cols.size) {
                                 val lat = cols[latIdx].toDoubleOrNull()
                                 val lon = cols[lonIdx].toDoubleOrNull()

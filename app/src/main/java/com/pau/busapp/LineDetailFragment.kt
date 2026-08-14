@@ -2,6 +2,7 @@ package com.pau.busapp
 
 import android.graphics.Color
 import android.graphics.Paint
+import android.graphics.Typeface
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.*
@@ -29,7 +30,8 @@ class LineDetailFragment : Fragment() {
     }
 
     override fun onCreateView(i: LayoutInflater, c: ViewGroup?, s: Bundle?): View {
-        _b = FragmentLineDetailBinding.inflate(i, c, false); return b.root
+        _b = FragmentLineDetailBinding.inflate(i, c, false)
+        return b.root
     }
 
     private lateinit var dtPicker: DateTimePickerHelper
@@ -40,26 +42,22 @@ class LineDetailFragment : Fragment() {
         val highlight = arguments?.getString("highlight") ?: ""
         val destination = arguments?.getString("destination") ?: ""
 
-        // Déduire la direction depuis la destination fournie par l'API
-        // destination = terminus vers lequel le bus se dirige
-        // Si destination ~ terminus2 → stopsDir1 → reversed=false
-        // Si destination ~ terminus1 → stopsDir2 → reversed=true
         if (destination.isNotEmpty()) {
             val words = { s: String -> s.uppercase().split(" ", "-").filter { it.length > 2 }.toSet() }
             val wd = words(destination)
             val s1 = wd.intersect(words(line.terminus1)).size
             val s2 = wd.intersect(words(line.terminus2)).size
-            if (s1 > s2) reversed = true  // destination ~ terminus1 → bus va vers terminus1 = direction 2
+            if (s1 > s2) reversed = true
         }
 
         dtPicker = DateTimePickerHelper(this, view.findViewById(R.id.datetime_bar)) { renderDirection(line, highlight) }
 
         val typeLabel = when (line.type) {
-            LineType.FEBUS     -> getString(R.string.type_febus)
-            LineType.TEMPORIS  -> getString(R.string.type_temporis)
+            LineType.FEBUS -> getString(R.string.type_febus)
+            LineType.TEMPORIS -> getString(R.string.type_temporis)
             LineType.PROXIMITE -> getString(R.string.type_proximite)
-            LineType.DIMANCHE  -> getString(R.string.type_dimanche)
-            LineType.SPECIAL   -> getString(R.string.type_special)
+            LineType.DIMANCHE -> getString(R.string.type_dimanche)
+            LineType.SPECIAL -> getString(R.string.type_special)
         }
 
         val badge = GradientDrawable().apply { setColor(line.color); cornerRadius = 14f }
@@ -78,8 +76,11 @@ class LineDetailFragment : Fragment() {
         b.btnFav.setOnClickListener {
             FavoritesManager.toggleLine(requireContext(), line.number)
             updateLineStar(line)
-            val msg = if (FavoritesManager.isLineFav(requireContext(), line.number))
-                getString(R.string.line_added_to_favs) else getString(R.string.line_removed_from_favs)
+            val msg = if (FavoritesManager.isLineFav(requireContext(), line.number)) {
+                getString(R.string.line_added_to_favs)
+            } else {
+                getString(R.string.line_removed_from_favs)
+            }
             Toast.makeText(requireContext(), msg, Toast.LENGTH_SHORT).show()
         }
 
@@ -89,12 +90,17 @@ class LineDetailFragment : Fragment() {
         b.btnMap.setOnClickListener {
             (activity as? MainActivity)?.showFragment(LineMapFragment.newInstance(line, highlight), true)
         }
+
+        refreshTrafficBanner(line.number)
     }
 
     private fun updateLineStar(line: BusLine) {
         val isFav = FavoritesManager.isLineFav(requireContext(), line.number)
         b.btnFav.text = if (isFav) "⭐" else "☆"
-        b.btnFav.setTextColor(if (isFav) Color.parseColor("#F7C100") else ContextCompat.getColor(requireContext(), R.color.surface))
+        b.btnFav.setTextColor(
+            if (isFav) Color.parseColor("#F7C100")
+            else ContextCompat.getColor(requireContext(), R.color.surface)
+        )
     }
 
     private val passageJobs = mutableMapOf<String, Job>()
@@ -115,30 +121,35 @@ class LineDetailFragment : Fragment() {
         val inflater = LayoutInflater.from(requireContext())
         stops.forEachIndexed { index, stopName ->
             val row = inflater.inflate(R.layout.item_stop_simple, b.listStops, false)
-            val tvOrd  = row.findViewById<TextView>(R.id.tv_order)
-            val tvNm   = row.findViewById<TextView>(R.id.tv_stop_name)
+            val tvOrd = row.findViewById<TextView>(R.id.tv_order)
+            val tvNm = row.findViewById<TextView>(R.id.tv_stop_name)
             val llPass = row.findViewById<LinearLayout>(R.id.ll_passages)
             tvOrd.text = "${index + 1}"
-            tvNm.text  = stopName
+            tvNm.text = stopName
             val isEnd = index == 0 || index == stops.size - 1
             val ordColor = if (isEnd) line.color else 0xFFBBBBBB.toInt()
             tvOrd.background = GradientDrawable().apply {
-                setColor(ordColor); cornerRadius = 20f }
+                setColor(ordColor)
+                cornerRadius = 20f
+            }
             tvOrd.setTextColor(contrastTextColor(ordColor))
 
             val isHighlighted = highlight.isNotEmpty() && (
                 stopName.equals(highlight, ignoreCase = true) ||
-                stopName.contains(highlight, ignoreCase = true) ||
-                highlight.contains(stopName, ignoreCase = true)
+                    stopName.contains(highlight, ignoreCase = true) ||
+                    highlight.contains(stopName, ignoreCase = true)
+                )
+            tvNm.setTypeface(null, if (isHighlighted) Typeface.BOLD else Typeface.NORMAL)
+            tvNm.setTextColor(
+                if (isHighlighted) line.color
+                else ContextCompat.getColor(requireContext(), R.color.text_primary)
             )
-            tvNm.setTypeface(null, if (isHighlighted) android.graphics.Typeface.BOLD else android.graphics.Typeface.NORMAL)
-            tvNm.setTextColor(if (isHighlighted) line.color else ContextCompat.getColor(requireContext(), R.color.text_primary))
             tvNm.textSize = if (isHighlighted) 15f else 14f
 
             val stop = AppData.busStops.find { s ->
                 s.name.equals(stopName, ignoreCase = true) ||
-                s.name.contains(stopName, ignoreCase = true) ||
-                stopName.contains(s.name, ignoreCase = true)
+                    s.name.contains(stopName, ignoreCase = true) ||
+                    stopName.contains(s.name, ignoreCase = true)
             }
             row.setOnClickListener { if (stop != null) (activity as? MainActivity)?.openDetails(stop) }
 
@@ -166,12 +177,11 @@ class LineDetailFragment : Fragment() {
             b.listStops.addView(row)
         }
 
-        // Scroller jusqu'à l'arrêt highlighté — attendre que les hauteurs soient mesurées
         val scrollView = view?.findViewById<ScrollView>(R.id.scroll_stops)
         if (savedScroll > 0) {
             scrollView?.post { scrollView.scrollTo(0, savedScroll) }
         } else if (highlight.isNotEmpty()) {
-            scrollView?.viewTreeObserver?.addOnGlobalLayoutListener(object : android.view.ViewTreeObserver.OnGlobalLayoutListener {
+            scrollView?.viewTreeObserver?.addOnGlobalLayoutListener(object : ViewTreeObserver.OnGlobalLayoutListener {
                 override fun onGlobalLayout() {
                     scrollView.viewTreeObserver.removeOnGlobalLayoutListener(this)
                     var offsetY = 0
@@ -179,9 +189,11 @@ class LineDetailFragment : Fragment() {
                     for (i in 0 until b.listStops.childCount) {
                         val row = b.listStops.getChildAt(i) ?: continue
                         val tv = row.findViewById<TextView>(R.id.tv_stop_name)
-                        if (tv != null && (tv.text.toString().equals(highlight, ignoreCase = true) ||
-                                tv.text.toString().contains(highlight, ignoreCase = true) ||
-                                highlight.contains(tv.text.toString(), ignoreCase = true))) {
+                        if (tv != null && (
+                                tv.text.toString().equals(highlight, ignoreCase = true) ||
+                                    tv.text.toString().contains(highlight, ignoreCase = true) ||
+                                    highlight.contains(tv.text.toString(), ignoreCase = true)
+                                )) {
                             found = true
                             break
                         }
@@ -192,8 +204,6 @@ class LineDetailFragment : Fragment() {
             })
         }
     }
-
-    // ── Fetch ─────────────────────────────────────────────────────────────────
 
     private data class PassageResult(val arrivee: String, val statut: PassageStatut)
 
@@ -214,22 +224,41 @@ class LineDetailFragment : Fragment() {
                 PassageHelper.toStatut(PassageHelper.computeEcart(first, theoMinutes.ifEmpty { null }))
             }
             PassageResult(first.arrivee, statut)
-        } catch (_: Exception) { null }
+        } catch (_: Exception) {
+            null
+        }
     }
 
     private suspend fun fetchTheoreticalForLine(stop: BusStop, lineNumber: String): PassageResult? {
         return try {
             val cal = dtPicker.calendar
-            val date = java.time.LocalDate.of(cal.get(java.util.Calendar.YEAR), cal.get(java.util.Calendar.MONTH) + 1, cal.get(java.util.Calendar.DAY_OF_MONTH))
+            val date = java.time.LocalDate.of(
+                cal.get(java.util.Calendar.YEAR),
+                cal.get(java.util.Calendar.MONTH) + 1,
+                cal.get(java.util.Calendar.DAY_OF_MONTH)
+            )
             val time = java.time.LocalTime.of(cal.get(java.util.Calendar.HOUR_OF_DAY), cal.get(java.util.Calendar.MINUTE))
             val infos = GtfsReader.getTheoreticalPassages(requireContext(), stop.codes, time, date)
             val info = infos.find { it.ligne == lineNumber } ?: return null
             val first = info.passages.firstOrNull() ?: return null
             PassageResult(first.arrivee, PassageStatut.THEORIQUE)
-        } catch (_: Exception) { null }
+        } catch (_: Exception) {
+            null
+        }
     }
 
-    // ── Vues ─────────────────────────────────────────────────────────────────
+    private fun refreshTrafficBanner(lineNumber: String) {
+        viewLifecycleOwner.lifecycleScope.launch {
+            val notice = TrafficNoticesRepository.loadPrimaryNoticeForLine(lineNumber)
+            if (_b == null) return@launch
+            if (notice == null) {
+                b.tvTrafficBannerLine.visibility = View.GONE
+            } else {
+                b.tvTrafficBannerLine.visibility = View.VISIBLE
+                b.tvTrafficBannerLine.text = "${notice.title}\n${notice.summary}"
+            }
+        }
+    }
 
     private fun makePlaceholder(ctx: android.content.Context) =
         android.widget.ProgressBar(ctx, null, android.R.attr.progressBarStyleSmall).apply {
@@ -238,23 +267,25 @@ class LineDetailFragment : Fragment() {
                 LinearLayout.LayoutParams.WRAP_CONTENT
             ).also { it.gravity = android.view.Gravity.END }
             indeterminateTintList = android.content.res.ColorStateList.valueOf(
-                ContextCompat.getColor(ctx, R.color.green_primary))
+                ContextCompat.getColor(ctx, R.color.green_primary)
+            )
         }
 
     private fun makeText(ctx: android.content.Context, text: String, color: String, bold: Boolean) =
         TextView(ctx).apply {
-            this.text = text; textSize = 12f
+            this.text = text
+            textSize = 12f
             setTextColor(Color.parseColor(color))
-            setTypeface(null, if (bold) android.graphics.Typeface.BOLD else android.graphics.Typeface.NORMAL)
+            setTypeface(null, if (bold) Typeface.BOLD else Typeface.NORMAL)
         }
 
     private fun makePassageRow(ctx: android.content.Context, result: PassageResult): View {
         val (iconLeft, iconRight, timeText, color, bold, strike) = when (result.statut) {
-            PassageStatut.THEORIQUE -> Style("",      "",   "${result.arrivee}*", "theorique",                          false, false)
-            PassageStatut.A_LHEURE  -> Style("SIGNAL","",   result.arrivee,       statusHexColor(result.statut, ctx),  true,  false)
-            PassageStatut.RETARD    -> Style("🕐",   "",   result.arrivee,       statusHexColor(result.statut, ctx),  true,  false)
-            PassageStatut.AVANCE    -> Style("⚡",   "",   result.arrivee,       statusHexColor(result.statut, ctx),  true,  false)
-            PassageStatut.ANNULE    -> Style("",      "❌", result.arrivee,       statusHexColor(result.statut, ctx),  true,  true)
+            PassageStatut.THEORIQUE -> Style("", "", "${result.arrivee}*", "theorique", false, false)
+            PassageStatut.A_LHEURE -> Style("SIGNAL", "", result.arrivee, statusHexColor(result.statut, ctx), true, false)
+            PassageStatut.RETARD -> Style("🕐", "", result.arrivee, statusHexColor(result.statut, ctx), true, false)
+            PassageStatut.AVANCE -> Style("⚡", "", result.arrivee, statusHexColor(result.statut, ctx), true, false)
+            PassageStatut.ANNULE -> Style("", "❌", result.arrivee, statusHexColor(result.statut, ctx), true, true)
         }
         val row = LinearLayout(ctx).apply {
             orientation = LinearLayout.HORIZONTAL
@@ -262,13 +293,18 @@ class LineDetailFragment : Fragment() {
         }
         if (iconLeft.isNotEmpty()) row.addView(makeIconView(ctx, iconLeft))
         row.addView(TextView(ctx).apply {
-            text = timeText; textSize = 12f
-            setTextColor(if (color == "theorique") ContextCompat.getColor(ctx, R.color.theorique_text) else Color.parseColor(color))
-            setTypeface(null, if (bold) android.graphics.Typeface.BOLD else android.graphics.Typeface.NORMAL)
+            text = timeText
+            textSize = 12f
+            setTextColor(
+                if (color == "theorique") ContextCompat.getColor(ctx, R.color.theorique_text)
+                else Color.parseColor(color)
+            )
+            setTypeface(null, if (bold) Typeface.BOLD else Typeface.NORMAL)
             if (strike) paintFlags = paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
         })
         if (iconRight.isNotEmpty()) row.addView(TextView(ctx).apply {
-            text = iconRight; textSize = 12f
+            text = iconRight
+            textSize = 12f
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
             ).also { it.marginStart = 3 }
@@ -277,9 +313,12 @@ class LineDetailFragment : Fragment() {
     }
 
     private data class Style(
-        val iconLeft: String, val iconRight: String,
-        val timeText: String, val color: String,
-        val bold: Boolean, val strike: Boolean
+        val iconLeft: String,
+        val iconRight: String,
+        val timeText: String,
+        val color: String,
+        val bold: Boolean,
+        val strike: Boolean
     )
 
     private fun makeIconView(ctx: android.content.Context, icon: String): View {
@@ -293,13 +332,16 @@ class LineDetailFragment : Fragment() {
             }
         }
         return TextView(ctx).apply {
-            text = icon; textSize = 12f
-            setTextColor(when {
-                icon.contains("🕐") || icon.contains("ðŸ•") -> Color.parseColor("#E65100")
-                icon.contains("⚡") || icon.contains("âš¡") -> Color.parseColor("#1565C0")
-                icon.contains("❌") || icon.contains("âŒ") -> Color.parseColor("#C62828")
-                else -> ContextCompat.getColor(ctx, R.color.text_primary)
-            })
+            text = icon
+            textSize = 12f
+            setTextColor(
+                when {
+                    icon.contains("🕐") -> Color.parseColor("#E65100")
+                    icon.contains("⚡") -> Color.parseColor("#1565C0")
+                    icon.contains("❌") -> Color.parseColor("#C62828")
+                    else -> ContextCompat.getColor(ctx, R.color.text_primary)
+                }
+            )
             layoutParams = LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
             ).also { it.marginEnd = 3 }
@@ -310,6 +352,7 @@ class LineDetailFragment : Fragment() {
         super.onResume()
         val line = AppData.busLines.find { it.number == arguments?.getString("num") } ?: return
         val highlight = arguments?.getString("highlight") ?: ""
+        refreshTrafficBanner(line.number)
         autoRefreshJob?.cancel()
         autoRefreshJob = viewLifecycleOwner.lifecycleScope.launch {
             kotlinx.coroutines.delay(40_000)
@@ -326,5 +369,8 @@ class LineDetailFragment : Fragment() {
         autoRefreshJob = null
     }
 
-    override fun onDestroyView() { super.onDestroyView(); _b = null }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _b = null
+    }
 }

@@ -4,7 +4,9 @@ import android.graphics.*
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.pau.busapp.databinding.FragmentLineMapBinding
+import kotlinx.coroutines.launch
 import org.osmdroid.config.Configuration
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory
 import org.osmdroid.util.BoundingBox
@@ -30,7 +32,8 @@ class LineMapFragment : Fragment() {
     }
 
     override fun onCreateView(i: LayoutInflater, c: ViewGroup?, s: Bundle?): View {
-        _b = FragmentLineMapBinding.inflate(i, c, false); return b.root
+        _b = FragmentLineMapBinding.inflate(i, c, false)
+        return b.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,12 +48,10 @@ class LineMapFragment : Fragment() {
         map.setMultiTouchControls(true)
         map.isTilesScaledToDpi = true
 
-        // Header coloré
         b.header.setBackgroundColor(line.color)
-        b.tvTitle.text = "Ligne ${line.number}  –  ${line.terminus1} ↔ ${line.terminus2}"
+        b.tvTitle.text = "Ligne ${line.number}  -  ${line.terminus1} <-> ${line.terminus2}"
         b.btnRetour.setOnClickListener { parentFragmentManager.popBackStack() }
 
-        // Résoudre les noms d'arrêts → BusStop avec coordonnées
         val stopsByName = AppData.busStops.associateBy { normalizeTransitName(it.name) }
 
         fun resolveStop(name: String): BusStop? =
@@ -63,38 +64,46 @@ class LineMapFragment : Fragment() {
 
         val dir1Points = line.stopsDir1.mapNotNull { resolveStop(it) }
         val dir2Points = line.stopsDir2.mapNotNull { resolveStop(it) }
-
-        // Tous les arrêts uniques de la ligne
         val allStops = (dir1Points + dir2Points).distinctBy { it.name }
 
-        // Polyline direction 1
-        if (dir1Points.size >= 2) {
+        fun addPolyline(points: List<GeoPoint>, alpha: Int, width: Float, tag: String) {
+            if (points.size < 2) return
             val poly = Polyline(map).apply {
-                setPoints(dir1Points.map { GeoPoint(it.lat, it.lon) })
+                setPoints(points)
                 outlinePaint.color = line.color
-                outlinePaint.strokeWidth = 8f
+                outlinePaint.alpha = alpha
+                outlinePaint.strokeWidth = width
                 outlinePaint.isAntiAlias = true
                 infoWindow = null
+                title = tag
             }
             map.overlays.add(poly)
         }
 
-        // Polyline direction 2 (légèrement décalée visuellement via alpha)
-        if (dir2Points.size >= 2) {
-            val poly = Polyline(map).apply {
-                setPoints(dir2Points.map { GeoPoint(it.lat, it.lon) })
-                outlinePaint.color = line.color
-                outlinePaint.alpha = 160
-                outlinePaint.strokeWidth = 4f
-                outlinePaint.isAntiAlias = true
-                infoWindow = null
+        addPolyline(dir1Points.map { GeoPoint(it.lat, it.lon) }, 255, 8f, "fallback")
+        addPolyline(dir2Points.map { GeoPoint(it.lat, it.lon) }, 160, 4f, "fallback")
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            val shapes = runCatching { GtfsReader.getLineShapes(requireContext(), line.number) }.getOrDefault(emptyList())
+            if (!isAdded || _b == null || shapes.isEmpty()) return@launch
+            map.overlays.removeAll { it is Polyline && it.title == "gtfs_shape" }
+            shapes.forEachIndexed { index, points ->
+                val poly = Polyline(map).apply {
+                    setPoints(points)
+                    outlinePaint.color = line.color
+                    outlinePaint.alpha = if (index == 0) 255 else 170
+                    outlinePaint.strokeWidth = if (index == 0) 9f else 5f
+                    outlinePaint.isAntiAlias = true
+                    infoWindow = null
+                    title = "gtfs_shape"
+                }
+                map.overlays.add(poly)
             }
-            map.overlays.add(poly)
+            map.invalidate()
         }
 
         val highlight = arguments?.getString("highlight") ?: ""
 
-        // Marqueurs pour chaque arrêt de la ligne
         allStops.forEach { stop ->
             val isTerminus = stop.name == line.terminus1 || stop.name == line.terminus2 ||
                 normalizeTransitName(stop.name) == normalizeTransitName(line.terminus1) ||
@@ -105,29 +114,29 @@ class LineMapFragment : Fragment() {
                 normalizeTransitName(dir2Points.lastOrNull()?.name ?: "") == normalizeTransitName(stop.name)
             val isHighlight = highlight.isNotEmpty() && (
                 normalizeTransitName(stop.name) == normalizeTransitName(highlight) ||
-                normalizeTransitName(stop.name).contains(normalizeTransitName(highlight)) ||
-                normalizeTransitName(highlight).contains(normalizeTransitName(stop.name)))
+                    normalizeTransitName(stop.name).contains(normalizeTransitName(highlight)) ||
+                    normalizeTransitName(highlight).contains(normalizeTransitName(stop.name))
+                )
             val marker = Marker(map).apply {
                 position = GeoPoint(stop.lat, stop.lon)
-                title    = stop.name
-                icon     = android.graphics.drawable.BitmapDrawable(
-                    resources, makeStopDot(line.color, isTerminus, isHighlight))
+                title = stop.name
+                icon = android.graphics.drawable.BitmapDrawable(
+                    resources, makeStopDot(line.color, isTerminus, isHighlight)
+                )
                 setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
                 setOnMarkerClickListener { _, _ ->
-                    (activity as? MainActivity)?.openDetails(stop); true
+                    (activity as? MainActivity)?.openDetails(stop)
+                    true
                 }
             }
             map.overlays.add(marker)
         }
 
-        // Zoom pour englober tous les arrêts
         if (allStops.isNotEmpty()) {
             val lats = allStops.map { it.lat }
             val lons = allStops.map { it.lon }
-            val box  = BoundingBox(lats.max(), lons.max(), lats.min(), lons.min())
-            map.post {
-                map.zoomToBoundingBox(box.increaseByScale(1.15f), false)
-            }
+            val box = BoundingBox(lats.max(), lons.max(), lats.min(), lons.min())
+            map.post { map.zoomToBoundingBox(box.increaseByScale(1.15f), false) }
         }
 
         fun addTerminusLabel(stop: BusStop?, title: String, topAnchor: Boolean) {
@@ -175,22 +184,23 @@ class LineMapFragment : Fragment() {
     private fun makeStopDot(color: Int, isTerminus: Boolean, isHighlight: Boolean = false): Bitmap {
         val r = when {
             isHighlight -> 22f
-            isTerminus  -> 18f
-            else        -> 12f
+            isTerminus -> 18f
+            else -> 12f
         }
         val bmp = Bitmap.createBitmap((r * 2).toInt(), (r * 2).toInt(), Bitmap.Config.ARGB_8888)
         Canvas(bmp).apply {
             if (isHighlight) {
-                // Plein couleur de la ligne
                 drawCircle(r, r, r - 1f, Paint(Paint.ANTI_ALIAS_FLAG).apply { this.color = color })
-                // Contour blanc
                 drawCircle(r, r, r - 1f, Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                    this.color = Color.WHITE; style = Paint.Style.STROKE; strokeWidth = 4f
+                    this.color = Color.WHITE
+                    style = Paint.Style.STROKE
+                    strokeWidth = 4f
                 })
             } else {
                 drawCircle(r, r, r - 1f, Paint(Paint.ANTI_ALIAS_FLAG).apply { this.color = Color.WHITE })
                 drawCircle(r, r, r - 1f, Paint(Paint.ANTI_ALIAS_FLAG).apply {
-                    this.color = color; style = Paint.Style.STROKE
+                    this.color = color
+                    style = Paint.Style.STROKE
                     strokeWidth = if (isTerminus) 4f else 3f
                 })
                 if (isTerminus) {
@@ -208,7 +218,18 @@ class LineMapFragment : Fragment() {
         return normalized.replace(Regex("\\p{M}+"), "").lowercase()
     }
 
-    override fun onResume()      { super.onResume();  if (::map.isInitialized) map.onResume() }
-    override fun onPause()       { super.onPause();   if (::map.isInitialized) map.onPause()  }
-    override fun onDestroyView() { super.onDestroyView(); _b = null }
+    override fun onResume() {
+        super.onResume()
+        if (::map.isInitialized) map.onResume()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        if (::map.isInitialized) map.onPause()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _b = null
+    }
 }

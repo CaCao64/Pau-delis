@@ -23,6 +23,20 @@
     <include layout="@layout/view_datetime_picker"/>
 
     <TextView
+        android:id="@+id/tv_traffic_banner_lines"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="16dp"
+        android:padding="12dp"
+        android:background="#FFF3CD"
+        android:textColor="#7A4B00"
+        android:textSize="12sp"
+        android:textStyle="bold"
+        android:visibility="gone"/>
+
+    <TextView
         android:id="@+id/tv_api_status_lines"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
