@@ -405,8 +405,11 @@ class AddAlertDialog : DialogFragment() {
         }
 
         val duplicate = existing.any {
-            it.stopName == stop && it.lineName == line &&
-            it.hourMinute.first == selectedHour && it.hourMinute.second == selectedMinute
+            it.stopName == stop &&
+            it.lineName == line &&
+            it.destination.trim() == destination &&
+            it.hourMinute.first == selectedHour &&
+            it.hourMinute.second == selectedMinute
         }
         if (duplicate) {
             Toast.makeText(ctx, ctx.getString(R.string.alert_duplicate), Toast.LENGTH_LONG).show()

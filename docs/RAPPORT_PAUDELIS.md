@@ -666,7 +666,7 @@ Il couvre :
 | Ticket | Type | Demande / Description Jira | CE (Attente Capture) | Composant Code Impacte | Statut | Plan d'Action Technique |
 | :---: | :---: | :--- | :---: | :--- | :---: | :--- |
 | **BUS-3** | Bug | Traduction incomplete de l'application (EN / ES) | Non | `strings.xml` (`values-*`) | Fait | Traduction integrale de tous les composants de l'application et du tutoriel. |
-| **BUS-16** | Story | Gestion des 2 directions pour un meme arret dans les notifs | Non | `AddAlertDialog.kt`, `Alert.kt` | A faire | Stocker la destination explicite dans le modele `Alert` pour cibler la bonne direction. |
+| **BUS-16** | Story | Gestion des 2 directions pour un meme arret dans les notifs | Non | `AddAlertDialog.kt`, `Alert.kt` | Fait | Stocker la destination explicite dans le modele `Alert` pour cibler la bonne direction. |
 | **BUS-17** | Story | Ecrire "Bus passe" au lieu de l'horaire perime dans la notif | Non | `TrackingService.kt` | A faire | Mettre a jour le texte de la notification avec `R.string.bus_passed` au franchissement de l'heure. |
 | **BUS-18** | Story | Clic sur notification -> Defilement auto jusqu'a l'arret | Non | `MainActivity.kt`, `StopListFragment.kt` | A faire | Transmettre l'ID de l'arret dans le `PendingIntent` de notification et scroller la liste. |
 | **BUS-19** | Story | Ranger les alertes par nom d'arret (menus deroulants) | Non | `AlertsFragment.kt` | A faire | Implementation d'un RecyclerView a en-tetes extensibles (Expandable Grouping). |
