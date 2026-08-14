@@ -60,6 +60,11 @@ class MapFragment : Fragment() {
     private var dotMarkers:   List<Marker> = emptyList()
     private var labelMarkers: List<Marker> = emptyList()
     private var dotMarkersLoading = false
+    private val normalizedLineStops by lazy {
+        AppData.busLines.associate { line ->
+            line.number to (line.stopsDir1.map { normalizeTransitName(it) } + line.stopsDir2.map { normalizeTransitName(it) }).toSet()
+        }
+    }
 
     private val locationPermission = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
@@ -437,11 +442,8 @@ class MapFragment : Fragment() {
         val lineByNumber = AppData.busLines.associateBy { it.number }
         val colors = stop.lines
             .filter { num ->
-                val line = lineByNumber[num]
-                line != null && (
-                    line.stopsDir1.any { normalizeTransitName(it) == stopKey || normalizeTransitName(it).contains(stopKey) || stopKey.contains(normalizeTransitName(it)) } ||
-                    line.stopsDir2.any { normalizeTransitName(it) == stopKey || normalizeTransitName(it).contains(stopKey) || stopKey.contains(normalizeTransitName(it)) }
-                )
+                val lineStops = normalizedLineStops[num]
+                lineStops != null && lineStops.any { it == stopKey || it.contains(stopKey) || stopKey.contains(it) }
             }
             .mapNotNull { num -> lineByNumber[num]?.color }
         return colors.ifEmpty { listOf(0xFF_00843D.toInt()) }
