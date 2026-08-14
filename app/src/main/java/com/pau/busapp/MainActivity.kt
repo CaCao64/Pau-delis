@@ -111,7 +111,11 @@ class MainActivity : AppCompatActivity() {
         })
         rebuildNav()
         applyNavStyle(NavStyleManager.get(this))
-        setApiOnline(true)
+        val networkAvailable = StopsWidgetProvider.isNetworkAvailable(this)
+        setApiOnline(
+            networkAvailable,
+            if (networkAvailable) null else getString(R.string.api_offline_network)
+        )
 
         val alerts = AlertManager.load(this)
         AlertManager.scheduleAll(this, alerts)

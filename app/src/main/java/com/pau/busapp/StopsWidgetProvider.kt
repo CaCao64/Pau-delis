@@ -25,7 +25,7 @@ class StopsWidgetProvider : AppWidgetProvider() {
         private var autoRefreshJob: Job? = null
         private var lastUpdateMs = 0L
         private const val MIN_UPDATE_INTERVAL = 5_000L
-        private const val AUTO_REFRESH_INTERVAL = 40_000L
+        private const val AUTO_REFRESH_INTERVAL = 120_000L
 
         fun requestUpdate(ctx: Context) {
             val mgr = AppWidgetManager.getInstance(ctx)

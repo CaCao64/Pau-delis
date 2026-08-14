@@ -6,8 +6,10 @@ import org.json.JSONObject
 
 object SchedulesCacheManager {
     private const val PREFS = "schedules_realtime_cache"
+    private const val CACHE_TTL_MS = 24 * 60 * 60 * 1000L
 
     fun saveCache(ctx: Context, stopCode: String, stopInfos: List<StopInfo>) {
+        purgeExpiredCaches(ctx)
         val o = JSONObject().apply {
             put("timestamp", System.currentTimeMillis())
             val arr = JSONArray()
@@ -41,11 +43,19 @@ object SchedulesCacheManager {
     }
 
     fun getCache(ctx: Context, stopCode: String): Pair<Long, List<StopInfo>>? {
+        purgeExpiredCaches(ctx)
         val raw = ctx.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
             .getString(stopCode, null) ?: return null
         return try {
             val o = JSONObject(raw)
             val ts = o.getLong("timestamp")
+            if (System.currentTimeMillis() - ts > CACHE_TTL_MS) {
+                ctx.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+                    .edit()
+                    .remove(stopCode)
+                    .apply()
+                return null
+            }
             val arr = o.getJSONArray("infos")
             val list = mutableListOf<StopInfo>()
             for (i in 0 until arr.length()) {
@@ -74,6 +84,21 @@ object SchedulesCacheManager {
             Pair(ts, list)
         } catch (e: Exception) {
             null
+        }
+    }
+
+    fun purgeExpiredCaches(ctx: Context) {
+        val prefs = ctx.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+        val now = System.currentTimeMillis()
+        val staleKeys = prefs.all.mapNotNull { (key, value) ->
+            val raw = value as? String ?: return@mapNotNull null
+            val ts = runCatching { JSONObject(raw).getLong("timestamp") }.getOrNull() ?: return@mapNotNull key
+            if (now - ts > CACHE_TTL_MS) key else null
+        }
+        if (staleKeys.isNotEmpty()) {
+            prefs.edit().apply {
+                staleKeys.forEach { remove(it) }
+            }.apply()
         }
     }
 }

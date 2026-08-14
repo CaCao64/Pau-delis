@@ -1,12 +1,12 @@
 package com.pau.busapp
 
 import android.animation.ValueAnimator
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.graphics.LinearGradient
 import android.graphics.Matrix
 import android.graphics.Shader
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
@@ -14,6 +14,7 @@ import android.view.animation.LinearInterpolator
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.google.android.material.button.MaterialButton
 import com.pau.busapp.databinding.FragmentMoreBinding
 
 class MoreFragment : Fragment() {
@@ -144,39 +145,34 @@ class MoreFragment : Fragment() {
     }
 
     private fun showAboutDialog(ctx: Context) {
-        val dialogLayout = LinearLayout(ctx).apply {
-            orientation = LinearLayout.VERTICAL
-            gravity = Gravity.CENTER
-            val padding = (24 * resources.displayMetrics.density).toInt()
-            setPadding(padding, padding, padding, padding)
+        val content = LayoutInflater.from(ctx).inflate(R.layout.dialog_about_modern, null, false)
+
+        content.findViewById<TextView>(R.id.tvAboutTitle).text = getString(R.string.about_title)
+        content.findViewById<TextView>(R.id.tvAboutSubtitle).text = getString(R.string.about_subtitle)
+        content.findViewById<TextView>(R.id.tvAboutCreator).text = getString(R.string.about_creator)
+        content.findViewById<TextView>(R.id.tvAboutTagline).apply {
+            text = getString(R.string.about_tagline)
+            applyVibeCodedGradient(this)
+        }
+        content.findViewById<TextView>(R.id.tvAboutBody).text = getString(R.string.about_body)
+
+        val dialog = android.app.AlertDialog.Builder(ctx)
+            .setView(content)
+            .create()
+
+        dialog.setOnShowListener {
+            dialog.window?.setBackgroundDrawable(ColorDrawable(android.graphics.Color.TRANSPARENT))
+            dialog.window?.setLayout(
+                (resources.displayMetrics.widthPixels * 0.92f).toInt(),
+                WindowManager.LayoutParams.WRAP_CONTENT
+            )
         }
 
-        val creatorText = TextView(ctx).apply {
-            text = "Créé par Caolan"
-            textSize = 16f
-            gravity = Gravity.CENTER
-            setTextColor(ContextCompat.getColor(ctx, R.color.text_primary))
-            setTypeface(null, android.graphics.Typeface.BOLD)
+        content.findViewById<MaterialButton>(R.id.btnAboutClose).setOnClickListener {
+            dialog.dismiss()
         }
-        dialogLayout.addView(creatorText)
 
-        val vibeText = TextView(ctx).apply {
-            text = "✨ Entièrement vibe codé ✨"
-            textSize = 18f
-            gravity = Gravity.CENTER
-            setTypeface(null, android.graphics.Typeface.BOLD)
-            layoutParams = LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
-            ).also { it.topMargin = (16 * resources.displayMetrics.density).toInt() }
-        }
-        dialogLayout.addView(vibeText)
-        applyVibeCodedGradient(vibeText)
-
-        AlertDialog.Builder(ctx)
-            .setTitle("À propos")
-            .setView(dialogLayout)
-            .setPositiveButton("Fermer", null)
-            .show()
+        dialog.show()
     }
 
     private fun applyShinyGoldGradient(textView: TextView, iconView: ImageView) {
