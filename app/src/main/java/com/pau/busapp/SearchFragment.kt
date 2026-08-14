@@ -6,7 +6,11 @@ import android.text.TextWatcher
 import android.view.*
 import android.widget.*
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.pau.busapp.databinding.FragmentSearchBinding
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class SearchFragment : Fragment() {
     private var _b: FragmentSearchBinding? = null
@@ -101,6 +105,48 @@ class SearchFragment : Fragment() {
         if (matchedLines.isNotEmpty()) {
             b.resultsContainer.addView(sectionHeader(getString(R.string.search_section_lines)))
             matchedLines.forEach { line -> b.resultsContainer.addView(lineRow(line)) }
+        }
+
+        // Recherche d'adresse à Pau
+        val geocoder = android.location.Geocoder(requireContext())
+        lifecycleScope.launch(Dispatchers.IO) {
+            try {
+                if (query.length >= 4) {
+                    val addresses = geocoder.getFromLocationName("$query, Pau, France", 3)
+                    if (!addresses.isNullOrEmpty()) {
+                        val firstAddr = addresses.first()
+                        val addrLat = firstAddr.latitude
+                        val addrLon = firstAddr.longitude
+                        val addrName = firstAddr.getAddressLine(0) ?: query
+
+                        // Trouver les arrêts les plus proches
+                        val nearby = AppData.busStops.map { stop ->
+                            val distResults = FloatArray(1)
+                            android.location.Location.distanceBetween(addrLat, addrLon, stop.lat, stop.lon, distResults)
+                            stop to distResults[0].toDouble()
+                        }.sortedBy { it.second }.take(5)
+
+                        withContext(Dispatchers.Main) {
+                            if (_b != null && b.etSearch.text.toString().trim() == query) {
+                                val headerView = sectionHeader("Arrêts proches de : $addrName")
+                                b.resultsContainer.addView(headerView, 0)
+                                nearby.forEachIndexed { index, (stop, dist) ->
+                                    val row = LayoutInflater.from(requireContext())
+                                        .inflate(R.layout.item_stop, b.resultsContainer, false)
+                                    row.findViewById<TextView>(R.id.tv_name).text = stop.name
+                                    row.findViewById<TextView>(R.id.tv_info).text = "Distance : ${dist.toInt()}m  •  Lignes : ${stop.lines.joinToString(", ")}"
+                                    row.setOnClickListener {
+                                        SearchHistoryManager.addQuery(requireContext(), query)
+                                        AnalyticsTracker.trackAction(requireContext(), "open", "search_address_stop", "Recherche", mapOf("stop_name" to stop.name))
+                                        (activity as? MainActivity)?.openDetails(stop)
+                                    }
+                                    b.resultsContainer.addView(row, index + 1)
+                                }
+                            }
+                        }
+                    }
+                }
+            } catch (_: Exception) {}
         }
     }
 

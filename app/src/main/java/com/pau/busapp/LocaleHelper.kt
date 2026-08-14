@@ -29,9 +29,19 @@ object LocaleHelper {
         Language("tr",    "🇹🇷", "Türkçe"),
     )
 
-    fun getSaved(ctx: Context): String =
-        ctx.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
-            .getString(KEY, "fr") ?: "fr"
+    fun getSaved(ctx: Context): String {
+        val prefs = ctx.getSharedPreferences(PREFS, Context.MODE_PRIVATE)
+        if (prefs.contains(KEY)) {
+            return prefs.getString(KEY, "fr") ?: "fr"
+        }
+        val systemLang = java.util.Locale.getDefault().language
+        val supportedCodes = languages.map { it.code }
+        return if (supportedCodes.contains(systemLang)) {
+            systemLang
+        } else {
+            "fr"
+        }
+    }
 
     fun save(ctx: Context, code: String) =
         ctx.getSharedPreferences(PREFS, Context.MODE_PRIVATE)

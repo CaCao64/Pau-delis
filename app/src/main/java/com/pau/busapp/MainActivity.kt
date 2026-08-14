@@ -20,6 +20,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.pau.busapp.databinding.ActivityMainBinding
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -114,6 +116,12 @@ class MainActivity : AppCompatActivity() {
         val alerts = AlertManager.load(this)
         AlertManager.scheduleAll(this, alerts)
         AlertManager.cleanupPastTodayAlerts(this)
+
+        lifecycleScope.launch {
+            try {
+                DisruptionAlertManager.checkForNewDisruptions(this@MainActivity)
+            } catch (_: Exception) {}
+        }
 
         if (savedInstanceState == null) {
             val tx = supportFragmentManager.beginTransaction()

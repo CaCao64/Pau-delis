@@ -133,6 +133,40 @@ class MoreFragment : Fragment() {
 
             container.addView(row)
         }
+
+        // Vibe coded footer
+        val footerContainer = LinearLayout(ctx).apply {
+            orientation = LinearLayout.VERTICAL
+            gravity = Gravity.CENTER
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT
+            ).also {
+                it.topMargin = (32 * resources.displayMetrics.density).toInt()
+                it.bottomMargin = (16 * resources.displayMetrics.density).toInt()
+            }
+        }
+
+        val footerText1 = TextView(ctx).apply {
+            text = "© 2026 Pau'delis · Projet commencé à 14 ans"
+            textSize = 12f
+            gravity = Gravity.CENTER
+            setTextColor(ContextCompat.getColor(ctx, R.color.text_secondary))
+        }
+        footerContainer.addView(footerText1)
+
+        val footerText2 = TextView(ctx).apply {
+            text = "✨ Entièrement vibe codé ✨"
+            textSize = 14f
+            gravity = Gravity.CENTER
+            setTypeface(null, android.graphics.Typeface.BOLD)
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT
+            ).also { it.topMargin = (6 * resources.displayMetrics.density).toInt() }
+        }
+        footerContainer.addView(footerText2)
+        applyVibeCodedGradient(footerText2)
+
+        container.addView(footerContainer)
     }
 
     private fun applyShinyGoldGradient(textView: TextView, iconView: ImageView) {
@@ -162,6 +196,48 @@ class MoreFragment : Fragment() {
             val matrix = Matrix()
             val animator = ValueAnimator.ofFloat(0f, width * 1.5f)
             animator.duration = 2500L
+            animator.repeatCount = ValueAnimator.INFINITE
+            animator.repeatMode = ValueAnimator.RESTART
+            animator.interpolator = LinearInterpolator()
+            animator.addUpdateListener { anim ->
+                if (_b == null) {
+                    anim.cancel()
+                    return@addUpdateListener
+                }
+                val translate = anim.animatedValue as Float
+                matrix.setTranslate(translate, 0f)
+                shader.setLocalMatrix(matrix)
+                textView.invalidate()
+            }
+            animator.start()
+        }
+    }
+
+    private fun applyVibeCodedGradient(textView: TextView) {
+        textView.post {
+            if (_b == null) return@post
+            val width = textView.paint.measureText(textView.text.toString())
+            if (width <= 0f) return@post
+
+            val colors = intArrayOf(
+                0xFFA855F7.toInt(), // #a855f7
+                0xFFEC4899.toInt(), // #ec4899
+                0xFFF472B6.toInt(), // #f472b6
+                0xFFEC4899.toInt(), // #ec4899
+                0xFFA855F7.toInt()  // #a855f7
+            )
+
+            val shader = LinearGradient(
+                0f, 0f, width * 1.5f, 0f,
+                colors,
+                floatArrayOf(0f, 0.25f, 0.5f, 0.75f, 1f),
+                Shader.TileMode.REPEAT
+            )
+            textView.paint.shader = shader
+
+            val matrix = Matrix()
+            val animator = ValueAnimator.ofFloat(0f, width * 1.5f)
+            animator.duration = 3000L
             animator.repeatCount = ValueAnimator.INFINITE
             animator.repeatMode = ValueAnimator.RESTART
             animator.interpolator = LinearInterpolator()

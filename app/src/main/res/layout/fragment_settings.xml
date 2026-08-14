@@ -152,6 +152,45 @@
                     android:paddingHorizontal="16dp"/>
             </LinearLayout>
 
+            <!-- Section Alertes Info Trafic -->
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:text="PERTURBATIONS &amp; INFO TRAFIC"
+                android:textSize="12sp" android:textColor="@color/green_primary"
+                android:textStyle="bold" android:paddingBottom="8dp" android:paddingStart="4dp"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:background="@color/surface"
+                android:elevation="2dp" android:padding="16dp"
+                android:layout_marginBottom="20dp">
+
+                <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical"
+                    android:layout_marginBottom="12dp">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Notifier en cas de perturbations (réseau / lignes)"
+                        android:textSize="14sp" android:textColor="@color/text_primary"/>
+                    <androidx.appcompat.widget.SwitchCompat android:id="@+id/switch_traffic_alerts"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                </LinearLayout>
+
+                <LinearLayout android:id="@+id/layout_traffic_alerts_mode"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="horizontal" android:gravity="center_vertical">
+                    <TextView android:layout_width="0dp" android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:id="@+id/tv_traffic_alerts_mode"
+                        android:textSize="14sp" android:textColor="@color/text_primary"
+                        android:text="Mode : Favoris uniquement"/>
+                    <Button android:id="@+id/btn_traffic_alerts_mode"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="Changer"
+                        android:backgroundTint="@color/green_primary"
+                        android:textColor="@color/white" android:textSize="13sp"
+                        android:paddingHorizontal="16dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
             <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
                 android:text="@string/settings_section_favs"
                 android:textSize="12sp" android:textColor="@color/blue_primary"

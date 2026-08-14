@@ -177,6 +177,7 @@ class DetailsFragment : Fragment() {
         b.passagesContainer.removeAllViews()
 
         viewLifecycleOwner.lifecycleScope.launch {
+            val name = arguments?.getString("name") ?: ""
             val highlightLine = arguments?.getString("highlight_line")
             if (!dtPicker.isNow) {
                 loadTheoreticalAtTime(codes, highlightLine)
@@ -203,8 +204,12 @@ class DetailsFragment : Fragment() {
 
             for (code in codes) {
                 try {
-                    allInfos.addAll(IdelisApi.getStopMonitoring(code, 5))
+                    val infos = IdelisApi.getStopMonitoring(code, 5)
+                    allInfos.addAll(infos)
                     serverReachable = true
+                    if (FavoritesManager.isStopFav(requireContext(), name)) {
+                        SchedulesCacheManager.saveCache(requireContext(), code, infos)
+                    }
                 } catch (e: Exception) {
                     val msg = e.message ?: ""
                     if (msg.contains("500") && isOffSchedule) {
@@ -260,35 +265,61 @@ class DetailsFragment : Fragment() {
                     scrollAndHighlight(savedScroll, highlightLine)
                 }
             } else {
-                if ((isSunday || isFerie) && !hasSundayLine) {
+                // Tenter de charger depuis le cache
+                var loadedFromCache = false
+                val cachedInfos = mutableListOf<StopInfo>()
+                var cacheTimestamp = 0L
+                for (code in codes) {
+                    val cache = SchedulesCacheManager.getCache(requireContext(), code)
+                    if (cache != null) {
+                        cachedInfos.addAll(cache.second)
+                        cacheTimestamp = maxOf(cacheTimestamp, cache.first)
+                    }
+                }
+                if (cachedInfos.isNotEmpty()) {
+                    loadedFromCache = true
+                }
+
+                if (loadedFromCache) {
+                    val formattedTime = java.text.SimpleDateFormat("dd/MM HH:mm", java.util.Locale.getDefault()).format(java.util.Date(cacheTimestamp))
+                    b.tvPassagesStatus.text = "Données réelles en cache du $formattedTime"
+                    val merged = cachedInfos
+                        .groupBy { Pair(it.ligne, it.destination) }
+                        .values
+                        .map { group -> group.maxByOrNull { it.passages.size } ?: group.first() }
+                        .sortedWith(compareBy({ lineSortKey(it.ligne) }, { it.destination }))
+                    addPassageRows(merged, highlightLine)
+                    scrollAndHighlight(savedScroll, highlightLine)
+                } else if ((isSunday || isFerie) && !hasSundayLine) {
                     val noServiceMsg = if (isFerie) "Aucun bus aujourd'hui\n(Jour férié)" else "Aucun bus aujourd'hui\n(Dimanche)"
                     b.tvPassagesStatus.text = noServiceMsg
                     b.tvPassagesStatus.setTypeface(null, android.graphics.Typeface.BOLD)
                     b.tvPassagesStatus.setTextColor(android.graphics.Color.WHITE)
                     b.scrollDetails.post { b.scrollDetails.scrollTo(0, savedScroll) }
                 } else {
-                b.tvPassagesStatus.text = getString(R.string.offline_theoretical)
-                try {
-                    val theoretical = GtfsReader.getTheoreticalPassages(requireContext(), codes)
-                    if (_b == null) return@launch
-                    if (theoretical.isEmpty()) {
-                        b.tvPassagesStatus.text = getString(R.string.no_passage_today)
+                    b.tvPassagesStatus.text = getString(R.string.offline_theoretical)
+                    try {
+                        val theoretical = GtfsReader.getTheoreticalPassages(requireContext(), codes)
+                        if (_b == null) return@launch
+                        if (theoretical.isEmpty()) {
+                            b.tvPassagesStatus.text = getString(R.string.no_passage_today)
+                            b.tvPassagesStatus.setTypeface(null, android.graphics.Typeface.BOLD)
+                            b.tvPassagesStatus.setTextColor(android.graphics.Color.WHITE)
+                        } else {
+                            b.tvPassagesStatus.text = getString(R.string.offline_theoretical_count, theoretical.size)
+                            addPassageRows(theoretical, highlightLine)
+                        }
+                        scrollAndHighlight(savedScroll, highlightLine)
+                    } catch (e: Exception) {
+                        if (_b == null) return@launch
+                        b.tvPassagesStatus.text = getString(R.string.cannot_load_schedules)
                         b.tvPassagesStatus.setTypeface(null, android.graphics.Typeface.BOLD)
                         b.tvPassagesStatus.setTextColor(android.graphics.Color.WHITE)
-                    } else {
-                        b.tvPassagesStatus.text = getString(R.string.offline_theoretical_count, theoretical.size)
-                        addPassageRows(theoretical, highlightLine)
+                        b.scrollDetails.post { b.scrollDetails.scrollTo(0, savedScroll) }
                     }
-                    scrollAndHighlight(savedScroll, highlightLine)
-                } catch (e: Exception) {
-                    if (_b == null) return@launch
-                    b.tvPassagesStatus.text = getString(R.string.cannot_load_schedules)
-                    b.tvPassagesStatus.setTypeface(null, android.graphics.Typeface.BOLD)
-                    b.tvPassagesStatus.setTextColor(android.graphics.Color.WHITE)
-                    b.scrollDetails.post { b.scrollDetails.scrollTo(0, savedScroll) }
-                }
                 }
             }
+
         }
     }
 
@@ -357,7 +388,8 @@ class DetailsFragment : Fragment() {
 
         // Direction (flex)
         header.addView(TextView(ctx).apply {
-            text = " → ${info.destination}"
+            val quaiSuffix = if (info.quaiCode.isNotEmpty()) " (Quai ${info.quaiCode.uppercase()})" else ""
+            text = " → ${info.destination}$quaiSuffix"
             textSize = 14f
             setTextColor(ContextCompat.getColor(ctx, R.color.text_primary))
             setPadding(dp(4), 0, 0, 0)

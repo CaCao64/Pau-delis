@@ -231,6 +231,10 @@ class StopsWidgetProvider : AppWidgetProvider() {
     }
 
     private suspend fun updateWidget(ctx: Context, mgr: AppWidgetManager, widgetId: Int) {
+        try {
+            DisruptionAlertManager.checkForNewDisruptions(ctx)
+        } catch (_: Exception) {}
+
         WidgetStopConfigManager.removeExpiredStops(ctx)
         WidgetOrderManager.migrateIfNeeded(ctx)
 
@@ -332,19 +336,45 @@ class StopsWidgetProvider : AppWidgetProvider() {
                             val (arrivee, connected) = withTimeout(25_000L) {
                                 try {
                                     val infos = IdelisApi.getStopMonitoring(stop.codes.firstOrNull() ?: "", 5)
-                                    val first = infos.find { it.ligne == lineNum }?.passages?.firstOrNull()
-                                    (first?.arrivee) to true
+                                    val info = infos.find { it.ligne == lineNum }
+                                    val first = info?.passages?.firstOrNull()
+                                    if (first != null) {
+                                        val statut = if (first.type == "reel") {
+                                            val theoMinutes = info.passages.filter { it.type == "theorique" }
+                                                .mapNotNull { PassageHelper.parseArrivee(it.arrivee) }
+                                                .map { it.hour * 60 + it.minute }
+                                            PassageHelper.toStatut(PassageHelper.computeEcart(first, theoMinutes.ifEmpty { null }))
+                                        } else PassageStatut.THEORIQUE
+                                        val emoji = when (statut) {
+                                            PassageStatut.A_LHEURE  -> "🟢"
+                                            PassageStatut.RETARD    -> "🕐"
+                                            PassageStatut.AVANCE    -> "⚡"
+                                            PassageStatut.ANNULE    -> "❌"
+                                            PassageStatut.THEORIQUE -> "*"
+                                        }
+                                        "${first.arrivee}$emoji" to true
+                                    } else {
+                                        val gtfsTime = gtfsTimeForLine(ctx, stop, lineNum)
+                                        val suffix = if (gtfsTime != "—") "*" else ""
+                                        "$gtfsTime$suffix" to true
+                                    }
                                 } catch (e: Exception) {
-                                    null to (e.message?.contains("500") == true)
+                                    val gtfsTime = gtfsTimeForLine(ctx, stop, lineNum)
+                                    val suffix = if (gtfsTime != "—") "*" else ""
+                                    "$gtfsTime$suffix" to (e.message?.contains("500") == true)
                                 }
                             }
                             if (connected) {
-                                (if (arrivee != null) arrivee else gtfsTimeForLine(ctx, stop, lineNum)) to true
+                                arrivee to true
                             } else {
-                                gtfsTimeForLine(ctx, stop, lineNum) to false
+                                val gtfsTime = gtfsTimeForLine(ctx, stop, lineNum)
+                                val suffix = if (gtfsTime != "—") "*" else ""
+                                "$gtfsTime$suffix" to false
                             }
                         } catch (_: TimeoutCancellationException) {
-                            gtfsTimeForLine(ctx, stop, lineNum) to false
+                            val gtfsTime = gtfsTimeForLine(ctx, stop, lineNum)
+                            val suffix = if (gtfsTime != "—") "*" else ""
+                            "$gtfsTime$suffix" to false
                         }
                     } else "—" to false
                     if (apiOk) apiReachedAtLeastOnce = true

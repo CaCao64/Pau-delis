@@ -20,7 +20,8 @@ data class StopInfo(
     val ligne: String,
     val destination: String,
     val pmr: Boolean,
-    val passages: List<Passage>
+    val passages: List<Passage>,
+    val quaiCode: String = ""
 )
 
 object IdelisApi {
@@ -70,7 +71,7 @@ object IdelisApi {
             if (statusCode !in 200..299) throw RuntimeException("HTTP $statusCode")
             if (!responseBody.trimStart().startsWith("{") && !responseBody.trimStart().startsWith("["))
                 return@withContext emptyList()
-            parse(responseBody)
+            parse(responseBody, stopCode)
         }
 
     private fun dechunk(body: String): String {
@@ -93,7 +94,7 @@ object IdelisApi {
         return sb.toString()
     }
 
-    private fun parse(raw: String): List<StopInfo> {
+    private fun parse(raw: String, quaiCode: String = ""): List<StopInfo> {
         val root = JSONObject(raw)
         val result = mutableListOf<StopInfo>()
         for (key in root.keys()) {
@@ -124,7 +125,7 @@ object IdelisApi {
                 val statut = if (base.type == "reel") PassageHelper.toStatut(ecart) else PassageStatut.THEORIQUE
                 base.copy(statut = statut, ecartMin = ecart ?: 0)
             }
-            result.add(StopInfo(ligne, destination, pmr, passages))
+            result.add(StopInfo(ligne, destination, pmr, passages, quaiCode))
         }
         return result
     }

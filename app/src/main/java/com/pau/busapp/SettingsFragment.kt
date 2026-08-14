@@ -40,6 +40,7 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val ctx = requireContext()
         updateCount()
         updateLanguageLabel()
 
@@ -79,6 +80,40 @@ class SettingsFragment : Fragment() {
             }
             importLauncher.launch(intent)
         }
+
+        // Perturbations & Info Trafic config
+        b.switchTrafficAlerts.isChecked = DisruptionAlertManager.isEnabled(ctx)
+        b.switchTrafficAlerts.setOnCheckedChangeListener { _, isChecked ->
+            DisruptionAlertManager.setEnabled(ctx, isChecked)
+            if (isChecked) {
+                (activity as? MainActivity)?.checkNotifPermissionThenOpenAlerts()
+            }
+            updateTrafficAlertsUI()
+        }
+
+        b.btnTrafficAlertsMode.setOnClickListener {
+            val modes = arrayOf("Favoris uniquement", "Toutes les lignes")
+            val currentMode = DisruptionAlertManager.getMode(ctx)
+            val selectedIdx = if (currentMode == "favorites") 0 else 1
+            android.app.AlertDialog.Builder(ctx)
+                .setTitle("Mode d'alertes perturbations")
+                .setSingleChoiceItems(modes, selectedIdx) { dialog, which ->
+                    val chosenMode = if (which == 0) "favorites" else "all"
+                    DisruptionAlertManager.setMode(ctx, chosenMode)
+                    updateTrafficAlertsUI()
+                    dialog.dismiss()
+                }
+                .show()
+        }
+        updateTrafficAlertsUI()
+    }
+
+    private fun updateTrafficAlertsUI() {
+        val ctx = context ?: return
+        val enabled = DisruptionAlertManager.isEnabled(ctx)
+        b.layoutTrafficAlertsMode.visibility = if (enabled) android.view.View.VISIBLE else android.view.View.GONE
+        val mode = DisruptionAlertManager.getMode(ctx)
+        b.tvTrafficAlertsMode.text = if (mode == "favorites") "Mode : Favoris uniquement" else "Mode : Toutes les lignes"
     }
 
     private fun updateThemeLabel() {
@@ -174,6 +209,9 @@ class SettingsFragment : Fragment() {
                 put("widgetLinesEnabled", JSONArray(WidgetLinesManager.getEnabled(ctx).toList()))
                 // ── Alertes ──────────────────────────────────────────────────
                 put("alerts", JSONArray(AlertManager.load(ctx).map { it.toJson() }))
+                // ── Alertes Perturbations ────────────────────────────────────
+                put("trafficAlertsEnabled", DisruptionAlertManager.isEnabled(ctx))
+                put("trafficAlertsMode", DisruptionAlertManager.getMode(ctx))
                 // ── Paramètres ───────────────────────────────────────────────
                 put("theme",      ThemeManager.get(ctx).name)
                 put("navStyle",   NavStyleManager.get(ctx).name)
@@ -295,6 +333,14 @@ class SettingsFragment : Fragment() {
                     }.onFailure { ignored.add("Alerte invalide à l'index $i") }
                 }
                 AlertManager.save(ctx, existing)
+            }
+
+            // ── Alertes Perturbations ─────────────────────────────────────────
+            if (json.has("trafficAlertsEnabled")) {
+                DisruptionAlertManager.setEnabled(ctx, json.getBoolean("trafficAlertsEnabled"))
+            }
+            if (json.has("trafficAlertsMode")) {
+                DisruptionAlertManager.setMode(ctx, json.getString("trafficAlertsMode"))
             }
 
             // ── Thème ─────────────────────────────────────────────────────────

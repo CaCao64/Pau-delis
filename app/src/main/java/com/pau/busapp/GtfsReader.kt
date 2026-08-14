@@ -15,6 +15,8 @@ import java.time.LocalTime
 import java.time.format.DateTimeFormatter
 import java.util.zip.ZipInputStream
 
+data class GtfsPassageResult(val line: String, val dest: String, val time: LocalTime, val stopId: String)
+
 object GtfsReader {
 
     private val dateFmt = DateTimeFormatter.ofPattern("yyyyMMdd")
@@ -103,19 +105,21 @@ object GtfsReader {
             val passages = lookupStopTimes(stopIds, now)
 
             passages
-                .groupBy { Pair(it.first, it.second) }
+                .groupBy { Pair(it.line, it.dest) }
                 .map { (key, list) ->
-                    val sorted = list.sortedBy { it.third }
+                    val sorted = list.sortedBy { it.time }
+                    val stopId = list.firstOrNull()?.stopId ?: ""
                     StopInfo(
                         ligne = key.first,
                         destination = key.second,
                         pmr = false,
                         passages = sorted.take(5).map {
                             Passage(
-                                arrivee = it.third.format(DateTimeFormatter.ofPattern("HH:mm")),
+                                arrivee = it.time.format(DateTimeFormatter.ofPattern("HH:mm")),
                                 type = "theorique"
                             )
-                        }
+                        },
+                        quaiCode = stopId
                     )
                 }
                 .sortedWith(compareBy({ lineSortKey(it.ligne) }, { it.destination }))
@@ -305,8 +309,8 @@ object GtfsReader {
     private fun lookupStopTimes(
         stopIds: List<String>,
         now: LocalTime
-    ): List<Triple<String, String, LocalTime>> {
-        val result = mutableListOf<Triple<String, String, LocalTime>>()
+    ): List<GtfsPassageResult> {
+        val result = mutableListOf<GtfsPassageResult>()
         for (stopId in stopIds) {
             val entries = cacheStopIndex[stopId] ?: continue
             for (e in entries) {
@@ -316,7 +320,7 @@ object GtfsReader {
                 if (time.isBefore(now)) continue
                 val ligne = cacheRoutes[tripInfo.routeId] ?: tripInfo.routeId
                 val dest = cacheHeadsigns[e.tripId] ?: ""
-                result.add(Triple(ligne, dest, time))
+                result.add(GtfsPassageResult(ligne, dest, time, stopId))
             }
         }
         return result
