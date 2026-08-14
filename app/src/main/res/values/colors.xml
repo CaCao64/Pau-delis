@@ -14,7 +14,14 @@
     <color name="blue_dark">#005C2A</color>
     
     <color name="orange_primary">#FF9800</color>
+    <color name="school_zone_gray">#7A7F88</color>
     <color name="red_primary">#F44336</color>
+    <color name="school_period_school">#FBC02D</color>
+    <color name="school_period_short_holidays">#8BCFE0</color>
+    <color name="school_period_summer_holidays">#D8A0CF</color>
+    <color name="school_period_saturday">#C7CBD3</color>
+    <color name="school_period_sunday_holidays">#9CCC65</color>
+    <color name="school_period_no_service">#E53935</color>
 
     <!-- Horaire théorique -->
     <color name="theorique_text">#555555</color>

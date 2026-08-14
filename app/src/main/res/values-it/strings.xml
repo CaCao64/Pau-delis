@@ -7,10 +7,34 @@
     <string name="nav_stops">Fermate</string>
     <string name="nav_search">Ricerca</string>
     <string name="nav_lines">Linee</string>
+
+
+    <string name="nav_school_zones">Calendario dei periodi</string>
+    <string name="school_zones_title">Calendario dei periodi</string>
+    <string name="school_zones_subtitle">Calendario ufficiale IDELIS per le zone Arancione, Blu e Grigia</string>
+    <string name="school_zones_loading">Caricamento del calendario ufficiale…</string>
+    <string name="school_zones_error">Impossibile caricare i dati al momento.</string>
+    <string name="school_zones_cached">Dati salvati in locale</string>
+    <string name="school_zones_updated_on">Aggiornato il %1$s</string>
+    <string name="school_zones_calendar_label">Calendario</string>
+    <string name="school_zones_legend_title">Legenda ufficiale</string>
+    <string name="school_zones_legend_school">dal lunedì al venerdì periodo scolastico</string>
+    <string name="school_zones_legend_short_holidays">dal lunedì al venerdì brevi vacanze scolastiche</string>
+    <string name="school_zones_legend_summer_holidays">dal lunedì al venerdì vacanze estive</string>
+    <string name="school_zones_legend_saturday">sabato</string>
+    <string name="school_zones_legend_sunday_holidays">domenica e festivi (solo le linee F, A, B, C e D)</string>
+    <string name="school_zones_legend_no_service">nessun bus in circolazione il 1° gennaio e il 1° maggio</string>
+    <string name="school_zones_detail_title">Dettaglio per zona</string>
+    <string name="school_zones_selected_date">Informazioni per il %1$s</string>
+    <string name="school_zones_status_in_period">In vacanza</string>
+    <string name="school_zones_status_outside_period">Fuori vacanza</string>
+    <string name="school_zones_no_periods">Nessun periodo trovato per questa zona.</string>
+    <string name="school_zones_selected_period">Periodo selezionato: %1$s</string>
     <string name="nav_favs">Preferiti</string>
     <string name="nav_alerts">Avvisi</string>
     <string name="nav_settings">Impostazioni</string>
     <string name="btn_emulate_here">📍 Emula qui</string>
+    <string name="map_nearest_loading">Ricerca delle fermate più vicine…</string>
     <string name="next_passages">Prossime partenze</string>
     <string name="loading">Caricamento…</string>
     <string name="no_stop_code">Nessun codice fermata disponibile</string>
@@ -130,8 +154,8 @@
     <string name="recurrence_no_excluded">Nessuna data esclusa</string>
     <string name="recurrence_week_parity_odd">dispari</string>
     <string name="recurrence_week_parity_even">pari</string>
-    <string name="recurrence_add_date">＋ Aggiungi una data</string>
-    <string name="recurrence_exclude_date">＋ Escludi una data</string>
+    <string name="recurrence_add_date">+ Aggiungi una data</string>
+    <string name="recurrence_exclude_date">+ Escludi una data</string>
     <string name="day_mon">Lun</string>
     <string name="day_tue">Mar</string>
     <string name="day_wed">Mer</string>
@@ -165,6 +189,13 @@
     <string name="tracking_no_passage_receiver">Previsto alle %1$s — nessun dato disponibile</string>
 
     <string name="nav_donate">Fai una donazione (acquistami un biglietto Idelis)</string>
+    <string name="settings_traffic_alerts_mode_title">Modalità avvisi disservizi</string>
+    <string name="settings_traffic_mode_favorites_only">Solo preferiti</string>
+    <string name="settings_traffic_mode_all_lines">Tutte le linee</string>
+    <string name="settings_traffic_mode_current_favorites_only">Modalità: Solo preferiti</string>
+    <string name="settings_traffic_mode_current_all_lines">Modalità: Tutte le linee</string>
+    <string name="settings_theme_picker_title">Tema</string>
+    <string name="settings_nav_style_picker_title">Stile di navigazione</string>
     <string name="consent_title">Aiutaci a migliorare Pau\'delis</string>
     <string name="consent_intro">Prima del tutorial, scegli se desideri condividere analisi anonime.</string>
     <string name="consent_card_title">Analisi e privacy</string>

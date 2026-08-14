@@ -1,16 +1,21 @@
 package com.pau.busapp
 
 import android.app.AlertDialog
-import android.app.DatePickerDialog
 import android.app.Dialog
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.*
 import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.datepicker.MaterialDatePicker
 import java.util.Calendar
+import java.time.Instant
+import java.time.ZoneId
 
 class WidgetStopConfigDialog : DialogFragment() {
 
@@ -47,12 +52,43 @@ class WidgetStopConfigDialog : DialogFragment() {
         selectedDates.addAll(config.specificDates)
 
         val ctx = requireContext()
-        val scroll = ScrollView(ctx)
+        val root = LinearLayout(ctx).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(dp(20), dp(20), dp(20), dp(20))
+        }
+        val card = MaterialCardView(ctx).apply {
+            radius = dp(20).toFloat()
+            cardElevation = dp(12).toFloat()
+            setCardBackgroundColor(ContextCompat.getColor(ctx, R.color.surface))
+        }
+        root.addView(card, LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        ))
+        val shell = LinearLayout(ctx).apply {
+            orientation = LinearLayout.VERTICAL
+        }
+        card.addView(shell)
+        shell.addView(View(ctx).apply {
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT, dp(6)
+            )
+            setBackgroundColor(ContextCompat.getColor(ctx, R.color.green_primary))
+        })
+        shell.addView(TextView(ctx).apply {
+            text = "Configuration du widget"
+            textSize = 22f
+            setTypeface(null, android.graphics.Typeface.BOLD)
+            setTextColor(ContextCompat.getColor(ctx, R.color.text_primary))
+            setPadding(dp(20), dp(18), dp(20), dp(10))
+        })
+        val scroll = ScrollView(ctx).apply { isVerticalScrollBarEnabled = false }
         val layout = LinearLayout(ctx).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(dp(60), dp(24), dp(60), dp(16))
+            setPadding(dp(20), 0, dp(20), dp(20))
         }
         scroll.addView(layout)
+        shell.addView(scroll)
 
         // ── Taille de texte ───────────────────────────────────────────────────
         layout.addView(sectionLabel("Taille du texte", 0))
@@ -168,12 +204,40 @@ class WidgetStopConfigDialog : DialogFragment() {
             llDates.visibility = if (c) View.VISIBLE else View.GONE
         }
 
-        return AlertDialog.Builder(ctx)
-            .setTitle("⚙ $stopName")
-            .setView(scroll)
-            .setPositiveButton("Enregistrer") { _, _ -> save() }
-            .setNegativeButton("Annuler", null)
+        val actions = LinearLayout(ctx).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.END
+            setPadding(dp(20), 0, dp(20), dp(20))
+        }
+        actions.addView(MaterialButton(ctx).apply {
+            text = "Annuler"
+            minWidth = 0
+            cornerRadius = dp(18)
+            setTextColor(ContextCompat.getColor(ctx, R.color.white))
+            backgroundTintList = ContextCompat.getColorStateList(ctx, R.color.green_dark)
+            setOnClickListener { dismiss() }
+        })
+        actions.addView(MaterialButton(ctx).apply {
+            text = "Enregistrer"
+            minWidth = 0
+            cornerRadius = dp(18)
+            setTextColor(ContextCompat.getColor(ctx, R.color.white))
+            backgroundTintList = ContextCompat.getColorStateList(ctx, R.color.green_primary)
+            setOnClickListener { save(); dismiss() }
+        })
+        shell.addView(actions)
+
+        val dialog = AlertDialog.Builder(ctx)
+            .setView(root)
             .create()
+        dialog.setOnShowListener {
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.window?.setLayout(
+                (resources.displayMetrics.widthPixels * 0.94f).toInt(),
+                WindowManager.LayoutParams.WRAP_CONTENT
+            )
+        }
+        return dialog
     }
 
     private fun save() {
@@ -205,12 +269,16 @@ class WidgetStopConfigDialog : DialogFragment() {
 
     private fun showDatePicker() {
         val ctx = requireContext()
-        val cal = Calendar.getInstance()
-        DatePickerDialog(ctx, { _, y, m, d ->
-            val date = "%04d-%02d-%02d".format(y, m + 1, d)
+        val picker = MaterialDatePicker.Builder.datePicker()
+            .setTitleText("Choisir une date")
+            .setSelection(MaterialDatePicker.todayInUtcMilliseconds())
+            .build()
+        picker.addOnPositiveButtonClickListener { millis ->
+            val date = Instant.ofEpochMilli(millis).atZone(ZoneId.systemDefault()).toLocalDate().toString()
             if (date !in selectedDates) { selectedDates.add(date); selectedDates.sort() }
             refreshDatesView()
-        }, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH)).show()
+        }
+        picker.show(parentFragmentManager, "widget_config_date")
     }
 
     private fun refreshDatesView() {

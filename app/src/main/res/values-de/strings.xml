@@ -7,10 +7,33 @@
     <string name="nav_stops">Haltestellen</string>
     <string name="nav_search">Suche</string>
     <string name="nav_lines">Linien</string>
+
+
+    <string name="nav_school_zones">Periodenkalender</string>
+    <string name="school_zones_title">Periodenkalender</string>
+    <string name="school_zones_subtitle">Offizieller IDELIS-Kalender für die orange, blaue und graue Zone</string>
+    <string name="school_zones_loading">Offiziellen Kalender wird geladen…</string>
+    <string name="school_zones_error">Die Daten können gerade nicht geladen werden.</string>
+    <string name="school_zones_cached">Daten lokal gespeichert</string>
+    <string name="school_zones_updated_on">Aktualisiert am %1$s</string>
+    <string name="school_zones_calendar_label">Kalender</string>
+    <string name="school_zones_legend_title">Offizielle Legende</string>
+    <string name="school_zones_legend_school">Montag bis Freitag Schulzeit</string>
+    <string name="school_zones_legend_short_holidays">Montag bis Freitag kurze Schulferien</string>
+    <string name="school_zones_legend_summer_holidays">Montag bis Freitag Sommerferien</string>
+    <string name="school_zones_legend_saturday">Samstag</string>
+    <string name="school_zones_legend_sunday_holidays">Sonntag und Feiertage (nur die Linien F, A, B, C und D)</string>
+    <string name="school_zones_legend_no_service">Am 1. Januar und 1. Mai fahren keine Busse</string>
+    <string name="school_zones_detail_title">Details nach Zone</string>
+    <string name="school_zones_selected_date">Informationen für den %1$s</string>
+    <string name="school_zones_status_in_period">In den Ferien</string>
+    <string name="school_zones_status_outside_period">Außerhalb der Ferien</string>
+    <string name="school_zones_no_periods">Für diese Zone wurde kein Zeitraum gefunden.</string>
     <string name="nav_favs">Favoriten</string>
     <string name="nav_alerts">Benachricht.</string>
     <string name="nav_settings">Einstellungen</string>
     <string name="btn_emulate_here">📍 Hier emulieren</string>
+    <string name="map_nearest_loading">Suche nach den nächstgelegenen Haltestellen…</string>
     <string name="next_passages">Nächste Abfahrten</string>
     <string name="loading">Laden…</string>
     <string name="no_stop_code">Kein Haltestellencode verfügbar</string>
@@ -129,8 +152,8 @@
     <string name="recurrence_no_excluded">Keine ausgeschlossenen Daten</string>
     <string name="recurrence_week_parity_odd">ungerade</string>
     <string name="recurrence_week_parity_even">gerade</string>
-    <string name="recurrence_add_date">＋ Datum hinzufügen</string>
-    <string name="recurrence_exclude_date">＋ Datum ausschließen</string>
+    <string name="recurrence_add_date">+ Datum hinzufügen</string>
+    <string name="recurrence_exclude_date">+ Datum ausschließen</string>
     <string name="day_mon">Mo</string>
     <string name="day_tue">Di</string>
     <string name="day_wed">Mi</string>
@@ -164,6 +187,13 @@
     <string name="tracking_no_passage_receiver">Geplant um %1$s — keine Daten verfügbar</string>
 
     <string name="nav_donate">Spenden (Kauf mir ein Idelis-Ticket)</string>
+    <string name="settings_traffic_alerts_mode_title">Störungsmeldungsmodus</string>
+    <string name="settings_traffic_mode_favorites_only">Nur Favoriten</string>
+    <string name="settings_traffic_mode_all_lines">Alle Linien</string>
+    <string name="settings_traffic_mode_current_favorites_only">Modus: Nur Favoriten</string>
+    <string name="settings_traffic_mode_current_all_lines">Modus: Alle Linien</string>
+    <string name="settings_theme_picker_title">Thema</string>
+    <string name="settings_nav_style_picker_title">Navigationsstil</string>
     <string name="consent_title">Helfen Sie uns, Pau\'delis zu verbessern</string>
     <string name="consent_intro">Wählen Sie vor dem Tutorial aus, ob Sie anonyme Analysen teilen möchten.</string>
     <string name="consent_card_title">Analytik und Datenschutz</string>
@@ -187,9 +217,9 @@
     <string name="btn_finish">Beenden →</string>
     <string name="btn_skip">Überspringen</string>
     <string name="tuto_welcome_title">Willkommen bei Pau\'delis 🚌</string>
-    <string name="tuto_welcome_body">Diese App zeigt Ihnen in Echtzeit die nächsten Busse des Idelis-Netzwerks in Pau.\n\nWischen Sie nach links oder klicken Sie auf „Weiter“, um die App zu entdecken. Sie können auch auf die Schaltfläche „Hilfe“ oben rechts in den Registerkarten klicken, um das jeweilige Handbuch zu öffnen.</string>
+    <string name="tuto_welcome_body">Diese App zeigt Ihnen in Echtzeit die nächsten Busse des Idelis-Netzwerks in Pau.\n\nWischen Sie nach links oder klicken Sie auf "Weiter", um die App zu entdecken. Sie können auch auf die Schaltfläche "Hilfe" oben rechts in den Registerkarten klicken, um das jeweilige Handbuch zu öffnen.</string>
     <string name="tuto_map_title">Die Karte</string>
-    <string name="tuto_map_body">Die Registerkarte „Karte“ (🗺️) unten zeigt Ihnen alle Haltestellen des Netzwerks auf einer Karte.\n\nZum Zoomen drücken. Beim Vergrößern werden Haltestellennamen angezeigt. Drücken Sie auf eine Haltestelle, um die nächsten Busse anzuzeigen.</string>
+    <string name="tuto_map_body">Die Registerkarte "Karte" (🗺️) unten zeigt Ihnen alle Haltestellen des Netzwerks auf einer Karte.\n\nZum Zoomen drücken. Beim Vergrößern werden Haltestellennamen angezeigt. Drücken Sie auf eine Haltestelle, um die nächsten Busse anzuzeigen.</string>
     <string name="tuto_locate_title">Finden Sie mich auf der Karte</string>
     <string name="tuto_locate_body">Drücken Sie die blaue Schaltfläche unten rechts auf der Karte, um sich selbst zu lokalisieren und Ihre Position live zu sehen.\n\nDie App wird Sie um Erlaubnis bitten, auf Ihren Standort zuzugreifen.</string>
     <string name="tuto_nearest_title">Nächste Haltestelle</string>
@@ -204,8 +234,8 @@
     <string name="tuto_alerts_body">Drücken Sie 🔔, um einen Alarm für Ihren Bus zu erstellen.\n\nWählen Sie die Haltestelle, die Linie und die Uhrzeit: Sie erhalten zur geplanten Zeit eine Benachrichtigung auf Ihrem Telefon.</string>
     <string name="tuto_customize_alert_title">Passen Sie eine Warnung an</string>
     <string name="tuto_customize_alert_body">Eine Benachrichtigung kann jeden Tag, nur an bestimmten Tagen (z. B. Montag und Mittwoch), mit Ausnahme von Schulferien und Feiertagen oder nur an ausgewählten Daten ertönen.\n\nSie können auch bestimmte Daten ausschließen.</string>
-    <string name="tuto_tabs_title">Die Registerkarte „Mehr“.</string>
-    <string name="tuto_tabs_body">Über die Schaltfläche „···“ unten rechts haben Sie Zugriff auf alle Funktionen: Liste der Haltestellen, Linien, Einstellungen und dieses Tutorial.\n\nSie können anpassen, welche Registerkarten unten in den Einstellungen angezeigt werden.</string>
+    <string name="tuto_tabs_title">Die Registerkarte "Mehr".</string>
+    <string name="tuto_tabs_body">Über die Schaltfläche "···" unten rechts haben Sie Zugriff auf alle Funktionen: Liste der Haltestellen, Linien, Einstellungen und dieses Tutorial.\n\nSie können anpassen, welche Registerkarten unten in den Einstellungen angezeigt werden.</string>
     <string name="tuto_settings_title">Einstellungen</string>
     <string name="tuto_settings_body">In den ⚙️ Einstellungen können Sie:\n\n• die Sprache ändern\n• ein helles oder dunkles Design auswählen\n• das Widget für den Startbildschirm konfigurieren\n• Tabs neu organisieren</string>
     <string name="tuto_widget_title">Das Widget</string>
@@ -220,7 +250,7 @@
     <string name="tuto_color_blue">Blau</string>
     <string name="tuto_color_red_strike">Durchgestrichenes Rot</string>
     <string name="tracking_passed_explicit">Der Bus ist vorbeigefahren</string>
-    <string name="settings_emulation_toggle">Schaltfläche „GPS-Positionsemulation aktivieren“.</string>
+    <string name="settings_emulation_toggle">Schaltfläche "GPS-Positionsemulation aktivieren".</string>
     <string name="sort_name">Name</string>
     <string name="sort_distance">Distanz</string>
     <string name="sort_next_passage">Nächste Passage</string>

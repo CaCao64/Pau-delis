@@ -7,10 +7,34 @@
     <string name="nav_stops">Paragens</string>
     <string name="nav_search">Pesquisa</string>
     <string name="nav_lines">Linhas</string>
+
+
+    <string name="nav_school_zones">Calendário de períodos</string>
+    <string name="school_zones_title">Calendário de períodos</string>
+    <string name="school_zones_subtitle">Calendário oficial da IDELIS para as zonas Laranja, Azul e Cinzenta</string>
+    <string name="school_zones_loading">A carregar o calendário oficial…</string>
+    <string name="school_zones_error">Não foi possível carregar os dados neste momento.</string>
+    <string name="school_zones_cached">Dados guardados localmente</string>
+    <string name="school_zones_updated_on">Atualizado em %1$s</string>
+    <string name="school_zones_calendar_label">Calendário</string>
+    <string name="school_zones_legend_title">Legenda oficial</string>
+    <string name="school_zones_legend_school">de segunda a sexta-feira período escolar</string>
+    <string name="school_zones_legend_short_holidays">de segunda a sexta-feira pequenas férias escolares</string>
+    <string name="school_zones_legend_summer_holidays">de segunda a sexta-feira férias de verão</string>
+    <string name="school_zones_legend_saturday">sábado</string>
+    <string name="school_zones_legend_sunday_holidays">domingo e feriados (apenas as linhas F, A, B, C e D)</string>
+    <string name="school_zones_legend_no_service">não há autocarros a 1 de janeiro e 1 de maio</string>
+    <string name="school_zones_detail_title">Detalhes por zona</string>
+    <string name="school_zones_selected_date">Informação para %1$s</string>
+    <string name="school_zones_status_in_period">Em férias</string>
+    <string name="school_zones_status_outside_period">Fora das férias</string>
+    <string name="school_zones_no_periods">Nenhum período encontrado para esta zona.</string>
+    <string name="school_zones_selected_period">Período selecionado: %1$s</string>
     <string name="nav_favs">Favoritos</string>
     <string name="nav_alerts">Alertas</string>
     <string name="nav_settings">Definições</string>
     <string name="btn_emulate_here">📍 Emular aqui</string>
+    <string name="map_nearest_loading">A procurar as paragens mais próximas…</string>
     <string name="next_passages">Próximas partidas</string>
     <string name="loading">A carregar…</string>
     <string name="no_stop_code">Sem código de paragem disponível</string>
@@ -129,8 +153,8 @@
     <string name="recurrence_no_excluded">Nenhuma data excluída</string>
     <string name="recurrence_week_parity_odd">ímpar</string>
     <string name="recurrence_week_parity_even">par</string>
-    <string name="recurrence_add_date">＋ Adicionar uma data</string>
-    <string name="recurrence_exclude_date">＋ Excluir uma data</string>
+    <string name="recurrence_add_date">+ Adicionar uma data</string>
+    <string name="recurrence_exclude_date">+ Excluir uma data</string>
     <string name="day_mon">Seg</string>
     <string name="day_tue">Ter</string>
     <string name="day_wed">Qua</string>
@@ -164,6 +188,13 @@
     <string name="tracking_no_passage_receiver">Previsto às %1$s — sem dados disponíveis</string>
 
     <string name="nav_donate">Doe (compre-me um ingresso Idelis)</string>
+    <string name="settings_traffic_alerts_mode_title">Modo de alertas de perturbações</string>
+    <string name="settings_traffic_mode_favorites_only">Apenas favoritos</string>
+    <string name="settings_traffic_mode_all_lines">Todas as linhas</string>
+    <string name="settings_traffic_mode_current_favorites_only">Modo: Apenas favoritos</string>
+    <string name="settings_traffic_mode_current_all_lines">Modo: Todas as linhas</string>
+    <string name="settings_theme_picker_title">Tema</string>
+    <string name="settings_nav_style_picker_title">Estilo de navegação</string>
     <string name="consent_title">Ajude-nos a melhorar Pau\'delis</string>
     <string name="consent_intro">Antes do tutorial, escolha se deseja compartilhar análises anônimas.</string>
     <string name="consent_card_title">Análise e privacidade</string>

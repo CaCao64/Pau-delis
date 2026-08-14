@@ -7,10 +7,33 @@
     <string name="nav_stops">정류장</string>
     <string name="nav_search">검색</string>
     <string name="nav_lines">노선</string>
+
+
+    <string name="nav_school_zones">기간 달력</string>
+    <string name="school_zones_title">기간 달력</string>
+    <string name="school_zones_subtitle">주황, 파랑, 회색 구역을 위한 공식 IDELIS 달력</string>
+    <string name="school_zones_loading">공식 달력을 불러오는 중…</string>
+    <string name="school_zones_error">현재 데이터를 불러올 수 없습니다.</string>
+    <string name="school_zones_cached">데이터가 로컬에 저장되었습니다</string>
+    <string name="school_zones_updated_on">업데이트: %1$s</string>
+    <string name="school_zones_calendar_label">달력</string>
+    <string name="school_zones_legend_title">공식 범례</string>
+    <string name="school_zones_legend_school">월요일부터 금요일까지 학기 기간</string>
+    <string name="school_zones_legend_short_holidays">월요일부터 금요일까지 짧은 학교 방학</string>
+    <string name="school_zones_legend_summer_holidays">월요일부터 금요일까지 여름 방학</string>
+    <string name="school_zones_legend_saturday">토요일</string>
+    <string name="school_zones_legend_sunday_holidays">일요일 및 공휴일(F, A, B, C, D 노선만)</string>
+    <string name="school_zones_legend_no_service">1월 1일과 5월 1일에는 버스가 운행하지 않습니다</string>
+    <string name="school_zones_detail_title">구역별 세부 정보</string>
+    <string name="school_zones_selected_date">%1$s 정보</string>
+    <string name="school_zones_status_in_period">방학 중</string>
+    <string name="school_zones_status_outside_period">방학 외</string>
+    <string name="school_zones_no_periods">이 구역에서 기간을 찾을 수 없습니다.</string>
     <string name="nav_favs">즐겨찾기</string>
     <string name="nav_alerts">알림</string>
     <string name="nav_settings">설정</string>
     <string name="btn_emulate_here">📍 여기서 위치 시뮬레이션</string>
+    <string name="map_nearest_loading">가장 가까운 정류장을 찾는 중…</string>
     <string name="next_passages">다음 출발</string>
     <string name="loading">로딩 중…</string>
     <string name="no_stop_code">정류장 코드 없음</string>
@@ -129,8 +152,8 @@
     <string name="recurrence_no_excluded">제외된 날짜 없음</string>
     <string name="recurrence_week_parity_odd">홀수</string>
     <string name="recurrence_week_parity_even">짝수</string>
-    <string name="recurrence_add_date">＋ 날짜 추가</string>
-    <string name="recurrence_exclude_date">＋ 날짜 제외</string>
+    <string name="recurrence_add_date">+ 날짜 추가</string>
+    <string name="recurrence_exclude_date">+ 날짜 제외</string>
     <string name="day_mon">월</string>
     <string name="day_tue">화</string>
     <string name="day_wed">수</string>
@@ -164,6 +187,13 @@
     <string name="tracking_no_passage_receiver">%1$s 예정 — 이용 가능한 데이터 없음</string>
 
     <string name="nav_donate">기부(Idelis 티켓 구매)</string>
+    <string name="settings_traffic_alerts_mode_title">장애 알림 모드</string>
+    <string name="settings_traffic_mode_favorites_only">즐겨찾기만</string>
+    <string name="settings_traffic_mode_all_lines">모든 노선</string>
+    <string name="settings_traffic_mode_current_favorites_only">모드: 즐겨찾기만</string>
+    <string name="settings_traffic_mode_current_all_lines">모드: 모든 노선</string>
+    <string name="settings_theme_picker_title">테마</string>
+    <string name="settings_nav_style_picker_title">탐색 스타일</string>
     <string name="consent_title">Pau\'delis 개선에 도움을 주세요.</string>
     <string name="consent_intro">튜토리얼을 시작하기 전에 익명 분석을 공유할지 여부를 선택하세요.</string>
     <string name="consent_card_title">분석 및 개인정보 보호</string>

@@ -70,26 +70,21 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun normalizeString(s: String): String {
-        val normalized = java.text.Normalizer.normalize(s, java.text.Normalizer.Form.NFD)
-        val pattern = java.util.regex.Pattern.compile("\\p{InCombiningDiacriticalMarks}+")
-        return pattern.matcher(normalized).replaceAll("").lowercase()
-    }
-
+    @Suppress("DEPRECATION")
     private fun showResults(query: String) {
         b.tvEmpty.visibility = View.GONE
         b.resultsContainer.removeAllViews()
-        val q = normalizeString(query)
+        val q = SearchTextUtils.normalize(query)
 
         val matchedLines = AppData.busLines.filter {
-            normalizeString(it.number).contains(q) ||
-            normalizeString(it.terminus1).contains(q) ||
-            normalizeString(it.terminus2).contains(q) ||
-            it.stopsDir1.any { s -> normalizeString(s).contains(q) } ||
-            it.stopsDir2.any { s -> normalizeString(s).contains(q) }
+            SearchTextUtils.normalize(it.number).contains(q) ||
+            SearchTextUtils.normalize(it.terminus1).contains(q) ||
+            SearchTextUtils.normalize(it.terminus2).contains(q) ||
+            it.stopsDir1.any { s -> SearchTextUtils.normalize(s).contains(q) } ||
+            it.stopsDir2.any { s -> SearchTextUtils.normalize(s).contains(q) }
         }
         val matchedStops = AppData.quaiStops.filter {
-            normalizeString(it.stop.name).contains(q) || normalizeString(it.direction).contains(q)
+            SearchTextUtils.normalize(it.stop.name).contains(q) || SearchTextUtils.normalize(it.direction).contains(q)
         }.distinctBy { it.stop.name }.take(30)
 
         val total = matchedLines.size + matchedStops.size

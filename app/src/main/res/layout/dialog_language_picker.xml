@@ -25,60 +25,41 @@
                 android:background="@color/green_primary" />
 
             <TextView
-                android:id="@+id/tvAboutTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="22dp"
                 android:layout_marginEnd="20dp"
+                android:text="@string/settings_choose_language"
                 android:textAlignment="center"
                 android:textColor="@color/text_primary"
                 android:textSize="22sp"
                 android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvAboutSubtitle"
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="20dp"
-                android:textAlignment="center"
-                android:textColor="@color/text_secondary"
-                android:textSize="13sp" />
+                android:fillViewport="true"
+                android:overScrollMode="never"
+                android:paddingStart="14dp"
+                android:paddingTop="14dp"
+                android:paddingEnd="14dp">
 
-            <TextView
-                android:id="@+id/tvAboutCreator"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="20dp"
-                android:textAlignment="center"
-                android:textColor="@color/text_primary"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvAboutTagline"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="12dp"
-                android:layout_marginEnd="20dp"
-                android:textAlignment="center"
-                android:textColor="@color/green_primary"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+                <LinearLayout
+                    android:id="@+id/llLanguageList"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </ScrollView>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnAboutClose"
+                android:id="@+id/btnCloseLanguage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
                 android:layout_margin="20dp"
                 android:minWidth="0dp"
-                android:text="@string/about_close"
+                android:text="@string/permission_close"
                 android:textAllCaps="true"
                 android:textColor="@color/white"
                 app:backgroundTint="@color/green_primary"

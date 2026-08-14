@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Pau\'delis</string>
-    <string name="widget_desc">Prochains passages de vos arrets favoris</string>
+    <string name="widget_desc">Prochains passages de vos arrêts favoris</string>
     <string name="widget_label">Pau\'delis – Arrêts</string>
 
     <!-- Navigation -->
@@ -9,15 +9,35 @@
     <string name="nav_stops">Arrêts</string>
     <string name="nav_search">Recherche</string>
     <string name="nav_lines">Lignes</string>
-    <string name="nav_favs">Favoris</string>
-    <string name="nav_alerts">Alertes</string>
-    <string name="nav_settings">Paramètres</string>
-    <string name="nav_donate" tools:ignore="MissingTranslation">Don (Buy me a Ticket Idelis)</string>
+
+
+    <string name="nav_school_zones">Calendrier des périodes</string>
+    <string name="school_zones_title">Calendrier des périodes</string>
+    <string name="school_zones_subtitle">Calendrier voyageur officiel IDELIS pour les zones Orange, Bleue et Grise</string>
+    <string name="school_zones_loading">Chargement du calendrier officiel…</string>
+    <string name="school_zones_error">Impossible de charger les données pour le moment.</string>
+    <string name="school_zones_cached">Données enregistrées localement</string>
+    <string name="school_zones_updated_on">Mis à jour le %1$s</string>
+    <string name="school_zones_calendar_label">Calendrier</string>
+    <string name="school_zones_legend_title">Légende officielle</string>
+    <string name="school_zones_legend_school">du lundi au vendredi scolaire</string>
+    <string name="school_zones_legend_short_holidays">du lundi au vendredi petites vacances scolaires</string>
+    <string name="school_zones_legend_summer_holidays">du lundi au vendredi vacances été</string>
+    <string name="school_zones_legend_saturday">samedi</string>
+    <string name="school_zones_legend_sunday_holidays">dimanche et jours fériés (uniquement les lignes F, A, B, C et D)</string>
+    <string name="school_zones_legend_no_service">aucun bus en circulation le 1er janvier et le 1er mai</string>
+    <string name="school_zones_detail_title">Détail par zone</string>
+    <string name="school_zones_selected_date">Infos pour le %1$s</string>
+    <string name="school_zones_status_in_period">En vacances</string>
+    <string name="school_zones_status_outside_period">Hors vacances</string>
+    <string name="school_zones_no_periods">Aucune période trouvée pour cette zone.</string>
+    <string name="school_zones_selected_period">Période sélectionnée : %1$s</string>
 
     <!-- Carte / Map -->
     <string name="btn_emulate_here">📍 Émuler ici</string>
+    <string name="map_nearest_loading">Recherche des arrêts les plus proches en cours…</string>
 
-    <!-- Fiche arrêt -->
+    <!-- Fiche arrÃªt -->
     <string name="next_passages">Prochains passages</string>
     <string name="loading">Chargement…</string>
     <string name="no_stop_code">Pas de code d\'arrêt disponible</string>
@@ -64,7 +84,7 @@
     <string name="search_section_stops">Arrêts</string>
     <string name="cd_clear_search">Effacer</string>
 
-    <!-- Arrêts liste -->
+    <!-- ArrÃªts liste -->
     <string name="stops_lines_label">  •  Lignes : %s</string>
 
     <!-- Alertes -->
@@ -83,7 +103,7 @@
     <string name="alert_updated" tools:ignore="MissingTranslation">Alerte modifiée ✓</string>
     <string name="alert_empty_message">Le message est vide</string>
 
-    <!-- Paramètres -->
+    <!-- ParamÃ¨tres -->
     <string name="settings_title">Paramètres</string>
     <string name="settings_section_appearance" tools:ignore="MissingTranslation">APPARENCE</string>
     <string name="settings_section_tabs" tools:ignore="MissingTranslation">ONGLETS</string>
@@ -184,7 +204,7 @@
     <string name="alert_edit_title">Modifier l\'alerte</string>
     <string name="alert_deleted">Alerte supprimée</string>
 
-    <!-- Récurrence alertes -->
+    <!-- RÃ©currence alertes -->
     <string name="recurrence_label">Récurrence</string>
     <string name="recurrence_week_info">Semaine actuelle : n°%1$d (%2$s)</string>
     <string name="recurrence_odd_weeks">Semaines impaires</string>
@@ -202,10 +222,10 @@
     <string name="recurrence_no_excluded">Aucune date exclue</string>
     <string name="recurrence_week_parity_odd">impaire</string>
     <string name="recurrence_week_parity_even">paire</string>
-    <string name="recurrence_add_date">＋ Ajouter une date</string>
-    <string name="recurrence_exclude_date">＋ Exclure une date</string>
+    <string name="recurrence_add_date">+ Ajouter une date</string>
+    <string name="recurrence_exclude_date">+ Exclure une date</string>
 
-    <!-- Jours de la semaine (abréviations) -->
+    <!-- Jours de la semaine (abrÃ©viations) -->
     <string name="day_mon">Lun</string>
     <string name="day_tue">Mar</string>
     <string name="day_wed">Mer</string>
@@ -223,7 +243,7 @@
     <string name="fav_bus_removed">Favoris retiré</string>
     <string name="fav_added">Favoris ajouté</string>
 
-    <!-- Arrêts / Lignes -->
+    <!-- ArrÃªts / Lignes -->
     <string name="stop_no_sunday">Ne passe pas le dimanche</string>
     <string name="stop_no_bus_today_holiday">Aucun bus aujourd\'hui\n(Jour férié)</string>
     <string name="stop_no_bus_today_sunday">Aucun bus aujourd\'hui\n(Dimanche)</string>
@@ -242,7 +262,7 @@
     <string name="tracking_next_real">Prochain passage</string>
     <string name="tracking_next_theo">Passage théorique</string>
     <string name="tracking_passed">Bus %1$s passé 🟢</string>
-    <string name="tracking_no_passage_receiver">Passage prévu à %1$s — aucune donnee disponible</string>
+    <string name="tracking_no_passage_receiver">Passage prévu à %1$s — aucune donnée disponible</string>
 
     <string name="notif_channel_name">Alertes bus</string>
     <string name="notif_channel_desc">Rappels de passages de bus</string>
@@ -263,4 +283,9 @@
     <string name="shortcut_map_desc">Afficher la carte des bus et arrêts</string>
     <string name="shortcut_favs_title">Favoris</string>
     <string name="shortcut_favs_desc">Afficher mes arrêts favoris</string>
+    <string name="about_title">À propos</string>
+    <string name="about_subtitle">Informations sur Pau\'delis</string>
+    <string name="about_creator">Créé par Caolan</string>
+    <string name="about_tagline">✨ Entièrement vibe codé ✨</string>
+    <string name="about_close">Fermer</string>
 </resources>

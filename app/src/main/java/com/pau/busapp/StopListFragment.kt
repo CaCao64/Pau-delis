@@ -28,12 +28,6 @@ class StopListFragment : Fragment() {
 
     private var searchQuery = ""
 
-    private fun normalizeString(s: String): String {
-        val normalized = java.text.Normalizer.normalize(s, java.text.Normalizer.Form.NFD)
-        val pattern = java.util.regex.Pattern.compile("\\p{InCombiningDiacriticalMarks}+")
-        return pattern.matcher(normalized).replaceAll("").lowercase()
-    }
-
     override fun onCreateView(i: LayoutInflater, c: ViewGroup?, s: Bundle?): View {
         _b = FragmentStopListBinding.inflate(i, c, false); return b.root
     }
@@ -78,7 +72,7 @@ class StopListFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
             override fun afterTextChanged(s: android.text.Editable?) {
-                searchQuery = s?.toString()?.trim()?.lowercase() ?: ""
+                searchQuery = s?.toString()?.trim() ?: ""
                 updateList()
             }
         })
@@ -92,8 +86,8 @@ class StopListFragment : Fragment() {
         var raw = AppData.busStops.toList()
 
         if (searchQuery.isNotEmpty()) {
-            val q = normalizeString(searchQuery)
-            raw = raw.filter { normalizeString(it.name).contains(q) }
+            val q = SearchTextUtils.normalize(searchQuery)
+            raw = raw.filter { SearchTextUtils.normalize(it.name).contains(q) }
         }
 
         when (currentSortMode) {

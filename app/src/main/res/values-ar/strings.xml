@@ -7,10 +7,33 @@
     <string name="nav_stops">محطات</string>
     <string name="nav_search">بحث</string>
     <string name="nav_lines">خطوط</string>
+
+
+    <string name="nav_school_zones">تقويم الفترات</string>
+    <string name="school_zones_title">تقويم الفترات</string>
+    <string name="school_zones_subtitle">التقويم الرسمي لـ IDELIS لمناطق البرتقالي والأزرق والرمادي</string>
+    <string name="school_zones_loading">جارٍ تحميل التقويم الرسمي…</string>
+    <string name="school_zones_error">يتعذر تحميل البيانات الآن.</string>
+    <string name="school_zones_cached">تم حفظ البيانات محليًا</string>
+    <string name="school_zones_updated_on">تم التحديث في %1$s</string>
+    <string name="school_zones_calendar_label">التقويم</string>
+    <string name="school_zones_legend_title">الشرح الرسمي</string>
+    <string name="school_zones_legend_school">من الاثنين إلى الجمعة فترة دراسية</string>
+    <string name="school_zones_legend_short_holidays">من الاثنين إلى الجمعة عطلات مدرسية قصيرة</string>
+    <string name="school_zones_legend_summer_holidays">من الاثنين إلى الجمعة عطلة الصيف</string>
+    <string name="school_zones_legend_saturday">السبت</string>
+    <string name="school_zones_legend_sunday_holidays">الأحد والعطل الرسمية (الخطوط F وA وB وC وD فقط)</string>
+    <string name="school_zones_legend_no_service">لا توجد حافلات يوم 1 يناير و1 مايو</string>
+    <string name="school_zones_detail_title">تفاصيل حسب المنطقة</string>
+    <string name="school_zones_selected_date">معلومات عن %1$s</string>
+    <string name="school_zones_status_in_period">في العطلات</string>
+    <string name="school_zones_status_outside_period">خارج العطلات</string>
+    <string name="school_zones_no_periods">لم يتم العثور على فترة لهذه المنطقة.</string>
     <string name="nav_favs">المفضلة</string>
     <string name="nav_alerts">تنبيهات</string>
     <string name="nav_settings">الإعدادات</string>
     <string name="btn_emulate_here">📍 محاكاة هنا</string>
+    <string name="map_nearest_loading">جارٍ البحث عن أقرب المحطات…</string>
     <string name="next_passages">المغادرات القادمة</string>
     <string name="loading">جارٍ التحميل…</string>
     <string name="no_stop_code">لا يوجد رمز محطة</string>
@@ -129,8 +152,8 @@
     <string name="recurrence_no_excluded">لا توجد تواريخ مستثناة</string>
     <string name="recurrence_week_parity_odd">فردي</string>
     <string name="recurrence_week_parity_even">زوجي</string>
-    <string name="recurrence_add_date">＋ إضافة تاريخ</string>
-    <string name="recurrence_exclude_date">＋ استثناء تاريخ</string>
+    <string name="recurrence_add_date">+ إضافة تاريخ</string>
+    <string name="recurrence_exclude_date">+ استثناء تاريخ</string>
     <string name="day_mon">إث</string>
     <string name="day_tue">ثل</string>
     <string name="day_wed">أر</string>
@@ -164,6 +187,13 @@
     <string name="tracking_no_passage_receiver">مجدول في %1$s — لا توجد بيانات متاحة</string>
 
     <string name="nav_donate">التبرع (اشتري لي تذكرة Idelis)</string>
+    <string name="settings_traffic_alerts_mode_title">وضع تنبيهات الاضطرابات</string>
+    <string name="settings_traffic_mode_favorites_only">المفضلة فقط</string>
+    <string name="settings_traffic_mode_all_lines">جميع الخطوط</string>
+    <string name="settings_traffic_mode_current_favorites_only">الوضع: المفضلة فقط</string>
+    <string name="settings_traffic_mode_current_all_lines">الوضع: جميع الخطوط</string>
+    <string name="settings_theme_picker_title">السمة</string>
+    <string name="settings_nav_style_picker_title">نمط التنقل</string>
     <string name="consent_title">ساعدنا على تحسين Pau\'delis</string>
     <string name="consent_intro">قبل البرنامج التعليمي، اختر ما إذا كنت تريد مشاركة التحليلات مجهولة المصدر.</string>
     <string name="consent_card_title">التحليلات والخصوصية</string>

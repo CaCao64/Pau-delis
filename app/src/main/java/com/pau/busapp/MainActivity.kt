@@ -70,11 +70,13 @@ class MainActivity : AppCompatActivity() {
         super.attachBaseContext(LocaleHelper.apply(base))
     }
 
+    @Suppress("DEPRECATION")
     override fun recreate() {
         super.recreate()
         overridePendingTransition(R.anim.theme_fade_in, R.anim.theme_fade_out)
     }
 
+    @Suppress("DEPRECATION")
     override fun onResume() {
         super.onResume()
         overridePendingTransition(R.anim.theme_fade_in, R.anim.theme_fade_out)
@@ -198,11 +200,11 @@ class MainActivity : AppCompatActivity() {
         if (targetTab == null) {
             val q = feature.trim()
             if (q.isNotEmpty()) {
-                val normalizedQuery = normalizeString(q)
+                val normalizedQuery = SearchTextUtils.normalize(q)
 
                 // 1. Chercher un arrêt correspondant
                 val matchedStops = AppData.busStops.filter {
-                    normalizeString(it.name).contains(normalizedQuery)
+                    SearchTextUtils.normalize(it.name).contains(normalizedQuery)
                 }
 
                 if (matchedStops.size == 1) {
@@ -222,7 +224,7 @@ class MainActivity : AppCompatActivity() {
 
                 // 2. Si aucun arrêt ne correspond, chercher une ligne correspondante
                 val matchedLine = AppData.busLines.find {
-                    normalizeString(it.number) == normalizedQuery
+                    SearchTextUtils.normalize(it.number) == normalizedQuery
                 }
                 if (matchedLine != null) {
                     AnalyticsTracker.openContent(this, "assistant_line_detail", q, "LineMapFragment")
@@ -278,12 +280,6 @@ class MainActivity : AppCompatActivity() {
             }
         }
         setSelected(targetTab)
-    }
-
-    private fun normalizeString(s: String): String {
-        val normalized = java.text.Normalizer.normalize(s, java.text.Normalizer.Form.NFD)
-        val pattern = java.util.regex.Pattern.compile("\\p{InCombiningDiacriticalMarks}+")
-        return pattern.matcher(normalized).replaceAll("").lowercase()
     }
 
     private fun handleWidgetIntent(intent: Intent?) {
@@ -594,15 +590,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun showPermissionDeniedDialog(message: String) {
-        AlertDialog.Builder(this)
-            .setMessage(message)
-            .setPositiveButton(getString(R.string.permission_settings)) { _, _ ->
+        ModernDialogs.showMessage(
+            context = this,
+            title = getString(R.string.permission_notif_denied),
+            message = message,
+            positiveText = getString(R.string.permission_settings),
+            negativeText = getString(R.string.permission_close),
+            onPositive = {
                 startActivity(Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS).apply {
                     data = Uri.fromParts("package", packageName, null)
                 })
             }
-            .setNegativeButton(getString(R.string.permission_close), null)
-            .show()
+        )
     }
 
     fun checkNotifPermissionThenOpenAlerts() {

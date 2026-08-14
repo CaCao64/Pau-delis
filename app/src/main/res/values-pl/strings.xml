@@ -7,10 +7,33 @@
     <string name="nav_stops">Przystanki</string>
     <string name="nav_search">Szukaj</string>
     <string name="nav_lines">Linie</string>
+
+
+    <string name="nav_school_zones">Kalendarz okresów</string>
+    <string name="school_zones_title">Kalendarz okresów</string>
+    <string name="school_zones_subtitle">Oficjalny kalendarz IDELIS dla stref Pomarańczowej, Niebieskiej i Szarej</string>
+    <string name="school_zones_loading">Wczytywanie oficjalnego kalendarza…</string>
+    <string name="school_zones_error">Nie można teraz wczytać danych.</string>
+    <string name="school_zones_cached">Dane zapisane lokalnie</string>
+    <string name="school_zones_updated_on">Zaktualizowano %1$s</string>
+    <string name="school_zones_calendar_label">Kalendarz</string>
+    <string name="school_zones_legend_title">Oficjalna legenda</string>
+    <string name="school_zones_legend_school">od poniedziałku do piątku okres szkolny</string>
+    <string name="school_zones_legend_short_holidays">od poniedziałku do piątku krótkie ferie szkolne</string>
+    <string name="school_zones_legend_summer_holidays">od poniedziałku do piątku wakacje letnie</string>
+    <string name="school_zones_legend_saturday">sobota</string>
+    <string name="school_zones_legend_sunday_holidays">niedziela i święta (tylko linie F, A, B, C i D)</string>
+    <string name="school_zones_legend_no_service">1 stycznia i 1 maja autobusy nie kursują</string>
+    <string name="school_zones_detail_title">Szczegóły według strefy</string>
+    <string name="school_zones_selected_date">Informacje dla %1$s</string>
+    <string name="school_zones_status_in_period">W czasie wakacji</string>
+    <string name="school_zones_status_outside_period">Poza wakacjami</string>
+    <string name="school_zones_no_periods">Nie znaleziono okresu dla tej strefy.</string>
     <string name="nav_favs">Ulubione</string>
     <string name="nav_alerts">Powiadomienia</string>
     <string name="nav_settings">Ustawienia</string>
     <string name="btn_emulate_here">📍 Emuluj tutaj</string>
+    <string name="map_nearest_loading">Trwa wyszukiwanie najbliższych przystanków…</string>
     <string name="next_passages">Najbliższe odjazdy</string>
     <string name="loading">Ładowanie…</string>
     <string name="no_stop_code">Brak kodu przystanku</string>
@@ -129,8 +152,8 @@
     <string name="recurrence_no_excluded">Brak wykluczonych dat</string>
     <string name="recurrence_week_parity_odd">nieparzyste</string>
     <string name="recurrence_week_parity_even">parzyste</string>
-    <string name="recurrence_add_date">＋ Dodaj datę</string>
-    <string name="recurrence_exclude_date">＋ Wyklucz datę</string>
+    <string name="recurrence_add_date">+ Dodaj datę</string>
+    <string name="recurrence_exclude_date">+ Wyklucz datę</string>
     <string name="day_mon">Pon</string>
     <string name="day_tue">Wt</string>
     <string name="day_wed">Śr</string>
@@ -164,6 +187,13 @@
     <string name="tracking_no_passage_receiver">Planowany o %1$s — brak dostępnych danych</string>
 
     <string name="nav_donate">Przekaż darowiznę (Kup mi bilet Idelis)</string>
+    <string name="settings_traffic_alerts_mode_title">Tryb alertów zakłóceń</string>
+    <string name="settings_traffic_mode_favorites_only">Tylko ulubione</string>
+    <string name="settings_traffic_mode_all_lines">Wszystkie linie</string>
+    <string name="settings_traffic_mode_current_favorites_only">Tryb: Tylko ulubione</string>
+    <string name="settings_traffic_mode_current_all_lines">Tryb: Wszystkie linie</string>
+    <string name="settings_theme_picker_title">Motyw</string>
+    <string name="settings_nav_style_picker_title">Styl nawigacji</string>
     <string name="consent_title">Pomóż nam ulepszyć Pau\'delis</string>
     <string name="consent_intro">Przed samouczkiem wybierz, czy chcesz udostępniać anonimowe statystyki.</string>
     <string name="consent_card_title">Analityka i prywatność</string>
@@ -187,7 +217,7 @@
     <string name="btn_finish">Zakończ →</string>
     <string name="btn_skip">Pomiń</string>
     <string name="tuto_welcome_title">Zapraszamy do Pau\'delis 🚌</string>
-    <string name="tuto_welcome_body">Ta aplikacja pokazuje w czasie rzeczywistym kolejne autobusy sieci Idelis w Pau.\n\nPrzesuń w lewo lub naciśnij „Dalej”, aby odkryć aplikację. Możesz także nacisnąć przycisk Pomoc w prawym górnym rogu kart, aby otworzyć konkretny przewodnik.</string>
+    <string name="tuto_welcome_body">Ta aplikacja pokazuje w czasie rzeczywistym kolejne autobusy sieci Idelis w Pau.\n\nPrzesuń w lewo lub naciśnij "Dalej", aby odkryć aplikację. Możesz także nacisnąć przycisk Pomoc w prawym górnym rogu kart, aby otworzyć konkretny przewodnik.</string>
     <string name="tuto_map_title">Mapa</string>
     <string name="tuto_map_body">Zakładka Mapa (🗺️) na dole pokazuje wszystkie przystanki sieci na mapie.\n\nŚciśnij, aby powiększyć. Po powiększeniu pojawiają się nazwy przystanków. Naciśnij przystanek, aby zobaczyć następne autobusy.</string>
     <string name="tuto_locate_title">Znajdź mnie na mapie</string>
@@ -205,7 +235,7 @@
     <string name="tuto_customize_alert_title">Dostosuj alert</string>
     <string name="tuto_customize_alert_body">Alarm może dzwonić codziennie, tylko w wybrane dni (np. poniedziałek i środa), z wyłączeniem dni ustawowo wolnych od pracy i dni ustawowo wolnych od pracy, lub tylko w wybrane dni.\n\nMożesz także wykluczyć określone daty.</string>
     <string name="tuto_tabs_title">Karta Więcej</string>
-    <string name="tuto_tabs_body">Przycisk „···” w prawym dolnym rogu daje dostęp do wszystkich funkcji: listy przystanków, linii, ustawień i tego poradnika.\n\nMożesz dostosować, które karty będą wyświetlane na dole w Ustawieniach.</string>
+    <string name="tuto_tabs_body">Przycisk "···" w prawym dolnym rogu daje dostęp do wszystkich funkcji: listy przystanków, linii, ustawień i tego poradnika.\n\nMożesz dostosować, które karty będą wyświetlane na dole w Ustawieniach.</string>
     <string name="tuto_settings_title">Ustawienia</string>
     <string name="tuto_settings_body">W ⚙️ Ustawieniach możesz:\n\n• Zmień język\n• Wybierz jasny lub ciemny motyw\n• Skonfiguruj widżet na ekranie głównym\n• Reorganizuj karty</string>
     <string name="tuto_widget_title">Widżet</string>

@@ -7,10 +7,33 @@
     <string name="nav_stops">Duraklar</string>
     <string name="nav_search">Ara</string>
     <string name="nav_lines">Hatlar</string>
+
+
+    <string name="nav_school_zones">Dönem takvimi</string>
+    <string name="school_zones_title">Dönem takvimi</string>
+    <string name="school_zones_subtitle">Turuncu, Mavi ve Gri bölgeler için resmi IDELIS takvimi</string>
+    <string name="school_zones_loading">Resmi takvim yükleniyor…</string>
+    <string name="school_zones_error">Veriler şu anda yüklenemiyor.</string>
+    <string name="school_zones_cached">Veriler yerel olarak kaydedildi</string>
+    <string name="school_zones_updated_on">Güncellendi: %1$s</string>
+    <string name="school_zones_calendar_label">Takvim</string>
+    <string name="school_zones_legend_title">Resmi açıklama</string>
+    <string name="school_zones_legend_school">pazartesiden cumaya okul dönemi</string>
+    <string name="school_zones_legend_short_holidays">pazartesiden cumaya kısa okul tatilleri</string>
+    <string name="school_zones_legend_summer_holidays">pazartesiden cumaya yaz tatili</string>
+    <string name="school_zones_legend_saturday">cumartesi</string>
+    <string name="school_zones_legend_sunday_holidays">pazar ve resmi tatiller (yalnızca F, A, B, C ve D hatları)</string>
+    <string name="school_zones_legend_no_service">1 Ocak ve 1 Mayıs günleri otobüs çalışmaz</string>
+    <string name="school_zones_detail_title">Bölgeye göre ayrıntılar</string>
+    <string name="school_zones_selected_date">%1$s için bilgiler</string>
+    <string name="school_zones_status_in_period">Tatilde</string>
+    <string name="school_zones_status_outside_period">Tatil dışında</string>
+    <string name="school_zones_no_periods">Bu bölge için bir dönem bulunamadı.</string>
     <string name="nav_favs">Favoriler</string>
     <string name="nav_alerts">Bildirimler</string>
     <string name="nav_settings">Ayarlar</string>
     <string name="btn_emulate_here">📍 Burada taklit et</string>
+    <string name="map_nearest_loading">En yakın duraklar aranıyor…</string>
     <string name="next_passages">Sonraki kalkışlar</string>
     <string name="loading">Yükleniyor…</string>
     <string name="no_stop_code">Durak kodu mevcut değil</string>
@@ -129,8 +152,8 @@
     <string name="recurrence_no_excluded">Hariç tutulan tarih yok</string>
     <string name="recurrence_week_parity_odd">tek</string>
     <string name="recurrence_week_parity_even">çift</string>
-    <string name="recurrence_add_date">＋ Tarih ekle</string>
-    <string name="recurrence_exclude_date">＋ Tarih hariç tut</string>
+    <string name="recurrence_add_date">+ Tarih ekle</string>
+    <string name="recurrence_exclude_date">+ Tarih hariç tut</string>
     <string name="day_mon">Pzt</string>
     <string name="day_tue">Sal</string>
     <string name="day_wed">Çar</string>
@@ -164,6 +187,13 @@
     <string name="tracking_no_passage_receiver">%1$s için planlandı — veri mevcut değil</string>
 
     <string name="nav_donate">Bağış Yapın (Bana bir İdelis Bileti alın)</string>
+    <string name="settings_traffic_alerts_mode_title">Aksaklık uyarı modu</string>
+    <string name="settings_traffic_mode_favorites_only">Yalnızca favoriler</string>
+    <string name="settings_traffic_mode_all_lines">Tüm hatlar</string>
+    <string name="settings_traffic_mode_current_favorites_only">Mod: Yalnızca favoriler</string>
+    <string name="settings_traffic_mode_current_all_lines">Mod: Tüm hatlar</string>
+    <string name="settings_theme_picker_title">Tema</string>
+    <string name="settings_nav_style_picker_title">Gezinme stili</string>
     <string name="consent_title">Pau\'delis\'i geliştirmemize yardımcı olun</string>
     <string name="consent_intro">Eğiticiden önce anonim analizleri paylaşmak isteyip istemediğinizi seçin.</string>
     <string name="consent_card_title">Analitik ve gizlilik</string>

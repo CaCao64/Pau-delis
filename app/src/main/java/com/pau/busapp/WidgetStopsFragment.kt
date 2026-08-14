@@ -203,14 +203,16 @@ class WidgetStopsFragment : Fragment() {
             Toast.makeText(ctx, "Toutes les lignes déjà ajoutées", Toast.LENGTH_SHORT).show(); return
         }
         val items = available.map { "Ligne ${it.number}  –  ${it.terminus1} ↔ ${it.terminus2}" }.toTypedArray()
-        android.app.AlertDialog.Builder(ctx)
-            .setTitle("Choisir une ligne")
-            .setItems(items) { _, i ->
-                val key = "${WidgetOrderManager.PREFIX_LINE}${available[i].number}"
-                order.add(key)
-                renderList()
-            }
-            .show()
+        ModernDialogs.showChoice(
+            context = ctx,
+            title = "Choisir une ligne",
+            items = items.toList(),
+            selectedIndex = -1
+        ) { i ->
+            val key = "${WidgetOrderManager.PREFIX_LINE}${available[i].number}"
+            order.add(key)
+            renderList()
+        }
     }
 
     private fun saveAndClose() {

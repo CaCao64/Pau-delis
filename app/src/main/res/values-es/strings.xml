@@ -9,10 +9,39 @@
     <string name="nav_stops">Paradas</string>
     <string name="nav_search">Buscar</string>
     <string name="nav_lines">Líneas</string>
+
+
+    <string name="nav_school_zones">Calendario de periodos</string>
+    <string name="school_zones_title">Calendario de periodos</string>
+    <string name="school_zones_subtitle">Calendario oficial de IDELIS para las zonas Naranja, Azul y Gris</string>
+    <string name="school_zones_loading">Cargando el calendario oficial…</string>
+    <string name="school_zones_error">No se pueden cargar los datos por el momento.</string>
+    <string name="school_zones_cached">Datos guardados localmente</string>
+    <string name="school_zones_updated_on">Actualizado el %1$s</string>
+    <string name="school_zones_calendar_label">Calendario</string>
+    <string name="school_zones_legend_title">Leyenda oficial</string>
+    <string name="school_zones_legend_school">de lunes a viernes escolar</string>
+    <string name="school_zones_legend_short_holidays">de lunes a viernes pequeñas vacaciones escolares</string>
+    <string name="school_zones_legend_summer_holidays">de lunes a viernes vacaciones de verano</string>
+    <string name="school_zones_legend_saturday">sábado</string>
+    <string name="school_zones_legend_sunday_holidays">domingo y festivos (solo las líneas F, A, B, C y D)</string>
+    <string name="school_zones_legend_no_service">sin autobuses el 1 de enero y el 1 de mayo</string>
+    <string name="school_zones_detail_title">Detalle por zona</string>
+    <string name="school_zones_selected_date">Información para el %1$s</string>
+    <string name="school_zones_status_in_period">En vacaciones</string>
+    <string name="school_zones_status_outside_period">Fuera de vacaciones</string>
+    <string name="school_zones_no_periods">No se encontró ningún periodo para esta zona.</string>
     <string name="nav_favs">Favoritos</string>
     <string name="nav_alerts">Alertas</string>
     <string name="nav_settings">Ajustes</string>
     <string name="nav_donate">Donar (Cómprame un billete Idelis)</string>
+    <string name="settings_traffic_alerts_mode_title">Modo de alertas de incidencias</string>
+    <string name="settings_traffic_mode_favorites_only">Solo favoritos</string>
+    <string name="settings_traffic_mode_all_lines">Todas las líneas</string>
+    <string name="settings_traffic_mode_current_favorites_only">Modo: Solo favoritos</string>
+    <string name="settings_traffic_mode_current_all_lines">Modo: Todas las líneas</string>
+    <string name="settings_theme_picker_title">Tema</string>
+    <string name="settings_nav_style_picker_title">Estilo de navegaci?n</string>
 
     <!-- Consentimiento -->
     <string name="consent_title">Ayúdanos a mejorar Pau\'delis</string>
@@ -26,6 +55,7 @@
 
     <!-- Carte / Map -->
     <string name="btn_emulate_here">📍 Emular aquí</string>
+    <string name="map_nearest_loading">Buscando las paradas más cercanas…</string>
 
     <!-- Fiche arrêt -->
     <string name="next_passages">Próximos pasos</string>
@@ -205,8 +235,8 @@
     <string name="recurrence_no_excluded">Ninguna fecha excluida</string>
     <string name="recurrence_week_parity_odd">impar</string>
     <string name="recurrence_week_parity_even">par</string>
-    <string name="recurrence_add_date">＋ Añadir una fecha</string>
-    <string name="recurrence_exclude_date">＋ Excluir una fecha</string>
+    <string name="recurrence_add_date">+ Añadir una fecha</string>
+    <string name="recurrence_exclude_date">+ Excluir una fecha</string>
 
     <!-- Jours de la semaine (abréviations) -->
     <string name="day_mon">Lun</string>

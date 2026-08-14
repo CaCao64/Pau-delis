@@ -8,6 +8,7 @@
 
     <color name="blue_primary">#4DB87A</color>
     <color name="blue_dark">#2E7D52</color>
+    <color name="school_zone_gray">#8B919B</color>
 
     <!-- Surfaces — Material Design 3 dark palette -->
     <color name="bg_light">#0F0F0F</color>

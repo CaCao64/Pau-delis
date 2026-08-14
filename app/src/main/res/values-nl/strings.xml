@@ -7,10 +7,33 @@
     <string name="nav_stops">Haltes</string>
     <string name="nav_search">Zoeken</string>
     <string name="nav_lines">Lijnen</string>
+
+
+    <string name="nav_school_zones">Periodekalender</string>
+    <string name="school_zones_title">Periodekalender</string>
+    <string name="school_zones_subtitle">Officiële IDELIS-kalender voor de oranje, blauwe en grijze zones</string>
+    <string name="school_zones_loading">Officiële kalender wordt geladen…</string>
+    <string name="school_zones_error">De gegevens kunnen momenteel niet worden geladen.</string>
+    <string name="school_zones_cached">Gegevens lokaal opgeslagen</string>
+    <string name="school_zones_updated_on">Bijgewerkt op %1$s</string>
+    <string name="school_zones_calendar_label">Kalender</string>
+    <string name="school_zones_legend_title">Officiële legenda</string>
+    <string name="school_zones_legend_school">maandag tot en met vrijdag schoolperiode</string>
+    <string name="school_zones_legend_short_holidays">maandag tot en met vrijdag korte schoolvakanties</string>
+    <string name="school_zones_legend_summer_holidays">maandag tot en met vrijdag zomervakantie</string>
+    <string name="school_zones_legend_saturday">zaterdag</string>
+    <string name="school_zones_legend_sunday_holidays">zondag en feestdagen (alleen de lijnen F, A, B, C en D)</string>
+    <string name="school_zones_legend_no_service">op 1 januari en 1 mei rijden er geen bussen</string>
+    <string name="school_zones_detail_title">Details per zone</string>
+    <string name="school_zones_selected_date">Informatie voor %1$s</string>
+    <string name="school_zones_status_in_period">In vakantie</string>
+    <string name="school_zones_status_outside_period">Buiten de vakantie</string>
+    <string name="school_zones_no_periods">Voor deze zone is geen periode gevonden.</string>
     <string name="nav_favs">Favorieten</string>
     <string name="nav_alerts">Meldingen</string>
     <string name="nav_settings">Instellingen</string>
     <string name="btn_emulate_here">📍 Hier emuleren</string>
+    <string name="map_nearest_loading">Zoeken naar de dichtstbijzijnde haltes…</string>
     <string name="next_passages">Volgende vertrekken</string>
     <string name="loading">Laden…</string>
     <string name="no_stop_code">Geen haltecode beschikbaar</string>
@@ -129,8 +152,8 @@
     <string name="recurrence_no_excluded">Geen uitgesloten datums</string>
     <string name="recurrence_week_parity_odd">oneven</string>
     <string name="recurrence_week_parity_even">even</string>
-    <string name="recurrence_add_date">＋ Datum toevoegen</string>
-    <string name="recurrence_exclude_date">＋ Datum uitsluiten</string>
+    <string name="recurrence_add_date">+ Datum toevoegen</string>
+    <string name="recurrence_exclude_date">+ Datum uitsluiten</string>
     <string name="day_mon">Ma</string>
     <string name="day_tue">Di</string>
     <string name="day_wed">Wo</string>
@@ -164,6 +187,13 @@
     <string name="tracking_no_passage_receiver">Gepland om %1$s — geen gegevens beschikbaar</string>
 
     <string name="nav_donate">Doneer (koop een Idelis-ticket voor mij)</string>
+    <string name="settings_traffic_alerts_mode_title">Storingsmeldingenmodus</string>
+    <string name="settings_traffic_mode_favorites_only">Alleen favorieten</string>
+    <string name="settings_traffic_mode_all_lines">Alle lijnen</string>
+    <string name="settings_traffic_mode_current_favorites_only">Modus: Alleen favorieten</string>
+    <string name="settings_traffic_mode_current_all_lines">Modus: Alle lijnen</string>
+    <string name="settings_theme_picker_title">Thema</string>
+    <string name="settings_nav_style_picker_title">Navigatiestijl</string>
     <string name="consent_title">Help ons Pau\'delis te verbeteren</string>
     <string name="consent_intro">Kies vóór de zelfstudie of u anonieme analyses wilt delen.</string>
     <string name="consent_card_title">Analyse en privacy</string>

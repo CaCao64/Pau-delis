@@ -7,10 +7,33 @@
     <string name="nav_stops">स्टॉप</string>
     <string name="nav_search">खोज</string>
     <string name="nav_lines">लाइनें</string>
+
+
+    <string name="nav_school_zones">अवधि कैलेंडर</string>
+    <string name="school_zones_title">अवधि कैलेंडर</string>
+    <string name="school_zones_subtitle">नारंगी, नीले और ग्रे क्षेत्रों के लिए आधिकारिक IDELIS कैलेंडर</string>
+    <string name="school_zones_loading">आधिकारिक कैलेंडर लोड हो रहा है…</string>
+    <string name="school_zones_error">अभी डेटा लोड नहीं किया जा सकता।</string>
+    <string name="school_zones_cached">डेटा स्थानीय रूप से सहेजा गया</string>
+    <string name="school_zones_updated_on">अद्यतन: %1$s</string>
+    <string name="school_zones_calendar_label">कैलेंडर</string>
+    <string name="school_zones_legend_title">आधिकारिक विवरण</string>
+    <string name="school_zones_legend_school">सोमवार से शुक्रवार स्कूल अवधि</string>
+    <string name="school_zones_legend_short_holidays">सोमवार से शुक्रवार छोटी स्कूल छुट्टियाँ</string>
+    <string name="school_zones_legend_summer_holidays">सोमवार से शुक्रवार गर्मी की छुट्टियाँ</string>
+    <string name="school_zones_legend_saturday">शनिवार</string>
+    <string name="school_zones_legend_sunday_holidays">रविवार और सार्वजनिक अवकाश (केवल F, A, B, C और D लाइनें)</string>
+    <string name="school_zones_legend_no_service">1 जनवरी और 1 मई को बसें नहीं चलतीं</string>
+    <string name="school_zones_detail_title">क्षेत्र के अनुसार विवरण</string>
+    <string name="school_zones_selected_date">%1$s के लिए जानकारी</string>
+    <string name="school_zones_status_in_period">छुट्टियों में</string>
+    <string name="school_zones_status_outside_period">छुट्टियों के बाहर</string>
+    <string name="school_zones_no_periods">इस क्षेत्र के लिए कोई अवधि नहीं मिली।</string>
     <string name="nav_favs">पसंदीदा</string>
     <string name="nav_alerts">अलर्ट</string>
     <string name="nav_settings">सेटिंग्स</string>
     <string name="btn_emulate_here">📍 यहाँ अनुकरण करें</string>
+    <string name="map_nearest_loading">निकटतम स्टॉप खोजे जा रहे हैं…</string>
     <string name="next_passages">अगली बसें</string>
     <string name="loading">लोड हो रहा है…</string>
     <string name="no_stop_code">स्टॉप कोड उपलब्ध नहीं</string>
@@ -129,8 +152,8 @@
     <string name="recurrence_no_excluded">कोई बाहर की गई तारीख नहीं</string>
     <string name="recurrence_week_parity_odd">विषम</string>
     <string name="recurrence_week_parity_even">सम</string>
-    <string name="recurrence_add_date">＋ तारीख जोड़ें</string>
-    <string name="recurrence_exclude_date">＋ तारीख बाहर करें</string>
+    <string name="recurrence_add_date">+ तारीख जोड़ें</string>
+    <string name="recurrence_exclude_date">+ तारीख बाहर करें</string>
     <string name="day_mon">सोम</string>
     <string name="day_tue">मंग</string>
     <string name="day_wed">बुध</string>
@@ -164,6 +187,13 @@
     <string name="tracking_no_passage_receiver">%1$s पर निर्धारित — कोई डेटा उपलब्ध नहीं</string>
 
     <string name="nav_donate">दान करें (मेरे लिए इडेलिस टिकट खरीदें)</string>
+    <string name="settings_traffic_alerts_mode_title">व्यवधान चेतावनी मोड</string>
+    <string name="settings_traffic_mode_favorites_only">केवल पसंदीदा</string>
+    <string name="settings_traffic_mode_all_lines">सभी लाइनें</string>
+    <string name="settings_traffic_mode_current_favorites_only">मोड: केवल पसंदीदा</string>
+    <string name="settings_traffic_mode_current_all_lines">मोड: सभी लाइनें</string>
+    <string name="settings_theme_picker_title">थीम</string>
+    <string name="settings_nav_style_picker_title">नेविगेशन शैली</string>
     <string name="consent_title">पौ\'डेलिस को बेहतर बनाने में हमारी मदद करें</string>
     <string name="consent_intro">ट्यूटोरियल से पहले, चुनें कि क्या आप अनाम विश्लेषण साझा करना चाहते हैं।</string>
     <string name="consent_card_title">विश्लेषिकी और गोपनीयता</string>

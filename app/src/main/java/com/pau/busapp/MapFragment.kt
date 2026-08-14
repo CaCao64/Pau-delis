@@ -9,6 +9,7 @@ import android.location.Location
 import android.location.LocationListener
 import android.location.LocationManager
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.*
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
@@ -44,19 +45,19 @@ class MapFragment : Fragment() {
     private val b get() = _b!!
     private lateinit var map: MapView
 
-    // Point bleu custom — dessiné directement sur le canvas, sans Marker
+    // Point bleu custom â€” dessinÃ© directement sur le canvas, sans Marker
     private val locationDotOverlay = LocationDotOverlay()
     private var locationManager: LocationManager? = null
     private var gpsListening = false
     private var emulationActive = false
 
-    // Overlay canvas pour les quais de l'arrêt le plus proche (reste au-dessus de tout)
+    // Overlay canvas pour les quais de l'arrÃªt le plus proche (reste au-dessus de tout)
     private val nearestStopOverlay = NearestStopOverlay()
 
-    // Cache stop_id → (lat, lon) chargé une fois depuis le GTFS
+    // Cache stop_id â†’ (lat, lon) chargÃ© une fois depuis le GTFS
     private var quaiPositions: Map<String, Pair<Double, Double>> = emptyMap()
 
-    // Reconstruits à chaque onViewCreated car ils capturent la MapView
+    // Reconstruits Ã  chaque onViewCreated car ils capturent la MapView
     private var dotMarkers:   List<Marker> = emptyList()
     private var labelMarkers: List<Marker> = emptyList()
     private var dotMarkersLoading = false
@@ -71,9 +72,9 @@ class MapFragment : Fragment() {
     ) { grants ->
         if (grants.values.any { it }) startGps()
         else (activity as? MainActivity)?.showPermissionDeniedDialog(
-            "Vous avez refusé l'accès à la position. " +
-            "Le système de géolocalisation est donc indisponible. " +
-            "Si vous souhaitez y accéder, merci de le modifier dans les paramètres."
+            "Vous avez refusÃ© l'accÃ¨s Ã  la position. " +
+            "Le systÃ¨me de gÃ©olocalisation est donc indisponible. " +
+            "Si vous souhaitez y accÃ©der, merci de le modifier dans les paramÃ¨tres."
         )
     }
 
@@ -88,7 +89,7 @@ class MapFragment : Fragment() {
         }
     }
 
-    // ── Lifecycle ─────────────────────────────────────────────────────────────
+    // â”€â”€ Lifecycle â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     override fun onCreateView(i: LayoutInflater, c: ViewGroup?, s: Bundle?): View {
         _b = FragmentMapBinding.inflate(i, c, false); return b.root
@@ -109,7 +110,7 @@ class MapFragment : Fragment() {
         map.controller.setZoom(14.0)
         map.controller.setCenter(GeoPoint(43.296, -0.370))
 
-        // Masquer la carte pendant le chargement des tiles pour éviter le flash blanc/noir
+        // Masquer la carte pendant le chargement des tiles pour Ã©viter le flash blanc/noir
         map.alpha = 0f
 
         val isDark = (resources.configuration.uiMode and android.content.res.Configuration.UI_MODE_NIGHT_MASK) == android.content.res.Configuration.UI_MODE_NIGHT_YES
@@ -130,16 +131,26 @@ class MapFragment : Fragment() {
             map.setTileSource(TileSourceFactory.MAPNIK)
         }
 
-        // Préchargement des positions des quais en background
+        // PrÃ©chargement des positions des quais en background
         Thread {
             quaiPositions = loadQuaiPositions()
         }.start()
 
-        // Point bleu sous les arrêts, quais nearest par-dessus tout
+        // Point bleu sous les arrÃªts, quais nearest par-dessus tout
         map.overlays.add(locationDotOverlay)
         map.overlays.add(nearestStopOverlay)
 
-        // Fondu d'apparition dès le premier rendu de la carte
+        b.btnNearestStop.setOnClickListener { onNearestStopClicked() }
+        b.btnMyLocation.setOnClickListener { onMyLocationClicked() }
+        b.btnEmulation.setOnClickListener { toggleEmulation() }
+        b.btnPlaceHere.setOnClickListener { placeEmulatedHere() }
+
+        b.layoutSearchLoader.apply {
+            alpha = 0f
+            visibility = View.GONE
+        }
+
+        // Fondu d'apparition dÃ¨s le premier rendu de la carte
         map.post {
             map.animate().alpha(1f).setDuration(400).start()
         }
@@ -174,7 +185,7 @@ class MapFragment : Fragment() {
             map.controller.animateTo(GeoPoint(zoomLat, zoomLon), 18.0, 700L)
         }
 
-        // Construire les markers hors du rendu initial pour éviter de bloquer l'ouverture
+        // Construire les markers hors du rendu initial pour Ã©viter de bloquer l'ouverture
         dotMarkers = emptyList()
         labelMarkers = emptyList()
         prepareDotMarkersAsync()
@@ -199,7 +210,7 @@ class MapFragment : Fragment() {
     }
     override fun onDestroyView() { super.onDestroyView(); stopGps(); _b = null }
 
-    // ── GPS ───────────────────────────────────────────────────────────────────
+    // â”€â”€ GPS â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     private fun onMyLocationClicked() {
         val ctx = requireContext()
@@ -212,22 +223,22 @@ class MapFragment : Fragment() {
 
     private fun onNearestStopClicked() {
         val ctx = requireContext()
-
-        b.layoutSearchLoader.visibility = View.VISIBLE
+        showNearestStopLoader()
+        val startedAt = SystemClock.elapsedRealtime()
 
         viewLifecycleOwner.lifecycleScope.launch {
-            delay(1200)
+            delay(300)
             if (_b == null) return@launch
-            b.layoutSearchLoader.visibility = View.GONE
 
-            // L'émulation est prioritaire dans tous les cas
+            // L'Ã©mulation est prioritaire dans tous les cas
             if (emulationActive) {
                 val c = map.mapCenter
                 openNearestStop(c.latitude, c.longitude)
+                hideNearestStopLoader(startedAt)
                 return@launch
             }
 
-            // Sans émulation : position GPS requise
+            // Sans Ã©mulation : position GPS requise
             val hasFine   = ContextCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED
             val hasCoarse = ContextCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
 
@@ -235,10 +246,11 @@ class MapFragment : Fragment() {
                 locationPermission.launch(arrayOf(
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.ACCESS_COARSE_LOCATION))
+                hideNearestStopLoader(startedAt)
                 return@launch
             }
 
-            // Position GPS connue (dernière position ou point bleu déjà affiché)
+            // Position GPS connue (derniÃ¨re position ou point bleu dÃ©jÃ  affichÃ©)
             val lat: Double
             val lon: Double
             if (!locationDotOverlay.currentLat.isNaN()) {
@@ -256,6 +268,7 @@ class MapFragment : Fragment() {
 
                 if (loc == null) {
                     Toast.makeText(ctx, getString(R.string.map_position_unknown), Toast.LENGTH_SHORT).show()
+                    hideNearestStopLoader(startedAt)
                     return@launch
                 }
                 lat = loc.latitude
@@ -263,7 +276,39 @@ class MapFragment : Fragment() {
             }
 
             openNearestStop(lat, lon)
+            hideNearestStopLoader(startedAt)
         }
+    }
+
+    private fun showNearestStopLoader() {
+        if (_b == null) return
+        b.layoutSearchLoader.animate().cancel()
+        b.layoutSearchLoader.visibility = View.VISIBLE
+        b.layoutSearchLoader.alpha = 0f
+        b.layoutSearchLoader.animate()
+            .alpha(1f)
+            .setDuration(180L)
+            .start()
+    }
+
+    private fun hideNearestStopLoader(startedAt: Long) {
+        if (_b == null) return
+        val elapsed = SystemClock.elapsedRealtime() - startedAt
+        val remaining = (700L - elapsed).coerceAtLeast(0L)
+        b.layoutSearchLoader.postDelayed({
+            if (_b == null) return@postDelayed
+            b.layoutSearchLoader.animate().cancel()
+            b.layoutSearchLoader.animate()
+                .alpha(0f)
+                .setDuration(140L)
+                .withEndAction {
+                    if (_b != null) {
+                        b.layoutSearchLoader.visibility = View.GONE
+                        b.layoutSearchLoader.alpha = 1f
+                    }
+                }
+                .start()
+        }, remaining)
     }
 
     private fun openNearestStop(lat: Double, lon: Double) {
@@ -273,7 +318,7 @@ class MapFragment : Fragment() {
         (activity as? MainActivity)?.openDetails(nearest)
     }
 
-    // Charge les positions individuelles des quais depuis le GTFS embarqué
+    // Charge les positions individuelles des quais depuis le GTFS embarquÃ©
     private fun loadQuaiPositions(): Map<String, Pair<Double, Double>> {
         val result = mutableMapOf<String, Pair<Double, Double>>()
         try {
@@ -329,7 +374,7 @@ class MapFragment : Fragment() {
         val hasCoarse = ContextCompat.checkSelfPermission(ctx, Manifest.permission.ACCESS_COARSE_LOCATION) == PackageManager.PERMISSION_GRANTED
         if (!hasFine && !hasCoarse) return
 
-        // Dernière position connue immédiatement
+        // DerniÃ¨re position connue immÃ©diatement
         val last = if (hasFine) lm.getLastKnownLocation(LocationManager.GPS_PROVIDER)
                        ?: lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
                    else lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER)
@@ -342,7 +387,7 @@ class MapFragment : Fragment() {
             Toast.makeText(ctx, getString(R.string.map_gps_searching), Toast.LENGTH_SHORT).show()
         }
 
-        // Mises à jour en continu
+        // Mises Ã  jour en continu
         if (!gpsListening) {
             if (hasFine)   lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,     20000L, 20f, gpsListener)
             if (hasCoarse) lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 20000L, 25f, gpsListener)
@@ -355,7 +400,7 @@ class MapFragment : Fragment() {
         gpsListening = false
     }
 
-    // ── Émulation ─────────────────────────────────────────────────────────────
+    // â”€â”€ Ã‰mulation â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     private fun toggleEmulation() {
         emulationActive = !emulationActive
@@ -394,7 +439,7 @@ class MapFragment : Fragment() {
         b.tvEmuCoords.text = "%.5f, %.5f".format(c.latitude, c.longitude)
     }
 
-    // ── Stop rendering ────────────────────────────────────────────────────────
+    // â”€â”€ Stop rendering â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     private fun refreshStops() {
         val zoom = map.zoomLevelDouble
@@ -482,7 +527,7 @@ class MapFragment : Fragment() {
             typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
             this.color = Color.WHITE
         }
-        val name = if (label.length > 22) label.take(20) + "…" else label
+        val name = if (label.length > 22) label.take(20) + "â€¦" else label
         val padH = 14f; val padV = 8f; val pinH = 16f
         val boxW = tp.measureText(name) + padH * 2
         val boxH = tp.textSize + padV * 2
@@ -495,19 +540,19 @@ class MapFragment : Fragment() {
                 drawRoundRect(RectF(0f, 0f, boxW, boxH), 12f, 12f, paint)
                 drawPath(Path().apply { moveTo(boxW/2-8f, boxH); lineTo(boxW/2+8f, boxH); lineTo(boxW/2f, boxH+pinH); close() }, paint)
             } else {
-                // Sections de couleurs séparées, pas de dégradé
+                // Sections de couleurs sÃ©parÃ©es, pas de dÃ©gradÃ©
                 val sectionW = boxW / colors.size
                 colors.forEachIndexed { i, c ->
                     paint.color = c
                     val left  = i * sectionW
                     val right = left + sectionW
-                    // Coins arrondis seulement aux extrémités
+                    // Coins arrondis seulement aux extrÃ©mitÃ©s
                     val rect = RectF(left, 0f, right, boxH)
                     when (i) {
                         0 -> {
                             // coin gauche arrondi
                             drawRoundRect(RectF(left, 0f, right + 12f, boxH), 12f, 12f, paint)
-                            // recouvrir le coin droit avec un carré
+                            // recouvrir le coin droit avec un carrÃ©
                             drawRect(RectF(right, 0f, right + 12f, boxH), paint)
                         }
                         colors.size - 1 -> {
@@ -542,7 +587,7 @@ class MapFragment : Fragment() {
         return bmp
     }
 
-    // ── Clustering ────────────────────────────────────────────────────────────
+    // â”€â”€ Clustering â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     private data class Cluster(val lat: Double, val lon: Double, val stops: List<BusStop>)
 
@@ -567,14 +612,14 @@ class MapFragment : Fragment() {
         val color = stopColors(c.stops.first()).first()
         return Marker(map).apply {
             position = GeoPoint(c.lat, c.lon)
-            title    = "${c.stops.size} arrêts"
+            title    = "${c.stops.size} arrÃªts"
             icon     = android.graphics.drawable.BitmapDrawable(resources, makeClusterBitmap(c.stops.size, color))
             setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
             setOnMarkerClickListener { _, _ -> map.controller.animateTo(GeoPoint(c.lat, c.lon)); map.controller.zoomIn(); true }
         }
     }
 
-    // ── Public API ────────────────────────────────────────────────────────────
+    // â”€â”€ Public API â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
     fun zoomTo(lat: Double, lon: Double) {
         if (!::map.isInitialized) return
@@ -595,7 +640,7 @@ class MapFragment : Fragment() {
     }
 }
 
-// ── LocationDotOverlay — point bleu dessiné directement sur le canvas ─────────
+// â”€â”€ LocationDotOverlay â€” point bleu dessinÃ© directement sur le canvas â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 class LocationDotOverlay : Overlay() {
     var currentLat = Double.NaN; private set
@@ -622,7 +667,7 @@ class LocationDotOverlay : Overlay() {
     }
 }
 
-// ── Overlay quais de l'arrêt le plus proche — dessin canvas direct ─────────────
+// â”€â”€ Overlay quais de l'arrÃªt le plus proche â€” dessin canvas direct â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
 
 class NearestStopOverlay : Overlay() {
     private var quais: List<GeoPoint> = emptyList()

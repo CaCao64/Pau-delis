@@ -1,209 +1,240 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">Pau\'delis</string>
-    <string name="widget_desc">Prochains passages de vos arrets favoris</string>
-    <string name="widget_label">Pau\'delis â€“ ArrÃªts</string>
+    <string name="widget_desc">Prochains passages de vos arrêts favoris</string>
+    <string name="widget_label">Pau\'delis – Arrêts</string>
 
     <!-- Navigation -->
     <string name="nav_map">Carte</string>
-    <string name="nav_stops">ArrÃªts</string>
+    <string name="nav_stops">Arrêts</string>
     <string name="nav_search">Recherche</string>
     <string name="nav_lines">Lignes</string>
     <string name="nav_favs">Favoris</string>
     <string name="nav_alerts">Alertes</string>
-    <string name="nav_settings">ParamÃ¨tres</string>
-    <string name="nav_donate" tools:ignore="MissingTranslation">Don (Buy me a Ticket Idelis)</string>
+    <string name="nav_settings">Paramètres</string>
+    <string name="nav_donate">Don (Buy me a Ticket Idelis)</string>
+
+
+    <string name="nav_school_zones">Calendrier des périodes</string>
+    <string name="school_zones_title">Calendrier des périodes</string>
+    <string name="school_zones_subtitle">Calendrier voyageur officiel IDELIS pour les zones Orange, Bleue et Grise</string>
+    <string name="school_zones_loading">Chargement du calendrier officiel…</string>
+    <string name="school_zones_error">Impossible de charger les données pour le moment.</string>
+    <string name="school_zones_cached">Données enregistrées localement</string>
+    <string name="school_zones_updated_on">Mis à jour le %1$s</string>
+    <string name="school_zones_calendar_label">Calendrier</string>
+    <string name="school_zones_legend_title">Légende officielle</string>
+    <string name="school_zones_legend_school">du lundi au vendredi scolaire</string>
+    <string name="school_zones_legend_short_holidays">du lundi au vendredi petites vacances scolaires</string>
+    <string name="school_zones_legend_summer_holidays">du lundi au vendredi vacances été</string>
+    <string name="school_zones_legend_saturday">samedi</string>
+    <string name="school_zones_legend_sunday_holidays">dimanche et jours fériés (uniquement les lignes F, A, B, C et D)</string>
+    <string name="school_zones_legend_no_service">aucun bus en circulation le 1er janvier et le 1er mai</string>
+    <string name="school_zones_detail_title">Détail par zone</string>
+    <string name="school_zones_selected_date">Infos pour le %1$s</string>
+    <string name="school_zones_status_in_period">En vacances</string>
+    <string name="school_zones_status_outside_period">Hors vacances</string>
+    <string name="school_zones_no_periods">Aucune période trouvée pour cette zone.</string>
+    <string name="school_zones_selected_period">Période sélectionnée : %1$s</string>
 
     <!-- Carte / Map -->
-    <string name="btn_emulate_here">ðŸ“ Ã‰muler ici</string>
+    <string name="btn_emulate_here">📍 Émuler ici</string>
+    <string name="map_nearest_loading">Recherche des arrêts les plus proches en cours…</string>
 
     <!-- Fiche arrÃªt -->
     <string name="next_passages">Prochains passages</string>
-    <string name="loading">Chargementâ€¦</string>
-    <string name="no_stop_code">Pas de code d\'arrÃªt disponible</string>
-    <string name="no_passage">Aucun passage prÃ©vu</string>
-    <string name="no_passage_today">Aucun passage prÃ©vu aujourd\'hui</string>
-    <string name="offline_theoretical">Hors ligne â€” horaires thÃ©oriques</string>
-    <string name="offline_theoretical_count">Hors ligne â€” %d destination(s) (thÃ©orique)</string>
+    <string name="loading">Chargement…</string>
+    <string name="no_stop_code">Pas de code d\'arrêt disponible</string>
+    <string name="no_passage">Aucun passage prévu</string>
+    <string name="no_passage_today">Aucun passage prévu aujourd\'hui</string>
+    <string name="offline_theoretical">Hors ligne — horaires théoriques</string>
+    <string name="offline_theoretical_count">Hors ligne — %d destination(s) (théorique)</string>
     <string name="passages_count">%d destination(s)</string>
     <string name="lines_label">Lignes : %s</string>
-    <string name="no_line">Aucune ligne associÃ©e</string>
-    <string name="added_to_favs">AjoutÃ© aux favoris â­</string>
-    <string name="removed_from_favs">RetirÃ© des favoris</string>
+    <string name="no_line">Aucune ligne associée</string>
+    <string name="added_to_favs">Ajouté aux favoris ⭐</string>
+    <string name="removed_from_favs">Retiré des favoris</string>
     <string name="choose_line">Choisir une ligne</string>
-    <string name="btn_add_alert">ðŸ””  Ajouter une alerte pour cet arrÃªt</string>
+    <string name="btn_add_alert">🔔  Ajouter une alerte pour cet arrêt</string>
     <string name="cd_back">Retour</string>
     <string name="cd_locate">Situer sur la carte</string>
     <string name="cd_see_line">Voir la ligne</string>
     <string name="cannot_load_schedules">Impossible de charger les horaires</string>
 
     <!-- Fiche ligne -->
-    <string name="line_added_to_favs">Ligne ajoutÃ©e aux favoris â­</string>
-    <string name="line_removed_from_favs">Ligne retirÃ©e des favoris</string>
-    <string name="stops_in_direction">ArrÃªts dans ce sens (%d)</string>
-    <string name="btn_invert_direction">â‡„  Inverser la direction</string>
-    <string name="type_febus">FÃ©bus â€“ BHNS HydrogÃ¨ne</string>
-    <string name="type_temporis">Temporis â€“ Ligne structurante</string>
-    <string name="type_proximite">Ligne de proximitÃ©</string>
-    <string name="type_dimanche">Dimanche &amp; jours fÃ©riÃ©s</string>
-    <string name="type_special">Ligne spÃ©ciale</string>
+    <string name="line_added_to_favs">Ligne ajoutée aux favoris ⭐</string>
+    <string name="line_removed_from_favs">Ligne retirée des favoris</string>
+    <string name="stops_in_direction">Arrêts dans ce sens (%d)</string>
+    <string name="btn_invert_direction">⇄  Inverser la direction</string>
+    <string name="type_febus">Fébus – BHNS Hydrogène</string>
+    <string name="type_temporis">Temporis – Ligne structurante</string>
+    <string name="type_proximite">Ligne de proximité</string>
+    <string name="type_dimanche">Dimanche &amp; jours fériés</string>
+    <string name="type_special">Ligne spéciale</string>
 
     <!-- Favoris -->
     <string name="fav_title">Favoris</string>
-    <string name="fav_empty">Aucun favori.\nAppuyez sur â˜† dans un arrÃªt ou une ligne.</string>
-    <string name="fav_lines_section">â­ Lignes favorites</string>
-    <string name="fav_stops_section">â­ ArrÃªts favoris</string>
+    <string name="fav_empty">Aucun favori.\nAppuyez sur ☆ dans un arrêt ou une ligne.</string>
+    <string name="fav_lines_section">⭐ Lignes favorites</string>
+    <string name="fav_stops_section">⭐ Arrêts favoris</string>
 
     <!-- Recherche -->
-    <string name="search_hint">Rechercher un arrÃªt ou une ligneâ€¦</string>
-    <string name="search_recent">Recherches rÃ©centes</string>
-    <string name="search_empty_hint">Tapez pour rechercher un arrÃªt ou une ligne</string>
-    <string name="search_no_result">Aucun rÃ©sultat</string>
-    <string name="search_results_count">%d rÃ©sultat(s)</string>
+    <string name="search_hint">Rechercher un arrêt ou une ligne…</string>
+    <string name="search_recent">Recherches récentes</string>
+    <string name="search_empty_hint">Tapez pour rechercher un arrêt ou une ligne</string>
+    <string name="search_no_result">Aucun résultat</string>
+    <string name="search_results_count">%d résultat(s)</string>
     <string name="search_section_lines">Lignes</string>
-    <string name="search_section_stops">ArrÃªts</string>
+    <string name="search_section_stops">Arrêts</string>
     <string name="cd_clear_search">Effacer</string>
 
     <!-- ArrÃªts liste -->
-    <string name="stops_lines_label">  â€¢  Lignes : %s</string>
+    <string name="stops_lines_label">  •  Lignes : %s</string>
 
     <!-- Alertes -->
     <string name="alerts_title">Alertes</string>
     <string name="alerts_empty">Aucune alerte.\nAppuie sur + pour en ajouter.</string>
-    <string name="alert_general">ðŸ“¢ Alerte gÃ©nÃ©rale</string>
+    <string name="alert_general">📢 Alerte générale</string>
     <string name="cd_add_alert">Ajouter une alerte</string>
     <string name="alert_dialog_title">Nouvelle alerte</string>
-    <string name="alert_stop_label">ArrÃªt concernÃ©</string>
+    <string name="alert_stop_label">Arrêt concerné</string>
     <string name="alert_message_label">Message</string>
     <string name="alert_message_hint">Message de l\'alerte</string>
-    <string name="alert_general_item">GÃ©nÃ©ral</string>
+    <string name="alert_general_item">Général</string>
     <string name="alert_btn_add">Ajouter</string>
     <string name="alert_btn_cancel">Annuler</string>
-    <string name="alert_added">Alerte ajoutÃ©e âœ“</string>
-    <string name="alert_updated" tools:ignore="MissingTranslation">Alerte modifiÃ©e âœ“</string>
+    <string name="alert_added">Alerte ajoutée ✓</string>
+    <string name="alert_updated" tools:ignore="MissingTranslation">Alerte modifiée ✓</string>
     <string name="alert_empty_message">Le message est vide</string>
 
     <!-- ParamÃ¨tres -->
-    <string name="settings_title">ParamÃ¨tres</string>
+    <string name="settings_title">Paramètres</string>
     <string name="settings_section_appearance" tools:ignore="MissingTranslation">APPARENCE</string>
     <string name="settings_section_tabs" tools:ignore="MissingTranslation">ONGLETS</string>
     <string name="settings_section_widget" tools:ignore="MissingTranslation">WIDGET</string>
     <string name="settings_section_style" tools:ignore="MissingTranslation">STYLE</string>
     <string name="settings_section_language">LANGUE</string>
-    <string name="settings_section_favs">PARAMÃˆTRES</string>
-    <string name="settings_theme_label" tools:ignore="MissingTranslation">ThÃ¨me de l\'appareil</string>
-    <string name="settings_tabs_desc" tools:ignore="MissingTranslation">Choisir et rÃ©ordonner les onglets</string>
-    <string name="settings_widget_desc" tools:ignore="MissingTranslation">Choisir et rÃ©ordonner les arrÃªts du widget</string>
+    <string name="settings_section_favs">PARAMÈTRES</string>
+    <string name="settings_theme_label" tools:ignore="MissingTranslation">Thème de l\'appareil</string>
+    <string name="settings_tabs_desc" tools:ignore="MissingTranslation">Choisir et réordonner les onglets</string>
+    <string name="settings_widget_desc" tools:ignore="MissingTranslation">Choisir et réordonner les arrêts du widget</string>
     <string name="settings_btn_configure" tools:ignore="MissingTranslation">Configurer</string>
     <string name="settings_btn_change" tools:ignore="MissingTranslation">Changer</string>
     <string name="settings_change_language">Changer</string>
+    <string name="settings_traffic_alerts_mode_title">Mode des alertes perturbations</string>
+    <string name="settings_traffic_mode_favorites_only">Favoris uniquement</string>
+    <string name="settings_traffic_mode_all_lines">Toutes les lignes</string>
+    <string name="settings_traffic_mode_current_favorites_only">Mode : Favoris uniquement</string>
+    <string name="settings_traffic_mode_current_all_lines">Mode : Toutes les lignes</string>
+    <string name="settings_theme_picker_title">Thème</string>
+    <string name="settings_nav_style_picker_title">Style de navigation</string>
     <string name="settings_choose_language">Choisir la langue</string>
-    <string name="settings_favs_desc">Exportez tous vos paramÃ¨tres, favoris, alertes et configuration du widget en fichier JSON pour les transfÃ©rer sur un autre appareil.</string>
-    <string name="settings_fav_count">%1$d arrÃªt(s) favori(s)  â€¢  %2$d ligne(s) favorite(s)</string>
-    <string name="settings_btn_export">ðŸ“¤  Exporter les paramÃ¨tres</string>
-    <string name="settings_btn_import">ðŸ“¥  Importer les paramÃ¨tres</string>
-    <string name="settings_export_ok">ParamÃ¨tres exportÃ©s âœ“</string>
+    <string name="settings_favs_desc">Exportez tous vos paramètres, favoris, alertes et configuration du widget en fichier JSON pour les transférer sur un autre appareil.</string>
+    <string name="settings_fav_count">%1$d arrêt(s) favori(s)  •  %2$d ligne(s) favorite(s)</string>
+    <string name="settings_btn_export">📤  Exporter les paramètres</string>
+    <string name="settings_btn_import">📥  Importer les paramètres</string>
+    <string name="settings_export_ok">Paramètres exportés ✓</string>
     <string name="settings_export_error">Erreur export : %s</string>
-    <string name="settings_import_ok">ImportÃ© : +%1$d arrÃªt(s), +%2$d ligne(s)</string>
+    <string name="settings_import_ok">Importé : +%1$d arrêt(s), +%2$d ligne(s)</string>
     <string name="settings_import_invalid">Fichier invalide : %s</string>
     <string name="no_info">Pas d\'info</string>
-    <string name="permission_notif_denied">Vous avez refusÃ© l\'accÃ¨s aux notifications. Le systÃ¨me d\'alertes est donc indisponible. Si vous souhaitez y accÃ©der, merci de l\'activer dans les paramÃ¨tres de l\'application.</string>
-    <string name="permission_location_denied">Vous avez refusÃ© l\'accÃ¨s Ã  la position. Le systÃ¨me de gÃ©olocalisation est donc indisponible. Si vous souhaitez y accÃ©der, merci de le modifier dans les paramÃ¨tres de l\'application.</string>
-    <string name="permission_settings">ParamÃ¨tres</string>
+    <string name="permission_notif_denied">Vous avez refusé l\'accès aux notifications. Le système d\'alertes est donc indisponible. Si vous souhaitez y accéder, merci de l\'activer dans les paramètres de l\'application.</string>
+    <string name="permission_location_denied">Vous avez refusé l\'accès à la position. Le système de géolocalisation est donc indisponible. Si vous souhaitez y accéder, merci de le modifier dans les paramètres de l\'application.</string>
+    <string name="permission_settings">Paramètres</string>
     <string name="permission_close">Fermer</string>
     <string name="btn_help">Aide</string>
-    <string name="btn_next">Suivant â†’</string>
-    <string name="btn_finish">Terminer â†’</string>
+    <string name="btn_next">Suivant →</string>
+    <string name="btn_finish">Terminer →</string>
     <string name="btn_skip">Passer</string>
     <string name="consent_title">Votre consentement</string>
     <string name="consent_intro">Avant de commencer, Pau\'delis te demande si tu acceptes l\'analyse d\'usage de l\'application.</string>
     <string name="consent_card_title">Statistiques d\'utilisation</string>
-    <string name="consent_body">Si tu acceptes, l\'application pourra envoyer des Ã©vÃ©nements anonymes pour comprendre quels onglets, Ã©crans et boutons sont les plus utilisÃ©s. Cela aide Ã  amÃ©liorer l\'app sans afficher de pop-up pendant l\'usage normal.</string>
-    <string name="consent_no_personal">Aucune donnÃ©e personnelle ni position GPS brute n\'est tracÃ©e pour ce suivi.</string>
+    <string name="consent_body">Si tu acceptes, l\'application pourra envoyer des événements anonymes pour comprendre quels onglets, écrans et boutons sont les plus utilisés. Cela aide à améliorer l\'app sans afficher de pop-up pendant l\'usage normal.</string>
+    <string name="consent_no_personal">Aucune donnée personnelle ni position GPS brute n\'est tracée pour ce suivi.</string>
     <string name="consent_accept">J\'accepte les statistiques</string>
     <string name="consent_decline">Je refuse</string>
-    <string name="consent_footer">Tu peux changer ce choix plus tard dans les paramÃ¨tres de l\'app si une option de confidentialitÃ© est ajoutÃ©e.</string>
+    <string name="consent_footer">Tu peux changer ce choix plus tard dans les paramètres de l\'app si une option de confidentialité est ajoutée.</string>
 
-    <string name="tuto_welcome_title">Bienvenue sur Pau\'delis ðŸšŒ</string>
-    <string name="tuto_welcome_body">Cette application vous montre en temps rÃ©el les prochains bus du rÃ©seau Idelis Ã  Pau.\n\nGlissez vers la gauche ou appuyez sur Â« Suivant Â» pour dÃ©couvrir l\'application. Vous pouvez aussi appuyer sur le bouton Aide en haut Ã  droite des onglets pour ouvrir le guide spÃ©cifique.</string>
+    <string name="tuto_welcome_title">Bienvenue sur Pau\'delis 🚌</string>
+    <string name="tuto_welcome_body">Cette application vous montre en temps réel les prochains bus du réseau Idelis à Pau.\n\nGlissez vers la gauche ou appuyez sur « Suivant » pour découvrir l\'application. Vous pouvez aussi appuyer sur le bouton Aide en haut à droite des onglets pour ouvrir le guide spécifique.</string>
     <string name="tuto_map_title">La Carte</string>
-    <string name="tuto_map_body">L\'onglet Carte (ðŸ—ºï¸) en bas vous montre tous les arrÃªts du rÃ©seau sur un plan.\n\nPincez pour zoomer. Les noms des arrÃªts apparaissent en zoomant. Appuyez sur un arrÃªt pour voir les prochains bus.</string>
+    <string name="tuto_map_body">L\'onglet Carte (🗺️) en bas vous montre tous les arrêts du réseau sur un plan.\n\nPincez pour zoomer. Les noms des arrêts apparaissent en zoomant. Appuyez sur un arrêt pour voir les prochains bus.</string>
     <string name="tuto_locate_title">Me localiser sur la carte</string>
-    <string name="tuto_locate_body">Appuyez sur le bouton bleu en bas Ã  droite de la carte pour vous situer et voir votre position en direct.\n\nL\'application vous demandera l\'autorisation d\'accÃ©der Ã  votre position.</string>
-    <string name="tuto_nearest_title">ArrÃªt le plus proche</string>
-    <string name="tuto_nearest_body">Le petit bouton ðŸš en haut Ã  droite de la carte ouvre directement la fiche du bus le plus proche de lÃ  oÃ¹ vous Ãªtes.\n\nPratique pour connaÃ®tre le prochain bus sans chercher sur la carte !</string>
+    <string name="tuto_locate_body">Appuyez sur le bouton bleu en bas à droite de la carte pour vous situer et voir votre position en direct.\n\nL\'application vous demandera l\'autorisation d\'accéder à votre position.</string>
+    <string name="tuto_nearest_title">Arrêt le plus proche</string>
+    <string name="tuto_nearest_body">Le petit bouton 🚏 en haut à droite de la carte ouvre directement la fiche du bus le plus proche de là où vous êtes.\n\nPratique pour connaître le prochain bus sans chercher sur la carte !</string>
     <string name="tuto_favs_title">Les Favoris</string>
-    <string name="tuto_favs_body">Appuyez sur l\'Ã©toile â­ dans la fiche d\'un arrÃªt ou d\'une ligne pour le mettre en favoris.\n\nVos favoris apparaissent dans l\'onglet â­ avec le prochain passage mis Ã  jour automatiquement.</string>
+    <string name="tuto_favs_body">Appuyez sur l\'étoile ⭐ dans la fiche d\'un arrêt ou d\'une ligne pour le mettre en favoris.\n\nVos favoris apparaissent dans l\'onglet ⭐ avec le prochain passage mis à jour automatiquement.</string>
     <string name="tuto_colors_title">Comprendre les couleurs</string>
-    <string name="tuto_colors_body">Dans vos favoris et les horaires, les couleurs indiquent l\'Ã©tat du bus :\n\n%1$s = Ã  l\'heure\n%2$s = en retard\n%3$s = en avance\n%4$s = supprimÃ©\n* = horaire prÃ©vu (sans info en temps rÃ©el)</string>
+    <string name="tuto_colors_body">Dans vos favoris et les horaires, les couleurs indiquent l\'état du bus :\n\n%1$s = à l\'heure\n%2$s = en retard\n%3$s = en avance\n%4$s = supprimé\n* = horaire prévu (sans info en temps réel)</string>
     <string name="tuto_search_title">La Recherche</string>
-    <string name="tuto_search_body">Appuyez sur ðŸ” pour chercher un arrÃªt ou une ligne par son nom.\n\nL\'application se souvient de vos derniÃ¨res recherches pour retrouver rapidement vos habitudes.</string>
+    <string name="tuto_search_body">Appuyez sur 🔍 pour chercher un arrêt ou une ligne par son nom.\n\nL\'application se souvient de vos dernières recherches pour retrouver rapidement vos habitudes.</string>
     <string name="tuto_alerts_title">Les Alertes</string>
-    <string name="tuto_alerts_body">Appuyez sur ðŸ”” pour crÃ©er une alarme pour votre bus.\n\nChoisissez l\'arrÃªt, la ligne et l\'heure : vous recevrez une notification sur votre tÃ©lÃ©phone Ã  l\'heure prÃ©vue.</string>
+    <string name="tuto_alerts_body">Appuyez sur 🔔 pour créer une alarme pour votre bus.\n\nChoisissez l\'arrêt, la ligne et l\'heure : vous recevrez une notification sur votre téléphone à l\'heure prévue.</string>
     <string name="tuto_customize_alert_title">Personnaliser une alerte</string>
-    <string name="tuto_customize_alert_body">Une alerte peut sonner tous les jours, certains jours seulement (ex. : lundi et mercredi), hors vacances scolaires et jours fÃ©riÃ©s, ou uniquement Ã  des dates choisies.\n\nVous pouvez aussi exclure des dates particuliÃ¨res.</string>
+    <string name="tuto_customize_alert_body">Une alerte peut sonner tous les jours, certains jours seulement (ex. : lundi et mercredi), hors vacances scolaires et jours fériés, ou uniquement à des dates choisies.\n\nVous pouvez aussi exclure des dates particulières.</string>
     <string name="tuto_tabs_title">L\'onglet Plus</string>
-    <string name="tuto_tabs_body">Le bouton Â« Â·Â·Â· Â» en bas Ã  droite donne accÃ¨s Ã  toutes les fonctions : liste des arrÃªts, des lignes, les paramÃ¨tres et ce tutoriel.\n\nVous pouvez personnaliser quels onglets apparaissent en bas dans ParamÃ¨tres.</string>
-    <string name="tuto_settings_title">Les ParamÃ¨tres</string>
-    <string name="tuto_settings_body">Dans âš™ï¸ ParamÃ¨tres, vous pouvez :\n\nâ€¢ Changer la langue\nâ€¢ Choisir le thÃ¨me clair ou sombre\nâ€¢ Configurer le widget pour l\'Ã©cran d\'accueil\nâ€¢ RÃ©organiser les onglets</string>
+    <string name="tuto_tabs_body">Le bouton « ··· » en bas à droite donne accès à toutes les fonctions : liste des arrêts, des lignes, les paramètres et ce tutoriel.\n\nVous pouvez personnaliser quels onglets apparaissent en bas dans Paramètres.</string>
+    <string name="tuto_settings_title">Les Paramètres</string>
+    <string name="tuto_settings_body">Dans ⚙️ Paramètres, vous pouvez :\n\n• Changer la langue\n• Choisir le thème clair ou sombre\n• Configurer le widget pour l\'écran d\'accueil\n• Réorganiser les onglets</string>
     <string name="tuto_widget_title">Le Widget</string>
-    <string name="tuto_widget_body">Ajoutez le widget Pau\'delis sur votre Ã©cran d\'accueil : vos arrÃªts favoris s\'affichent directement sans ouvrir l\'app.\n\nPour l\'ajouter : maintenez le doigt sur l\'Ã©cran d\'accueil â†’ Widgets â†’ Pau\'delis.</string>
+    <string name="tuto_widget_body">Ajoutez le widget Pau\'delis sur votre écran d\'accueil : vos arrêts favoris s\'affichent directement sans ouvrir l\'app.\n\nPour l\'ajouter : maintenez le doigt sur l\'écran d\'accueil → Widgets → Pau\'delis.</string>
     <string name="tuto_go_title">C\'est parti !</string>
-    <string name="tuto_go_body">Vous savez maintenant utiliser Pau\'delis.\n\nSi vous avez besoin de revoir ce guide, il est disponible Ã  tout moment dans l\'onglet Â« Â·Â·Â· Â» â†’ Tutoriel.</string>
+    <string name="tuto_go_body">Vous savez maintenant utiliser Pau\'delis.\n\nSi vous avez besoin de revoir ce guide, il est disponible à tout moment dans l\'onglet « ··· » → Tutoriel.</string>
     <!-- Statut API -->
     <string name="api_offline_http500">Hors service</string>
     <string name="api_offline_network">Hors-ligne (connexion mauvaise ou inexistante)</string>
     <string name="api_offline">Hors-ligne</string>
-    <string name="api_online">â— En ligne</string>
-    <string name="status_night">â— Nuit</string>
-    <string name="status_sunday">â— Dimanche</string>
-    <string name="status_holiday">â— FÃ©riÃ©</string>
-    <string name="status_offline">â— Hors-ligne</string>
+    <string name="api_online">● En ligne</string>
+    <string name="status_night">● Nuit</string>
+    <string name="status_sunday">● Dimanche</string>
+    <string name="status_holiday">● Férié</string>
+    <string name="status_offline">● Hors-ligne</string>
 
     <!-- Widget -->
     <string name="widget_loading">Chargement...</string>
     <string name="widget_inactive_today">Inactif aujourd\'hui</string>
     <string name="widget_no_sunday">Ne passe pas le dimanche</string>
-    <string name="widget_updated">Widget mis Ã  jour</string>
-    <string name="widget_all_lines_added">Toutes les lignes dÃ©jÃ  ajoutÃ©es</string>
+    <string name="widget_updated">Widget mis à jour</string>
+    <string name="widget_all_lines_added">Toutes les lignes déjà ajoutées</string>
     <string name="widget_choose_line">Choisir une ligne</string>
-    <string name="widget_max_entries">Maximum %d entrÃ©es dans le widget</string>
+    <string name="widget_max_entries">Maximum %d entrées dans le widget</string>
 
     <!-- Carte -->
-    <string name="map_gps_searching">Recherche du signal GPSâ€¦</string>
-    <string name="map_position_unknown">Position inconnue â€” activez la gÃ©olocalisation d\'abord</string>
-    <string name="map_emulated">Position Ã©mulÃ©e : %1$.5f, %2$.5f</string>
+    <string name="map_gps_searching">Recherche du signal GPS…</string>
+    <string name="map_position_unknown">Position inconnue — activez la géolocalisation d\'abord</string>
+    <string name="map_emulated">Position émulée : %1$.5f, %2$.5f</string>
 
     <!-- Alertes dialog -->
-    <string name="alert_select_stop">SÃ©lectionne un arrÃªt</string>
-    <string name="alert_unknown_stop">ArrÃªt inconnu</string>
-    <string name="alert_select_line">SÃ©lectionne une ligne</string>
-    <string name="alert_select_day">SÃ©lectionne au moins un jour</string>
-    <string name="alert_select_date">SÃ©lectionne au moins une date</string>
-    <string name="alert_duplicate">Une alerte existe dÃ©jÃ  pour cet arrÃªt, cette ligne et cette heure</string>
+    <string name="alert_select_stop">Sélectionne un arrêt</string>
+    <string name="alert_unknown_stop">Arrêt inconnu</string>
+    <string name="alert_select_line">Sélectionne une ligne</string>
+    <string name="alert_select_day">Sélectionne au moins un jour</string>
+    <string name="alert_select_date">Sélectionne au moins une date</string>
+    <string name="alert_duplicate">Une alerte existe déjà pour cet arrêt, cette ligne et cette heure</string>
     <string name="alert_edit_title">Modifier l\'alerte</string>
-    <string name="alert_deleted">Alerte supprimÃ©e</string>
+    <string name="alert_deleted">Alerte supprimée</string>
 
     <!-- RÃ©currence alertes -->
-    <string name="recurrence_label">RÃ©currence</string>
-    <string name="recurrence_week_info">Semaine actuelle : nÂ°%1$d (%2$s)</string>
+    <string name="recurrence_label">Récurrence</string>
+    <string name="recurrence_week_info">Semaine actuelle : n°%1$d (%2$s)</string>
     <string name="recurrence_odd_weeks">Semaines impaires</string>
     <string name="recurrence_even_weeks">Semaines paires</string>
-    <string name="recurrence_no_holidays">Hors vacances scolaires et jours fÃ©riÃ©s</string>
+    <string name="recurrence_no_holidays">Hors vacances scolaires et jours fériés</string>
     <string name="recurrence_weekdays">Jours</string>
-    <string name="recurrence_specific_dates">Dates spÃ©cifiques</string>
+    <string name="recurrence_specific_dates">Dates spécifiques</string>
     <string name="recurrence_excluded_dates">Dates exclues</string>
-    <string name="recurrence_excluded_hint">Ces dates ne dÃ©clencheront pas l\'alerte</string>
+    <string name="recurrence_excluded_hint">Ces dates ne déclencheront pas l\'alerte</string>
     <string name="recurrence_today_only">Aujourd\'hui seulement</string>
     <string name="recurrence_every_day">Tous les jours</string>
-    <string name="recurrence_no_holidays_short">Hors vacances et fÃ©riÃ©s</string>
-    <string name="recurrence_no_day">Aucun jour sÃ©lectionnÃ©</string>
-    <string name="recurrence_no_date">Aucune date sÃ©lectionnÃ©e</string>
+    <string name="recurrence_no_holidays_short">Hors vacances et fériés</string>
+    <string name="recurrence_no_day">Aucun jour sélectionné</string>
+    <string name="recurrence_no_date">Aucune date sélectionnée</string>
     <string name="recurrence_no_excluded">Aucune date exclue</string>
     <string name="recurrence_week_parity_odd">impaire</string>
     <string name="recurrence_week_parity_even">paire</string>
-    <string name="recurrence_add_date">ï¼‹ Ajouter une date</string>
-    <string name="recurrence_exclude_date">ï¼‹ Exclure une date</string>
+    <string name="recurrence_add_date">+ Ajouter une date</string>
+    <string name="recurrence_exclude_date">+ Exclure une date</string>
 
     <!-- Jours de la semaine (abrÃ©viations) -->
     <string name="day_mon">Lun</string>
@@ -217,56 +248,55 @@
     <string name="day_tomorrow_short">Demain</string>
 
     <!-- Favoris -->
-    <string name="fav_bus_section">Bus Ã  l\'arrÃªt</string>
+    <string name="fav_bus_section">Bus à l\'arrêt</string>
     <string name="fav_no_info">Pas d\'information</string>
     <string name="fav_no_info_short">Pas d\'infos</string>
-    <string name="fav_bus_removed">Favoris retirÃ©</string>
-    <string name="fav_added">Favoris ajoutÃ©</string>
+    <string name="fav_bus_removed">Favoris retiré</string>
+    <string name="fav_added">Favoris ajouté</string>
 
     <!-- ArrÃªts / Lignes -->
     <string name="stop_no_sunday">Ne passe pas le dimanche</string>
-    <string name="stop_no_bus_today_holiday">Aucun bus aujourd\'hui\n(Jour fÃ©riÃ©)</string>
+    <string name="stop_no_bus_today_holiday">Aucun bus aujourd\'hui\n(Jour férié)</string>
     <string name="stop_no_bus_today_sunday">Aucun bus aujourd\'hui\n(Dimanche)</string>
     <string name="line_all">Toutes</string>
-    <string name="nav_default_restored">Configuration par dÃ©faut restaurÃ©e</string>
+    <string name="nav_default_restored">Configuration par défaut restaurée</string>
 
     <!-- Tracking notif -->
-    <string name="tracking_starting">DÃ©marrage du suivi...</string>
+    <string name="tracking_starting">Démarrage du suivi...</string>
     <string name="tracking_active">Suivi actif</string>
-    <string name="tracking_disabled">Suivi dÃ©sactivÃ©</string>
-    <string name="tracking_finished">Suivi terminÃ©</string>
-    <string name="tracking_toggle_disable">DÃ©sactiver le suivi</string>
+    <string name="tracking_disabled">Suivi désactivé</string>
+    <string name="tracking_finished">Suivi terminé</string>
+    <string name="tracking_toggle_disable">Désactiver le suivi</string>
     <string name="tracking_toggle_resume">Reprendre le suivi</string>
-    <string name="tracking_refresh">ðŸ”„ Actualiser</string>
-    <string name="tracking_no_data">Passage prÃ©vu Ã  %1$s â€” aucune donnÃ©e</string>
+    <string name="tracking_refresh">🔄 Actualiser</string>
+    <string name="tracking_no_data">Passage prévu à %1$s — aucune donnée</string>
     <string name="tracking_next_real">Prochain passage</string>
-    <string name="tracking_next_theo">Passage thÃ©orique</string>
-    <string name="tracking_passed">Bus %1$s passÃ© ðŸŸ¢</string>
-    <string name="tracking_no_passage_receiver">Passage prÃ©vu Ã  %1$s â€” aucune donnee disponible</string>
+    <string name="tracking_next_theo">Passage théorique</string>
+    <string name="tracking_passed">Bus %1$s passé 🟢</string>
+    <string name="tracking_no_passage_receiver">Passage prévu à %1$s — aucune donnee disponible</string>
 
     <string name="notif_channel_name">Alertes bus</string>
     <string name="notif_channel_desc">Rappels de passages de bus</string>
     <string name="notif_next_passage">Prochain passage : %1$s%2$s%3$s</string>
-    <string name="notif_scheduled">Passage prÃ©vu Ã  %1$s â€” Ligne %2$s</string>
-    <string name="notif_passed">Bus %1$s passÃ© âœ“</string>
+    <string name="notif_scheduled">Passage prévu à %1$s — Ligne %2$s</string>
+    <string name="notif_passed">Bus %1$s passé ✓</string>
     <string name="tuto_color_green">Vert</string>
     <string name="tuto_color_orange">Orange</string>
     <string name="tuto_color_blue">Bleu</string>
-    <string name="tuto_color_red_strike">Rouge barrÃ©</string>
-    <string name="tracking_passed_explicit">Bus passÃ©</string>
-    <string name="settings_emulation_toggle">Activer le bouton d\'Ã©mulation de position GPS</string>
+    <string name="tuto_color_red_strike">Rouge barré</string>
+    <string name="tracking_passed_explicit">Bus passé</string>
+    <string name="settings_emulation_toggle">Activer le bouton d\'émulation de position GPS</string>
     <string name="sort_name">Nom</string>
     <string name="sort_distance">Distance</string>
     <string name="sort_next_passage">Prochain passage</string>
     <string name="tracking_connection_lost">Connexion perdue...</string>
     <string name="shortcut_map_title">Carte des bus</string>
-    <string name="shortcut_map_desc">Afficher la carte des bus et arrÃªts</string>
+    <string name="shortcut_map_desc">Afficher la carte des bus et arrêts</string>
     <string name="shortcut_favs_title">Favoris</string>
-    <string name="shortcut_favs_desc">Afficher mes arrÃªts favoris</string>
-    <string name="about_title">A propos</string>
-    <string name="about_subtitle">Informations sur Pau delis</string>
-    <string name="about_creator">Cree par Caolan</string>
-    <string name="about_tagline">Entierement vibe code</string>
-    <string name="about_body">Pau delis est concue pour rester rapide, lisible et coherente avec son univers IDELIS. Cette fenetre est volontairement personnalisee pour eviter les popups Android generiques qui cassent l identite visuelle de l app.</string>
+    <string name="shortcut_favs_desc">Afficher mes arrêts favoris</string>
+    <string name="about_title">À propos</string>
+    <string name="about_subtitle">Informations sur Pau\'delis</string>
+    <string name="about_creator">Créé par Caolan</string>
+    <string name="about_tagline">✨ Entièrement vibe codé ✨</string>
     <string name="about_close">Fermer</string>
 </resources>

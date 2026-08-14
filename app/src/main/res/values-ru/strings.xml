@@ -7,10 +7,33 @@
     <string name="nav_stops">Остановки</string>
     <string name="nav_search">Поиск</string>
     <string name="nav_lines">Маршруты</string>
+
+
+    <string name="nav_school_zones">Календарь периодов</string>
+    <string name="school_zones_title">Календарь периодов</string>
+    <string name="school_zones_subtitle">Официальный календарь IDELIS для оранжевой, синей и серой зон</string>
+    <string name="school_zones_loading">Загрузка официального календаря…</string>
+    <string name="school_zones_error">Сейчас не удается загрузить данные.</string>
+    <string name="school_zones_cached">Данные сохранены локально</string>
+    <string name="school_zones_updated_on">Обновлено %1$s</string>
+    <string name="school_zones_calendar_label">Календарь</string>
+    <string name="school_zones_legend_title">Официальная легенда</string>
+    <string name="school_zones_legend_school">с понедельника по пятницу учебный период</string>
+    <string name="school_zones_legend_short_holidays">с понедельника по пятницу короткие школьные каникулы</string>
+    <string name="school_zones_legend_summer_holidays">с понедельника по пятницу летние каникулы</string>
+    <string name="school_zones_legend_saturday">суббота</string>
+    <string name="school_zones_legend_sunday_holidays">воскресенье и праздничные дни (только линии F, A, B, C и D)</string>
+    <string name="school_zones_legend_no_service">1 января и 1 мая автобусы не ходят</string>
+    <string name="school_zones_detail_title">Подробности по зоне</string>
+    <string name="school_zones_selected_date">Информация на %1$s</string>
+    <string name="school_zones_status_in_period">На каникулах</string>
+    <string name="school_zones_status_outside_period">Вне каникул</string>
+    <string name="school_zones_no_periods">Для этой зоны не найден период.</string>
     <string name="nav_favs">Избранное</string>
     <string name="nav_alerts">Уведомления</string>
     <string name="nav_settings">Настройки</string>
     <string name="btn_emulate_here">📍 Эмулировать здесь</string>
+    <string name="map_nearest_loading">Поиск ближайших остановок…</string>
     <string name="next_passages">Ближайшие отправления</string>
     <string name="loading">Загрузка…</string>
     <string name="no_stop_code">Код остановки недоступен</string>
@@ -129,8 +152,8 @@
     <string name="recurrence_no_excluded">Нет исключённых дат</string>
     <string name="recurrence_week_parity_odd">нечётная</string>
     <string name="recurrence_week_parity_even">чётная</string>
-    <string name="recurrence_add_date">＋ Добавить дату</string>
-    <string name="recurrence_exclude_date">＋ Исключить дату</string>
+    <string name="recurrence_add_date">+ Добавить дату</string>
+    <string name="recurrence_exclude_date">+ Исключить дату</string>
     <string name="day_mon">Пн</string>
     <string name="day_tue">Вт</string>
     <string name="day_wed">Ср</string>
@@ -164,6 +187,13 @@
     <string name="tracking_no_passage_receiver">Запланировано на %1$s — данные недоступны</string>
 
     <string name="nav_donate">Пожертвовать (купить мне билет на Idelis)</string>
+    <string name="settings_traffic_alerts_mode_title">Режим оповещений о сбоях</string>
+    <string name="settings_traffic_mode_favorites_only">Только избранное</string>
+    <string name="settings_traffic_mode_all_lines">Все линии</string>
+    <string name="settings_traffic_mode_current_favorites_only">Режим: Только избранное</string>
+    <string name="settings_traffic_mode_current_all_lines">Режим: Все линии</string>
+    <string name="settings_theme_picker_title">Тема</string>
+    <string name="settings_nav_style_picker_title">Стиль навигации</string>
     <string name="consent_title">Помогите нам улучшить Пауделис</string>
     <string name="consent_intro">Перед началом обучения выберите, хотите ли вы поделиться анонимной аналитикой.</string>
     <string name="consent_card_title">Аналитика и конфиденциальность</string>

@@ -22,10 +22,8 @@ class StopsWidgetProvider : AppWidgetProvider() {
         const val EXTRA_STOP_NAME = "extra_stop_name"
 
         private var updateJob: Job? = null
-        private var autoRefreshJob: Job? = null
         private var lastUpdateMs = 0L
         private const val MIN_UPDATE_INTERVAL = 5_000L
-        private const val AUTO_REFRESH_INTERVAL = 120_000L
 
         fun requestUpdate(ctx: Context) {
             val mgr = AppWidgetManager.getInstance(ctx)
@@ -127,7 +125,6 @@ class StopsWidgetProvider : AppWidgetProvider() {
     override fun onUpdate(ctx: Context, mgr: AppWidgetManager, ids: IntArray) {
         ids.forEach { id -> setupListAdapter(ctx, mgr, id) }
         triggerUpdate(ctx, mgr, ids)
-        startAutoRefresh(ctx)
     }
 
     override fun onAppWidgetOptionsChanged(ctx: Context, mgr: AppWidgetManager, id: Int, opts: Bundle?) {
@@ -141,13 +138,11 @@ class StopsWidgetProvider : AppWidgetProvider() {
             val mgr = AppWidgetManager.getInstance(ctx)
             val ids = mgr.getAppWidgetIds(ComponentName(ctx, StopsWidgetProvider::class.java))
             triggerUpdate(ctx, mgr, ids)
-            startAutoRefresh(ctx)
         }
     }
 
     override fun onDisabled(ctx: Context) {
         super.onDisabled(ctx)
-        autoRefreshJob?.cancel()
         updateJob?.cancel()
     }
 
@@ -202,20 +197,6 @@ class StopsWidgetProvider : AppWidgetProvider() {
         views.setTextViewText(R.id.widget_title, "🚌 ${ctx.getString(R.string.app_name)}  ·  ${ctx.getString(R.string.widget_loading)}")
         views.setViewVisibility(R.id.tv_widget_status, View.GONE)
         mgr.updateAppWidget(widgetId, views)
-    }
-
-    private fun startAutoRefresh(ctx: Context) {
-        autoRefreshJob?.cancel()
-        autoRefreshJob = CoroutineScope(Dispatchers.IO).launch {
-            while (isActive) {
-                delay(AUTO_REFRESH_INTERVAL)
-                val mgr = AppWidgetManager.getInstance(ctx)
-                val ids = mgr.getAppWidgetIds(ComponentName(ctx, StopsWidgetProvider::class.java))
-                if (ids.isEmpty()) break
-                updateJob?.cancel()
-                updateJob = launch { ids.forEach { id -> updateWidget(ctx, mgr, id) } }
-            }
-        }
     }
 
     private fun triggerUpdate(ctx: Context, mgr: AppWidgetManager, ids: IntArray) {

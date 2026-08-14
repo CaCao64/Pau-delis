@@ -2,14 +2,22 @@ package com.pau.busapp
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.app.TimePickerDialog
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
 import android.view.*
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
+import com.google.android.material.datepicker.MaterialDatePicker
+import com.google.android.material.timepicker.MaterialTimePicker
+import com.google.android.material.timepicker.TimeFormat
 import java.util.Calendar
+import java.time.Instant
+import java.time.ZoneId
 
 class AddAlertDialog : DialogFragment() {
 
@@ -63,12 +71,51 @@ class AddAlertDialog : DialogFragment() {
             ?: editAlert?.stopName
             ?: FavoritesManager.getDefaultStop(ctx)
 
-        val scroll = ScrollView(ctx)
+        val root = LinearLayout(ctx).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(20, 20, 20, 20)
+        }
+        val card = MaterialCardView(ctx).apply {
+            radius = 20f
+            cardElevation = 12f
+            setCardBackgroundColor(ContextCompat.getColor(ctx, R.color.surface))
+        }
+        root.addView(card, LinearLayout.LayoutParams(
+            LinearLayout.LayoutParams.MATCH_PARENT,
+            LinearLayout.LayoutParams.WRAP_CONTENT
+        ))
+
+        val shell = LinearLayout(ctx).apply {
+            orientation = LinearLayout.VERTICAL
+            setPadding(0, 0, 0, 0)
+        }
+        card.addView(shell)
+
+        shell.addView(View(ctx).apply {
+            layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.MATCH_PARENT,
+                dp(ctx, 6)
+            )
+            setBackgroundColor(ContextCompat.getColor(ctx, R.color.green_primary))
+        })
+
+        shell.addView(TextView(ctx).apply {
+            text = if (editId != -1L) ctx.getString(R.string.alert_edit_title) else ctx.getString(R.string.alert_dialog_title)
+            textSize = 22f
+            setTypeface(null, android.graphics.Typeface.BOLD)
+            setTextColor(ContextCompat.getColor(ctx, R.color.text_primary))
+            setPadding(dp(ctx, 20), dp(ctx, 18), dp(ctx, 20), dp(ctx, 10))
+        })
+
+        val scroll = ScrollView(ctx).apply {
+            isVerticalScrollBarEnabled = false
+        }
         val layout = LinearLayout(ctx).apply {
             orientation = LinearLayout.VERTICAL
-            setPadding(60, 30, 60, 20)
+            setPadding(dp(ctx, 20), 0, dp(ctx, 20), dp(ctx, 20))
         }
         scroll.addView(layout)
+        shell.addView(scroll)
 
         // ── Arrêt ─────────────────────────────────────────────────────────────
         stopNames = AppData.busStops.map { it.name }.sorted()
@@ -137,10 +184,18 @@ class AddAlertDialog : DialogFragment() {
             setTypeface(null, android.graphics.Typeface.BOLD)
             setPadding(0, dp(ctx, 8), 0, dp(ctx, 8))
             setOnClickListener {
-                TimePickerDialog(ctx, { _, h, m ->
-                    selectedHour = h; selectedMinute = m
-                    text = "%02d:%02d".format(h, m)
-                }, selectedHour, selectedMinute, true).show()
+                val picker = MaterialTimePicker.Builder()
+                    .setTimeFormat(TimeFormat.CLOCK_24H)
+                    .setHour(selectedHour)
+                    .setMinute(selectedMinute)
+                    .setTitleText(ctx.getString(R.string.next_passages))
+                    .build()
+                picker.addOnPositiveButtonClickListener {
+                    selectedHour = picker.hour
+                    selectedMinute = picker.minute
+                    text = "%02d:%02d".format(selectedHour, selectedMinute)
+                }
+                picker.show(parentFragmentManager, "add_alert_time")
             }
         }
         // Pré-remplir depuis l'alerte existante
@@ -349,12 +404,42 @@ class AddAlertDialog : DialogFragment() {
         }
         refreshExcludedView()
 
-        return AlertDialog.Builder(ctx)
-            .setTitle(if (editId != -1L) ctx.getString(R.string.alert_edit_title) else ctx.getString(R.string.alert_dialog_title))
-            .setView(scroll)
-            .setPositiveButton(ctx.getString(R.string.alert_btn_add)) { _, _ -> saveAlert() }
-            .setNegativeButton("Annuler", null)
+        val actions = LinearLayout(ctx).apply {
+            orientation = LinearLayout.HORIZONTAL
+            gravity = Gravity.END
+            setPadding(dp(ctx, 20), 0, dp(ctx, 20), dp(ctx, 20))
+        }
+        val cancelBtn = MaterialButton(ctx).apply {
+            text = "Annuler"
+            minWidth = 0
+            cornerRadius = dp(ctx, 18)
+            setTextColor(ContextCompat.getColor(ctx, R.color.white))
+            backgroundTintList = ContextCompat.getColorStateList(ctx, R.color.green_dark)
+            setOnClickListener { dismiss() }
+        }
+        val saveBtn = MaterialButton(ctx).apply {
+            text = ctx.getString(R.string.alert_btn_add)
+            minWidth = 0
+            cornerRadius = dp(ctx, 18)
+            setTextColor(ContextCompat.getColor(ctx, R.color.white))
+            backgroundTintList = ContextCompat.getColorStateList(ctx, R.color.green_primary)
+            setOnClickListener { saveAlert() }
+        }
+        actions.addView(cancelBtn)
+        actions.addView(saveBtn)
+        shell.addView(actions)
+
+        val dialog = AlertDialog.Builder(ctx)
+            .setView(root)
             .create()
+        dialog.setOnShowListener {
+            dialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+            dialog.window?.setLayout(
+                (resources.displayMetrics.widthPixels * 0.94f).toInt(),
+                WindowManager.LayoutParams.WRAP_CONTENT
+            )
+        }
+        return dialog
     }
 
     private fun buildConditions(): Set<AlertCondition> {
@@ -436,6 +521,7 @@ class AddAlertDialog : DialogFragment() {
         (activity as? MainActivity)?.refreshAlerts()
         val msgId = if (editId != -1L) R.string.alert_updated else R.string.alert_added
         Toast.makeText(ctx, ctx.getString(msgId), Toast.LENGTH_SHORT).show()
+        dismiss()
     }
 
     private fun updateLineSpinner(ctx: android.content.Context, stopName: String) {

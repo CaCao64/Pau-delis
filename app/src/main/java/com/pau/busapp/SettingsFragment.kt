@@ -2,13 +2,20 @@ package com.pau.busapp
 
 import android.app.Activity
 import android.app.AlertDialog
+import android.content.res.ColorStateList
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.view.*
+import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.content.ContextCompat
+import androidx.core.os.LocaleListCompat
 import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatDelegate
+import com.google.android.material.button.MaterialButton
+import com.google.android.material.card.MaterialCardView
 import com.pau.busapp.databinding.FragmentSettingsBinding
 import org.json.JSONArray
 import org.json.JSONObject
@@ -92,18 +99,22 @@ class SettingsFragment : Fragment() {
         }
 
         b.btnTrafficAlertsMode.setOnClickListener {
-            val modes = arrayOf("Favoris uniquement", "Toutes les lignes")
+            val modes = arrayOf(
+                getString(R.string.settings_traffic_mode_favorites_only),
+                getString(R.string.settings_traffic_mode_all_lines)
+            )
             val currentMode = DisruptionAlertManager.getMode(ctx)
             val selectedIdx = if (currentMode == "favorites") 0 else 1
-            android.app.AlertDialog.Builder(ctx)
-                .setTitle("Mode d'alertes perturbations")
-                .setSingleChoiceItems(modes, selectedIdx) { dialog, which ->
-                    val chosenMode = if (which == 0) "favorites" else "all"
-                    DisruptionAlertManager.setMode(ctx, chosenMode)
-                    updateTrafficAlertsUI()
-                    dialog.dismiss()
-                }
-                .show()
+            ModernDialogs.showChoice(
+                context = ctx,
+                title = getString(R.string.settings_traffic_alerts_mode_title),
+                items = modes.toList(),
+                selectedIndex = selectedIdx
+            ) { which ->
+                val chosenMode = if (which == 0) "favorites" else "all"
+                DisruptionAlertManager.setMode(ctx, chosenMode)
+                updateTrafficAlertsUI()
+            }
         }
         updateTrafficAlertsUI()
     }
@@ -113,7 +124,11 @@ class SettingsFragment : Fragment() {
         val enabled = DisruptionAlertManager.isEnabled(ctx)
         b.layoutTrafficAlertsMode.visibility = if (enabled) android.view.View.VISIBLE else android.view.View.GONE
         val mode = DisruptionAlertManager.getMode(ctx)
-        b.tvTrafficAlertsMode.text = if (mode == "favorites") "Mode : Favoris uniquement" else "Mode : Toutes les lignes"
+        b.tvTrafficAlertsMode.text = if (mode == "favorites") {
+            getString(R.string.settings_traffic_mode_current_favorites_only)
+        } else {
+            getString(R.string.settings_traffic_mode_current_all_lines)
+        }
     }
 
     private fun updateThemeLabel() {
@@ -124,14 +139,15 @@ class SettingsFragment : Fragment() {
         val themes  = AppTheme.values()
         val items   = themes.map { it.label }.toTypedArray()
         val current = themes.indexOf(ThemeManager.get(requireContext()))
-        android.app.AlertDialog.Builder(requireContext())
-            .setTitle("Thème")
-            .setSingleChoiceItems(items, current) { dialog, which ->
-                ThemeManager.set(requireContext(), themes[which])
-                updateThemeLabel()
-                dialog.dismiss()
-            }
-            .show()
+        ModernDialogs.showChoice(
+            context = requireContext(),
+            title = getString(R.string.settings_theme_picker_title),
+            items = items.toList(),
+            selectedIndex = current
+        ) { which ->
+            ThemeManager.set(requireContext(), themes[which])
+            updateThemeLabel()
+        }
     }
 
     private fun updateNavStyleLabel() {
@@ -143,44 +159,123 @@ class SettingsFragment : Fragment() {
         val styles  = NavStyle.values()
         val items   = styles.map { it.label }.toTypedArray()
         val current = styles.indexOf(NavStyleManager.get(requireContext()))
-        android.app.AlertDialog.Builder(requireContext())
-            .setTitle("Style de navigation")
-            .setSingleChoiceItems(items, current) { dialog, which ->
-                val chosen = styles[which]
-                NavStyleManager.set(requireContext(), chosen)
-                updateNavStyleLabel()
-                (activity as? MainActivity)?.applyNavStyle(chosen)
-                (activity as? MainActivity)?.setSelected(
-                    (activity as? MainActivity)?.currentSelectedId ?: R.id.nav_map
-                )
-                dialog.dismiss()
-            }
-            .show()
+        ModernDialogs.showChoice(
+            context = requireContext(),
+            title = getString(R.string.settings_nav_style_picker_title),
+            items = items.toList(),
+            selectedIndex = current
+        ) { which ->
+            val chosen = styles[which]
+            NavStyleManager.set(requireContext(), chosen)
+            updateNavStyleLabel()
+            (activity as? MainActivity)?.applyNavStyle(chosen)
+            (activity as? MainActivity)?.setSelected(
+                (activity as? MainActivity)?.currentSelectedId ?: R.id.nav_map
+            )
+        }
     }
 
     private fun updateLanguageLabel() {
         val code = LocaleHelper.getSaved(requireContext())
         val lang = LocaleHelper.languages.find { it.code == code }
-        b.tvCurrentLanguage.text = "${lang?.flag ?: "🌐"}  ${lang?.label ?: code}"
+        b.tvCurrentLanguage.text = "${lang?.flag ?: "ðŸŒ"}  ${lang?.label ?: code}"
     }
 
     private fun showLanguagePicker() {
-        val langs  = LocaleHelper.languages
-        val items  = langs.map { "${it.flag}  ${it.label}" }.toTypedArray()
-        val current = langs.indexOfFirst { it.code == LocaleHelper.getSaved(requireContext()) }
-        AlertDialog.Builder(requireContext())
-            .setTitle(getString(R.string.settings_choose_language))
-            .setSingleChoiceItems(items, current) { dialog, which ->
-                val chosen = langs[which]
-                LocaleHelper.save(requireContext(), chosen.code)
-                dialog.dismiss()
-                requireActivity().let { act ->
-                    val intent = act.intent
-                    act.finish()
-                    act.startActivity(intent)
-                }
+        val ctx = requireContext()
+        val content = layoutInflater.inflate(R.layout.dialog_language_picker, null, false)
+        val container = content.findViewById<LinearLayout>(R.id.llLanguageList)
+        val closeBtn = content.findViewById<MaterialButton>(R.id.btnCloseLanguage)
+        val langs = LocaleHelper.languages
+        val currentCode = LocaleHelper.getSaved(ctx)
+        val density = resources.displayMetrics.density
+        lateinit var dialog: AlertDialog
+        var pendingLocaleCode: String? = null
+
+        langs.forEachIndexed { index, lang ->
+            val selected = lang.code == currentCode
+            val card = MaterialCardView(ctx).apply {
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).also { if (index > 0) it.topMargin = (10 * density).toInt() }
+                radius = 18 * density
+                cardElevation = 0f
+                strokeWidth = if (selected) (2 * density).toInt() else (1 * density).toInt()
+                setStrokeColor(ColorStateList.valueOf(
+                    ContextCompat.getColor(ctx, if (selected) R.color.green_primary else R.color.divider)
+                ))
+                setCardBackgroundColor(ContextCompat.getColor(ctx, if (selected) R.color.green_light else R.color.surface))
+                isClickable = true
+                isFocusable = true
             }
-            .show()
+
+            val row = LinearLayout(ctx).apply {
+                orientation = LinearLayout.HORIZONTAL
+                gravity = Gravity.CENTER_VERTICAL
+                setPadding(
+                    (16 * density).toInt(),
+                    (14 * density).toInt(),
+                    (16 * density).toInt(),
+                    (14 * density).toInt()
+                )
+            }
+
+            val radio = android.widget.RadioButton(ctx).apply {
+                isChecked = selected
+                isClickable = false
+                buttonTintList = ColorStateList.valueOf(ContextCompat.getColor(ctx, R.color.green_primary))
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                )
+            }
+            row.addView(radio)
+
+            val label = android.widget.TextView(ctx).apply {
+                layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.WRAP_CONTENT, 1f).also {
+                    it.marginStart = (14 * density).toInt()
+                }
+                text = "${lang.flag}  ${lang.label}"
+                textSize = 17f
+                setTextColor(ContextCompat.getColor(ctx, R.color.text_primary))
+            }
+            row.addView(label)
+
+            card.addView(row)
+            card.setOnClickListener {
+                if (lang.code == currentCode) {
+                    dialog.dismiss()
+                    return@setOnClickListener
+                }
+                LocaleHelper.save(ctx, lang.code)
+                pendingLocaleCode = lang.code
+                dialog.dismiss()
+            }
+
+            container.addView(card)
+        }
+
+        dialog = AlertDialog.Builder(ctx)
+            .setView(content)
+            .create()
+
+        dialog.setOnShowListener {
+            dialog.window?.setBackgroundDrawable(android.graphics.drawable.ColorDrawable(android.graphics.Color.TRANSPARENT))
+            dialog.window?.setLayout(
+                (resources.displayMetrics.widthPixels * 0.92f).toInt(),
+                (resources.displayMetrics.heightPixels * 0.8f).toInt()
+            )
+        }
+
+        closeBtn.setOnClickListener { dialog.dismiss() }
+        dialog.setOnDismissListener {
+            pendingLocaleCode?.let { code ->
+                pendingLocaleCode = null
+                AppCompatDelegate.setApplicationLocales(LocaleListCompat.forLanguageTags(code))
+            }
+        }
+        dialog.show()
     }
 
     private fun updateCount() {
@@ -194,25 +289,25 @@ class SettingsFragment : Fragment() {
         val ctx = requireContext()
         try {
             val json = JSONObject().apply {
-                // ── Favoris ──────────────────────────────────────────────────
+                // â”€â”€ Favoris â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
                 put("stops",      JSONArray(FavoritesManager.getFavStops(ctx).toList()))
                 put("lines",      JSONArray(FavoritesManager.getFavLines(ctx).toList()))
                 put("stopsOrder", JSONArray(FavoritesManager.getOrderedStops(ctx)))
                 put("linesOrder", JSONArray(FavoritesManager.getOrderedLines(ctx)))
-                // Bus favoris (Bus à l'arrêt)
+                // Bus favoris (Bus Ã  l'arrÃªt)
                 put("favBuses",   JSONArray(FavoritesManager.getFavBuses(ctx)))
-                // ── Widget ───────────────────────────────────────────────────
+                // â”€â”€ Widget â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
                 put("widgetStops",        JSONArray(FavoritesManager.getWidgetStops(ctx)))
                 put("widgetOrder",        JSONArray(WidgetOrderManager.getOrder(ctx)))
                 put("widgetEnabled",      JSONArray(WidgetOrderManager.getEnabled(ctx).toList()))
                 put("widgetLinesOrder",   JSONArray(WidgetLinesManager.getOrder(ctx)))
                 put("widgetLinesEnabled", JSONArray(WidgetLinesManager.getEnabled(ctx).toList()))
-                // ── Alertes ──────────────────────────────────────────────────
+                // â”€â”€ Alertes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
                 put("alerts", JSONArray(AlertManager.load(ctx).map { it.toJson() }))
-                // ── Alertes Perturbations ────────────────────────────────────
+                // â”€â”€ Alertes Perturbations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
                 put("trafficAlertsEnabled", DisruptionAlertManager.isEnabled(ctx))
                 put("trafficAlertsMode", DisruptionAlertManager.getMode(ctx))
-                // ── Paramètres ───────────────────────────────────────────────
+                // â”€â”€ ParamÃ¨tres â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
                 put("theme",      ThemeManager.get(ctx).name)
                 put("navStyle",   NavStyleManager.get(ctx).name)
                 put("language",   LocaleHelper.getSaved(ctx))
@@ -242,36 +337,36 @@ class SettingsFragment : Fragment() {
             val knownStopNames = AppData.busStops.map { it.name }.toSet()
             val knownLineNums  = AppData.busLines.map { it.number }.toSet()
 
-            // ── Favoris arrêts ────────────────────────────────────────────────
+            // â”€â”€ Favoris arrÃªts â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             json.optJSONArray("stops")?.let { arr ->
                 for (i in 0 until arr.length()) {
                     runCatching {
                         val name = arr.getString(i)
-                        if (name !in knownStopNames) ignored.add("Arrêt inconnu ignoré : $name")
+                        if (name !in knownStopNames) ignored.add("ArrÃªt inconnu ignorÃ© : $name")
                         else if (!FavoritesManager.isStopFav(ctx, name)) { FavoritesManager.toggleStop(ctx, name); countStops++ }
                         else Unit
-                    }.onFailure { ignored.add("Arrêt invalide à l'index $i") }
+                    }.onFailure { ignored.add("ArrÃªt invalide Ã  l'index $i") }
                 }
             }
 
-            // ── Favoris lignes ────────────────────────────────────────────────
+            // â”€â”€ Favoris lignes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             json.optJSONArray("lines")?.let { arr ->
                 for (i in 0 until arr.length()) {
                     runCatching {
                         val num = arr.getString(i)
-                        if (num !in knownLineNums) ignored.add("Ligne inconnue ignorée : $num")
+                        if (num !in knownLineNums) ignored.add("Ligne inconnue ignorÃ©e : $num")
                         else if (!FavoritesManager.isLineFav(ctx, num)) { FavoritesManager.toggleLine(ctx, num); countLines++ }
                         else Unit
-                    }.onFailure { ignored.add("Ligne invalide à l'index $i") }
+                    }.onFailure { ignored.add("Ligne invalide Ã  l'index $i") }
                 }
             }
             updateCount()
 
-            // ── Ordre favoris ─────────────────────────────────────────────────
+            // â”€â”€ Ordre favoris â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             json.optJSONArray("stopsOrder")?.let { arr ->
                 runCatching {
                     FavoritesManager.saveStopOrder(ctx, (0 until arr.length()).map { arr.getString(it) })
-                }.onFailure { ignored.add("Ordre arrêts invalide") }
+                }.onFailure { ignored.add("Ordre arrÃªts invalide") }
             }
             json.optJSONArray("linesOrder")?.let { arr ->
                 runCatching {
@@ -279,7 +374,7 @@ class SettingsFragment : Fragment() {
                 }.onFailure { ignored.add("Ordre lignes invalide") }
             }
 
-            // ── Bus favoris ───────────────────────────────────────────────────
+            // â”€â”€ Bus favoris â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             json.optJSONArray("favBuses")?.let { arr ->
                 for (i in 0 until arr.length()) {
                     runCatching {
@@ -289,18 +384,18 @@ class SettingsFragment : Fragment() {
                             if (!FavoritesManager.isBusFav(ctx, parts[0], parts[1], parts[2]))
                                 FavoritesManager.toggleBus(ctx, parts[0], parts[1], parts[2])
                             else Unit
-                        } else ignored.add("Bus favori ignoré : $key")
-                    }.onFailure { ignored.add("Bus favori invalide à l'index $i") }
+                        } else ignored.add("Bus favori ignorÃ© : $key")
+                    }.onFailure { ignored.add("Bus favori invalide Ã  l'index $i") }
                 }
             }
 
-            // ── Widget ────────────────────────────────────────────────────────
+            // â”€â”€ Widget â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             json.optJSONArray("widgetStops")?.let { arr ->
                 runCatching {
                     val names = (0 until arr.length()).map { arr.getString(it) }
                         .filter { it in knownStopNames }
                     FavoritesManager.saveWidgetOrder(ctx, names)
-                }.onFailure { ignored.add("Widget arrêts invalide") }
+                }.onFailure { ignored.add("Widget arrÃªts invalide") }
             }
             json.optJSONArray("widgetOrder")?.let { arr ->
                 json.optJSONArray("widgetEnabled")?.let { arrE ->
@@ -322,20 +417,20 @@ class SettingsFragment : Fragment() {
                 }
             }
 
-            // ── Alertes ───────────────────────────────────────────────────────
+            // â”€â”€ Alertes â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             json.optJSONArray("alerts")?.let { arr ->
                 val existing = AlertManager.load(ctx)
                 for (i in 0 until arr.length()) {
                     runCatching {
                         val a = Alert.fromJson(arr.getJSONObject(i))
-                        if (a.stopName !in knownStopNames) { ignored.add("Alerte ignorée (arrêt inconnu : ${a.stopName})"); return@runCatching }
+                        if (a.stopName !in knownStopNames) { ignored.add("Alerte ignorÃ©e (arrÃªt inconnu : ${a.stopName})"); return@runCatching }
                         if (existing.none { it.id == a.id }) { existing.add(0, a); AlertManager.schedule(ctx, a) }
-                    }.onFailure { ignored.add("Alerte invalide à l'index $i") }
+                    }.onFailure { ignored.add("Alerte invalide Ã  l'index $i") }
                 }
                 AlertManager.save(ctx, existing)
             }
 
-            // ── Alertes Perturbations ─────────────────────────────────────────
+            // â”€â”€ Alertes Perturbations â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             if (json.has("trafficAlertsEnabled")) {
                 DisruptionAlertManager.setEnabled(ctx, json.getBoolean("trafficAlertsEnabled"))
             }
@@ -343,27 +438,27 @@ class SettingsFragment : Fragment() {
                 DisruptionAlertManager.setMode(ctx, json.getString("trafficAlertsMode"))
             }
 
-            // ── Thème ─────────────────────────────────────────────────────────
+            // â”€â”€ ThÃ¨me â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             json.optString("theme").takeIf { it.isNotEmpty() }?.let { name ->
                 runCatching { AppTheme.valueOf(name) }
                     .onSuccess { ThemeManager.set(ctx, it) }
-                    .onFailure { ignored.add("Thème inconnu ignoré : $name") }
+                    .onFailure { ignored.add("ThÃ¨me inconnu ignorÃ© : $name") }
             }
 
-            // ── Style nav ─────────────────────────────────────────────────────
+            // â”€â”€ Style nav â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             json.optString("navStyle").takeIf { it.isNotEmpty() }?.let { name ->
                 runCatching { NavStyle.valueOf(name) }
                     .onSuccess { NavStyleManager.set(ctx, it); (activity as? MainActivity)?.applyNavStyle(it) }
-                    .onFailure { ignored.add("Style navigation inconnu ignoré : $name") }
+                    .onFailure { ignored.add("Style navigation inconnu ignorÃ© : $name") }
             }
 
-            // ── Langue ────────────────────────────────────────────────────────
+            // â”€â”€ Langue â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             json.optString("language").takeIf { it.isNotEmpty() }?.let { code ->
                 if (LocaleHelper.languages.any { it.code == code }) LocaleHelper.save(ctx, code)
-                else ignored.add("Langue inconnue ignorée : $code")
+                else ignored.add("Langue inconnue ignorÃ©e : $code")
             }
 
-            // ── Onglets ───────────────────────────────────────────────────────
+            // â”€â”€ Onglets â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
             val navOrderArr   = json.optJSONArray("navOrder")
             val navEnabledArr = json.optJSONArray("navEnabled")
             if (navOrderArr != null && navEnabledArr != null) {
@@ -372,33 +467,35 @@ class SettingsFragment : Fragment() {
                     val order   = (0 until navOrderArr.length()).map { navOrderArr.getString(it) }
                     val enabled = (0 until navEnabledArr.length()).map { navEnabledArr.getString(it) }.toSet()
                     val badIds  = (order + enabled).filter { it !in knownTabIds }.distinct()
-                    if (badIds.isNotEmpty()) ignored.add("Onglets inconnus ignorés : ${badIds.joinToString()}")
+                    if (badIds.isNotEmpty()) ignored.add("Onglets inconnus ignorÃ©s : ${badIds.joinToString()}")
                     NavConfigManager.save(ctx, order.filter { it in knownTabIds }, enabled.filter { it in knownTabIds }.toSet())
                     (activity as? MainActivity)?.rebuildNav()
-                }.onFailure { ignored.add("Onglets invalides ignorés") }
+                }.onFailure { ignored.add("Onglets invalides ignorÃ©s") }
             }
 
-            // ── Résultat ──────────────────────────────────────────────────────
-            val summary = "Importé : +$countStops arrêt(s), +$countLines ligne(s)"
+            // â”€â”€ RÃ©sultat â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€â”€
+            val summary = "ImportÃ© : +$countStops arrÃªt(s), +$countLines ligne(s)"
             if (errors.isEmpty() && ignored.isEmpty()) {
                 Toast.makeText(ctx, summary, Toast.LENGTH_LONG).show()
             } else {
                 val detail = buildString {
-                    if (ignored.isNotEmpty()) append("\n\nℹ️ Éléments ignorés :\n${ignored.joinToString("\n")}")
-                    if (errors.isNotEmpty()) append("\n\n⚠️ Erreurs :\n${errors.joinToString("\n")}")
+                    if (ignored.isNotEmpty()) append("\n\nâ„¹ï¸ Ã‰lÃ©ments ignorÃ©s :\n${ignored.joinToString("\n")}")
+                    if (errors.isNotEmpty()) append("\n\nâš ï¸ Erreurs :\n${errors.joinToString("\n")}")
                 }
-                AlertDialog.Builder(ctx)
-                    .setTitle("Import terminé")
-                    .setMessage("$summary$detail")
-                    .setPositiveButton("OK", null)
-                    .show()
+                ModernDialogs.showMessage(
+                    context = ctx,
+                    title = "Import terminÃ©",
+                    message = "$summary$detail",
+                    positiveText = "OK"
+                )
             }
         } catch (e: Exception) {
-            AlertDialog.Builder(ctx)
-                .setTitle("Fichier invalide")
-                .setMessage("Le fichier n'a pas pu être lu.\n\n${e.message}")
-                .setPositiveButton("OK", null)
-                .show()
+            ModernDialogs.showMessage(
+                context = ctx,
+                title = "Fichier invalide",
+                message = "Le fichier n'a pas pu Ãªtre lu.\n\n${e.message}",
+                positiveText = "OK"
+            )
         }
     }
 
