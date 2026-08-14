@@ -16,7 +16,9 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import java.text.Normalizer
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.launch
 import com.pau.busapp.databinding.FragmentMapBinding
 import org.osmdroid.config.Configuration
@@ -57,6 +59,7 @@ class MapFragment : Fragment() {
     // Reconstruits à chaque onViewCreated car ils capturent la MapView
     private var dotMarkers:   List<Marker> = emptyList()
     private var labelMarkers: List<Marker> = emptyList()
+    private var dotMarkersLoading = false
 
     private val locationPermission = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
@@ -166,9 +169,10 @@ class MapFragment : Fragment() {
             map.controller.animateTo(GeoPoint(zoomLat, zoomLon), 18.0, 700L)
         }
 
-        // Construire les markers avec la nouvelle MapView
-        dotMarkers   = buildDotMarkers()
-        labelMarkers = buildLabelMarkers()
+        // Construire les markers hors du rendu initial pour éviter de bloquer l'ouverture
+        dotMarkers = emptyList()
+        labelMarkers = emptyList()
+        prepareDotMarkersAsync()
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -391,49 +395,62 @@ class MapFragment : Fragment() {
         val zoom = map.zoomLevelDouble
         map.overlays.removeAll { it is Marker }
         when {
-            zoom >= ZOOM_LABELS -> labelMarkers.forEach { map.overlays.add(it) }
-            zoom >= ZOOM_DOTS   -> dotMarkers.forEach   { map.overlays.add(it) }
-            else                -> cluster(AppData.busStops, zoom).forEach { map.overlays.add(buildClusterMarker(it)) }
+            zoom >= ZOOM_LABELS && labelMarkers.isNotEmpty() -> labelMarkers.forEach { map.overlays.add(it) }
+            zoom >= ZOOM_DOTS && dotMarkers.isNotEmpty() -> dotMarkers.forEach { map.overlays.add(it) }
+            else -> cluster(AppData.busStops, zoom).forEach { map.overlays.add(buildClusterMarker(it)) }
         }
         // nearestStopOverlay est un Overlay non-Marker, reste intact au-dessus
         map.invalidate()
     }
 
-    // ── Marker builders ───────────────────────────────────────────────────────
+    private fun prepareDotMarkersAsync() {
+        if (dotMarkersLoading) return
+        dotMarkersLoading = true
+        viewLifecycleOwner.lifecycleScope.launch {
+            val density = resources.displayMetrics.density
+            val prepared = withContext(Dispatchers.Default) {
+                AppData.busStops.map { stop ->
+                    val colors = stopColors(stop)
+                    PreparedStopMarker(stop, makeDotBitmap(colors))
+                }
+            }
+            if (_b == null) return@launch
+            dotMarkers = prepared.map { item ->
+                Marker(map).apply {
+                    position = GeoPoint(item.stop.lat, item.stop.lon)
+                    title = item.stop.name
+                    icon = android.graphics.drawable.BitmapDrawable(resources, item.dotBitmap)
+                    setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
+                    setOnMarkerClickListener { _, _ ->
+                        (activity as? MainActivity)?.openDetails(item.stop)
+                        true
+                    }
+                }
+            }
+            dotMarkersLoading = false
+            if (::map.isInitialized && map.zoomLevelDouble >= ZOOM_DOTS) refreshStops()
+        }
+    }
 
     private fun stopColors(stop: BusStop): List<Int> {
         val stopKey = normalizeTransitName(stop.name)
+        val lineByNumber = AppData.busLines.associateBy { it.number }
         val colors = stop.lines
-            .filter { num -> 
-                val line = AppData.busLines.find { it.number == num }
+            .filter { num ->
+                val line = lineByNumber[num]
                 line != null && (
                     line.stopsDir1.any { normalizeTransitName(it) == stopKey || normalizeTransitName(it).contains(stopKey) || stopKey.contains(normalizeTransitName(it)) } ||
                     line.stopsDir2.any { normalizeTransitName(it) == stopKey || normalizeTransitName(it).contains(stopKey) || stopKey.contains(normalizeTransitName(it)) }
                 )
             }
-            .mapNotNull { num -> AppData.busLines.find { it.number == num }?.color }
+            .mapNotNull { num -> lineByNumber[num]?.color }
         return colors.ifEmpty { listOf(0xFF_00843D.toInt()) }
     }
 
-    private fun buildDotMarkers(): List<Marker> = AppData.busStops.map { stop ->
-        Marker(map).apply {
-            position = GeoPoint(stop.lat, stop.lon)
-            title    = stop.name
-            icon     = android.graphics.drawable.BitmapDrawable(resources, makeDotBitmap(stopColors(stop)))
-            setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_CENTER)
-            setOnMarkerClickListener { _, _ -> (activity as? MainActivity)?.openDetails(stop); true }
-        }
-    }
-
-    private fun buildLabelMarkers(): List<Marker> = AppData.busStops.map { stop ->
-        Marker(map).apply {
-            position = GeoPoint(stop.lat, stop.lon)
-            title    = stop.name
-            icon     = android.graphics.drawable.BitmapDrawable(resources, makeLabelBitmap(stop.name, stopColors(stop)))
-            setAnchor(Marker.ANCHOR_CENTER, Marker.ANCHOR_BOTTOM)
-            setOnMarkerClickListener { _, _ -> (activity as? MainActivity)?.openDetails(stop); true }
-        }
-    }
+    private data class PreparedStopMarker(
+        val stop: BusStop,
+        val dotBitmap: Bitmap
+    )
 
     private fun makeDotBitmap(colors: List<Int>): Bitmap {
         val r = 14f

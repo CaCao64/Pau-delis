@@ -4,6 +4,8 @@ import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import com.google.firebase.analytics.FirebaseAnalytics
+import com.google.firebase.analytics.FirebaseAnalytics.ConsentStatus
+import com.google.firebase.analytics.FirebaseAnalytics.ConsentType
 import com.google.firebase.analytics.FirebaseAnalytics.Event
 import com.google.firebase.analytics.FirebaseAnalytics.Param
 import com.google.firebase.FirebaseApp
@@ -18,6 +20,16 @@ object AnalyticsTracker {
 
     fun init(context: Context) {
         resolve(context.applicationContext)
+    }
+
+    fun applyConsent(context: Context, allowed: Boolean) {
+        val firebase = resolve(context.applicationContext) ?: return
+        firebase.setConsent(
+            mapOf(
+                ConsentType.ANALYTICS_STORAGE to if (allowed) ConsentStatus.GRANTED else ConsentStatus.DENIED
+            )
+        )
+        firebase.setAnalyticsCollectionEnabled(allowed)
     }
 
     fun screenView(context: Context, screenName: String, screenClass: String = screenName) {

@@ -25,13 +25,14 @@ class ConsentActivity : AppCompatActivity() {
 
         binding.btnAcceptAnalytics.setOnClickListener {
             ConsentManager.acceptAnalytics(this)
-            AnalyticsTracker.init(this)
+            AnalyticsTracker.applyConsent(this, true)
             AnalyticsTracker.trackAction(this, "consent_accept", "analytics_consent", "Consentement")
             goNext()
         }
 
         binding.btnDeclineAnalytics.setOnClickListener {
             ConsentManager.declineAnalytics(this)
+            AnalyticsTracker.applyConsent(this, false)
             goNext()
         }
     }

@@ -41,7 +41,7 @@ class StopsWidgetProvider : AppWidgetProvider() {
         private fun formatPassage(info: StopInfo, dayLabel: String, isReal: Boolean): String {
             val first = info.passages.firstOrNull() ?: return ""
             val dest = info.destination.split(" ").take(2).joinToString(" ")
-            val statut = if (isReal) {
+            val statut = if (isReal && first.type == "reel") {
                 val theoMinutes = info.passages.filter { it.type == "theorique" }
                     .mapNotNull { PassageHelper.parseArrivee(it.arrivee) }
                     .map { it.hour * 60 + it.minute }

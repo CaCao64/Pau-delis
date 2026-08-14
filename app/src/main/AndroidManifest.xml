@@ -20,6 +20,9 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
         android:theme="@style/Theme.BusPau">
+        <meta-data
+            android:name="firebase_analytics_collection_enabled"
+            android:value="false" />
         <activity android:name=".ConsentActivity" android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
