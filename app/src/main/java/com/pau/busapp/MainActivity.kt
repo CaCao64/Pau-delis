@@ -170,9 +170,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleAssistantIntent(intent: Intent?) {
-        val feature = intent?.getStringExtra("feature")?.lowercase()
-            ?: intent?.data?.lastPathSegment?.lowercase()
+        if (intent == null) return
+        if ((intent.flags and Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) != 0) return
+
+        val feature = intent.getStringExtra("feature")?.lowercase()
+            ?: intent.data?.lastPathSegment?.lowercase()
             ?: return
+
+        intent.removeExtra("feature")
+        intent.data = null
 
         val targetTab = when (feature) {
             "map", "carte" -> R.id.nav_map
@@ -277,9 +283,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun handleWidgetIntent(intent: Intent?) {
-        val key = intent?.getStringExtra(StopsWidgetProvider.EXTRA_STOP_NAME) ?: return
+        if (intent == null) return
+        if ((intent.flags and Intent.FLAG_ACTIVITY_LAUNCHED_FROM_HISTORY) != 0) return
+        val key = intent.getStringExtra(StopsWidgetProvider.EXTRA_STOP_NAME) ?: return
+        intent.removeExtra(StopsWidgetProvider.EXTRA_STOP_NAME)
         val openMode = intent.getStringExtra("open_mode")
-        val highlightLine = intent?.getStringExtra("highlight_line")
+        val highlightLine = intent.getStringExtra("highlight_line")
         // Clés préfixées : "stop:NomArrêt", "bus:NomArrêt|ligne|dest", "ligne:T3"
         val stopName = when {
             key.startsWith(WidgetOrderManager.PREFIX_STOP) -> key.removePrefix(WidgetOrderManager.PREFIX_STOP)
