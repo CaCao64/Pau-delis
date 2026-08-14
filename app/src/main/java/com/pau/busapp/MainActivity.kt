@@ -175,7 +175,54 @@ class MainActivity : AppCompatActivity() {
             "lines", "lignes" -> R.id.nav_lines
             "settings", "parametres", "paramètres" -> R.id.nav_settings
             else -> null
-        } ?: return
+        }
+
+        if (targetTab == null) {
+            val q = feature.trim()
+            if (q.isNotEmpty()) {
+                val normalizedQuery = normalizeString(q)
+
+                // 1. Chercher un arrêt correspondant
+                val matchedStops = AppData.busStops.filter {
+                    normalizeString(it.name).contains(normalizedQuery)
+                }
+
+                if (matchedStops.size == 1) {
+                    val stop = matchedStops.first()
+                    AnalyticsTracker.openContent(this, "assistant_stop_detail", q, "DetailsFragment")
+                    showFragment(DetailsFragment.newInstance(stop), true)
+                    return
+                } else if (matchedStops.size > 1) {
+                    AnalyticsTracker.openContent(this, "assistant_stop_ambiguity", q, "SearchFragment")
+                    fadeTransition {
+                        clearBack()
+                        commitShowFragment(SearchFragment.newInstance(q), false)
+                    }
+                    setSelected(R.id.nav_search)
+                    return
+                }
+
+                // 2. Si aucun arrêt ne correspond, chercher une ligne correspondante
+                val matchedLine = AppData.busLines.find {
+                    normalizeString(it.number) == normalizedQuery
+                }
+                if (matchedLine != null) {
+                    AnalyticsTracker.openContent(this, "assistant_line_detail", q, "LineMapFragment")
+                    showFragment(LineMapFragment.newInstance(matchedLine), true)
+                    setSelected(R.id.nav_lines)
+                    return
+                }
+
+                // 3. Fallback : ouvrir l'écran de recherche pré-rempli
+                AnalyticsTracker.openContent(this, "assistant_fallback_search", q, "SearchFragment")
+                fadeTransition {
+                    clearBack()
+                    commitShowFragment(SearchFragment.newInstance(q), false)
+                }
+                setSelected(R.id.nav_search)
+            }
+            return
+        }
 
         val label = when (targetTab) {
             R.id.nav_map -> "Carte"
@@ -213,6 +260,12 @@ class MainActivity : AppCompatActivity() {
             }
         }
         setSelected(targetTab)
+    }
+
+    private fun normalizeString(s: String): String {
+        val normalized = java.text.Normalizer.normalize(s, java.text.Normalizer.Form.NFD)
+        val pattern = java.util.regex.Pattern.compile("\\p{InCombiningDiacriticalMarks}+")
+        return pattern.matcher(normalized).replaceAll("").lowercase()
     }
 
     private fun handleWidgetIntent(intent: Intent?) {

@@ -20,7 +20,6 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dtPicker = DateTimePickerHelper(this, view.findViewById(R.id.datetime_bar)) {}
-        showHistory()
 
         b.etSearch.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, st: Int, co: Int, af: Int) {}
@@ -43,6 +42,13 @@ class SearchFragment : Fragment() {
         b.btnClearSearch.setOnClickListener {
             AnalyticsTracker.trackAction(requireContext(), "clear", "search_field", "Recherche")
             b.etSearch.setText("")
+            showHistory()
+        }
+
+        val initialQuery = arguments?.getString("query")
+        if (initialQuery != null) {
+            b.etSearch.setText(initialQuery)
+        } else {
             showHistory()
         }
     }
@@ -163,4 +169,14 @@ class SearchFragment : Fragment() {
     }
 
     override fun onDestroyView() { super.onDestroyView(); _b = null }
+
+    companion object {
+        fun newInstance(query: String): SearchFragment {
+            return SearchFragment().apply {
+                arguments = Bundle().apply {
+                    putString("query", query)
+                }
+            }
+        }
+    }
 }
