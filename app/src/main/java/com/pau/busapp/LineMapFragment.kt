@@ -12,6 +12,7 @@ import org.osmdroid.util.GeoPoint
 import org.osmdroid.views.MapView
 import org.osmdroid.views.overlay.Marker
 import org.osmdroid.views.overlay.Polyline
+import java.text.Normalizer
 
 class LineMapFragment : Fragment() {
 
@@ -50,11 +51,15 @@ class LineMapFragment : Fragment() {
         b.btnRetour.setOnClickListener { parentFragmentManager.popBackStack() }
 
         // Résoudre les noms d'arrêts → BusStop avec coordonnées
-        val stopsByName = AppData.busStops.associateBy { it.name }
+        val stopsByName = AppData.busStops.associateBy { normalizeTransitName(it.name) }
 
         fun resolveStop(name: String): BusStop? =
-            stopsByName[name]
-                ?: AppData.busStops.find { it.name.contains(name, ignoreCase = true) || name.contains(it.name, ignoreCase = true) }
+            stopsByName[normalizeTransitName(name)]
+                ?: AppData.busStops.find {
+                    val a = normalizeTransitName(it.name)
+                    val b = normalizeTransitName(name)
+                    a.contains(b) || b.contains(a)
+                }
 
         val dir1Points = line.stopsDir1.mapNotNull { resolveStop(it) }
         val dir2Points = line.stopsDir2.mapNotNull { resolveStop(it) }
@@ -92,12 +97,16 @@ class LineMapFragment : Fragment() {
         // Marqueurs pour chaque arrêt de la ligne
         allStops.forEach { stop ->
             val isTerminus = stop.name == line.terminus1 || stop.name == line.terminus2 ||
-                dir1Points.firstOrNull()?.name == stop.name || dir1Points.lastOrNull()?.name == stop.name ||
-                dir2Points.firstOrNull()?.name == stop.name || dir2Points.lastOrNull()?.name == stop.name
+                normalizeTransitName(stop.name) == normalizeTransitName(line.terminus1) ||
+                normalizeTransitName(stop.name) == normalizeTransitName(line.terminus2) ||
+                normalizeTransitName(dir1Points.firstOrNull()?.name ?: "") == normalizeTransitName(stop.name) ||
+                normalizeTransitName(dir1Points.lastOrNull()?.name ?: "") == normalizeTransitName(stop.name) ||
+                normalizeTransitName(dir2Points.firstOrNull()?.name ?: "") == normalizeTransitName(stop.name) ||
+                normalizeTransitName(dir2Points.lastOrNull()?.name ?: "") == normalizeTransitName(stop.name)
             val isHighlight = highlight.isNotEmpty() && (
-                stop.name.equals(highlight, ignoreCase = true) ||
-                stop.name.contains(highlight, ignoreCase = true) ||
-                highlight.contains(stop.name, ignoreCase = true))
+                normalizeTransitName(stop.name) == normalizeTransitName(highlight) ||
+                normalizeTransitName(stop.name).contains(normalizeTransitName(highlight)) ||
+                normalizeTransitName(highlight).contains(normalizeTransitName(stop.name)))
             val marker = Marker(map).apply {
                 position = GeoPoint(stop.lat, stop.lon)
                 title    = stop.name
@@ -135,6 +144,8 @@ class LineMapFragment : Fragment() {
 
         addTerminusLabel(dir1Points.firstOrNull(), line.terminus1, false)
         addTerminusLabel(dir1Points.lastOrNull(), line.terminus2, true)
+        addTerminusLabel(dir2Points.firstOrNull(), line.terminus2, false)
+        addTerminusLabel(dir2Points.lastOrNull(), line.terminus1, true)
 
         map.invalidate()
     }
@@ -188,6 +199,13 @@ class LineMapFragment : Fragment() {
             }
         }
         return bmp
+    }
+
+    private fun normalizeTransitName(value: String): String {
+        val trimmed = value.replace(Regex("\\s+"), " ").trim()
+        val strippedQuai = trimmed.replace(Regex("\\s+quai\\s+[a-z0-9]+$", RegexOption.IGNORE_CASE), "")
+        val normalized = Normalizer.normalize(strippedQuai, Normalizer.Form.NFD)
+        return normalized.replace(Regex("\\p{M}+"), "").lowercase()
     }
 
     override fun onResume()      { super.onResume();  if (::map.isInitialized) map.onResume() }

@@ -129,6 +129,7 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+        handleAssistantIntent(intent)
         handleWidgetIntent(intent)
 
         if (!TutorialManager.isDone(this)) {
@@ -156,7 +157,62 @@ class MainActivity : AppCompatActivity() {
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
+        handleAssistantIntent(intent)
         handleWidgetIntent(intent)
+    }
+
+    private fun handleAssistantIntent(intent: Intent?) {
+        val feature = intent?.getStringExtra("feature")?.lowercase()
+            ?: intent?.data?.lastPathSegment?.lowercase()
+            ?: return
+
+        val targetTab = when (feature) {
+            "map", "carte" -> R.id.nav_map
+            "favorites", "favs", "favoris" -> R.id.nav_favs
+            "search", "recherche" -> R.id.nav_search
+            "alerts", "alertes" -> R.id.nav_alerts
+            "stops", "arrets", "arrêts" -> R.id.nav_stops
+            "lines", "lignes" -> R.id.nav_lines
+            "settings", "parametres", "paramètres" -> R.id.nav_settings
+            else -> null
+        } ?: return
+
+        val label = when (targetTab) {
+            R.id.nav_map -> "Carte"
+            R.id.nav_favs -> "Favoris"
+            R.id.nav_search -> "Recherche"
+            R.id.nav_alerts -> "Alertes"
+            R.id.nav_stops -> "Arrêts"
+            R.id.nav_lines -> "Lignes"
+            R.id.nav_settings -> "Paramètres"
+            else -> "Assistant"
+        }
+
+        AnalyticsTracker.openContent(this, "assistant_feature", feature, label)
+        fadeTransition {
+            clearBack()
+            val fragment = when (targetTab) {
+                R.id.nav_map -> mapFragment
+                R.id.nav_favs -> FavoritesFragment()
+                R.id.nav_search -> SearchFragment()
+                R.id.nav_alerts -> AlertsFragment()
+                R.id.nav_stops -> StopListFragment()
+                R.id.nav_lines -> LinesFragment()
+                R.id.nav_settings -> SettingsFragment()
+                else -> mapFragment
+            }
+            if (fragment === mapFragment) {
+                val tx = supportFragmentManager.beginTransaction()
+                supportFragmentManager.fragments.forEach { f ->
+                    if (f !== mapFragment && f.isAdded && !f.isHidden) tx.hide(f)
+                }
+                tx.show(mapFragment)
+                tx.commitNowAllowingStateLoss()
+            } else {
+                commitShowFragment(fragment, false)
+            }
+        }
+        setSelected(targetTab)
     }
 
     private fun handleWidgetIntent(intent: Intent?) {

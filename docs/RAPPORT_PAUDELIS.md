@@ -667,33 +667,33 @@ Il couvre :
 | :---: | :---: | :--- | :---: | :--- | :---: | :--- |
 | **BUS-3** | Bug | Traduction incomplete de l'application (EN / ES) | Non | `strings.xml` (`values-*`) | Fait | Traduction integrale de tous les composants de l'application et du tutoriel. |
 | **BUS-16** | Story | Gestion des 2 directions pour un meme arret dans les notifs | Non | `AddAlertDialog.kt`, `Alert.kt` | Fait | Stocker la destination explicite dans le modele `Alert` pour cibler la bonne direction. |
-| **BUS-17** | Story | Ecrire "Bus passe" au lieu de l'horaire perime dans la notif | Non | `TrackingService.kt` | A faire | Mettre a jour le texte de la notification avec `R.string.bus_passed` au franchissement de l'heure. |
-| **BUS-18** | Story | Clic sur notification -> Defilement auto jusqu'a l'arret | Non | `MainActivity.kt`, `StopListFragment.kt` | A faire | Transmettre l'ID de l'arret dans le `PendingIntent` de notification et scroller la liste. |
-| **BUS-19** | Story | Ranger les alertes par nom d'arret (menus deroulants) | Non | `AlertsFragment.kt` | A faire | Implementation d'un RecyclerView a en-tetes extensibles (Expandable Grouping). |
-| **BUS-22** | Bug | Notification qui disparait lors d'une perte de connexion | Non | `TrackingService.kt` | A faire | Conserver la notification en indiquant "Connexion perdue..." sans appeler `cancel()`. |
-| **BUS-24** | Story | Trier les arrets par prochain passage | Non | `StopListFragment.kt` | A faire | Ajouter un comparateur sur les minutes restantes du prochain bus. |
+| **BUS-17** | Story | Ecrire "Bus passe" au lieu de l'horaire perime dans la notif | Non | `TrackingService.kt` | Fait | Mettre a jour le texte de la notification avec `R.string.bus_passed` au franchissement de l'heure. |
+| **BUS-18** | Story | Clic sur notification -> Defilement auto jusqu'a l'arret | Non | `MainActivity.kt`, `StopListFragment.kt` | Fait | Transmettre l'ID de l'arret dans le `PendingIntent` de notification et scroller la liste. |
+| **BUS-19** | Story | Ranger les alertes par nom d'arret (menus deroulants) | Non | `AlertsFragment.kt` | Fait | Implementation d'un RecyclerView a en-tetes extensibles (Expandable Grouping). |
+| **BUS-22** | Bug | Notification qui disparait lors d'une perte de connexion | Non | `TrackingService.kt` | Fait | Conserver la notification en indiquant "Connexion perdue..." sans appeler `cancel()`. |
+| **BUS-24** | Story | Trier les arrets par prochain passage | Non | `StopListFragment.kt` | Fait | Ajouter un comparateur sur les minutes restantes du prochain bus. |
 | **BUS-25** | Story | Clic sur notification -> Defilement auto jusqu'a la ligne | Non | `MainActivity.kt`, `DetailsFragment.kt` | Fait | Transmettre l'ID de la ligne via l'Intent de la notif et scroller le RecyclerView. |
-| **BUS-26** | Bug | Crash au clic sur "Organiser le widget" | Non | `WidgetConfigActivity.kt`, `WidgetOrderManager.kt` | A faire | Fix `NullPointerException` dans l'Intent ou la liste d'ordonnancement du widget. |
-| **BUS-27** | Story | Moderniser le widget | Non | `StopsWidgetProvider.kt`, `res/layout/widget_*` | A faire | Redesign des RemoteViews avec coins arrondis et style Material You. |
-| **BUS-28** | Bug | Bug general d'affichage / crash ponctuel | Non | Plusieurs fragments | A faire | Diagnostic et correction selon les logs de crash. |
-| **BUS-29** | Story | Rechargement auto des horaires au retour sur l'app | Non | `MainActivity.kt`, `DetailsFragment.kt` | A faire | Declencher le rafraichissement dans la methode `onResume()` des fragments actifs. |
-| **BUS-30** | Bug | Consommation batterie excessive (8% pour 5min d'ecran) | Non | `TrackingService.kt`, `MapFragment.kt` | A faire | Reduire la frequence de rafraichissement GPS et suspendre les coroutines inactives. |
-| **BUS-31** | Story | Periode vacances scolaires | Non | `Alert.kt`, `AlertManager.kt` | A faire | Integration du calendrier des vacances pour desactiver automatiquement les alertes `NO_SCHOOL_HOLIDAYS`. |
-| **BUS-32** | Bug | Oblige de mettre les accents dans la recherche | Non | `SearchFragment.kt`, `StopListFragment.kt` | A faire | Normaliser les chaines avec `java.text.Normalizer` pour ignorer les diacritiques. |
-| **BUS-33** | Bug | En ligne alors que API temporairement indisponible (doublon) | Non | `IdelisApi.kt` | A faire | Fusionner avec le traitement du ticket BUS-34. |
-| **BUS-34** | Bug | En ligne alors que l'API est temporairement indisponible | Non | `IdelisApi.kt`, `DetailsFragment.kt` | A faire | Gestion d'erreur HTTP 5xx/SocketTimeout avec bandeau "API indisponible" explicite. |
-| **BUS-35** | Bug | Arrets du FeBus (F) en orange alors qu'il n'y passe pas | Non | `AppData.kt`, `MapFragment.kt` | A faire | Correction du filtrage des lignes associees aux marqueurs d'arrets du FeBus. |
-| **BUS-36** | Story | Ajouter un toast quand alerte ajoutee | Non | `AddAlertDialog.kt`, `AlertsFragment.kt` | A faire | Affichage d'un `Toast.makeText(context, R.string.alert_added, Toast.LENGTH_SHORT).show()`. |
-| **BUS-37** | Story | Ajouter bandeau d'information en ligne CE | Oui | `LinesFragment.kt`, `LineDetailFragment.kt` | A faire | Composant Marquee / Banner affichant les perturbations du reseau envoyees par l'API. |
-| **BUS-38** | Story | Degrade en haut de l'arret avec les couleurs des bus y passant | Non | `DetailsFragment.kt` | A faire | Generation dynamique d'un `GradientDrawable` base sur les couleurs des badges de ligne. |
+| **BUS-26** | Bug | Crash au clic sur "Organiser le widget" | Non | `WidgetConfigActivity.kt`, `WidgetOrderManager.kt` | Fait | Fix `NullPointerException` dans l'Intent ou la liste d'ordonnancement du widget. |
+| **BUS-27** | Story | Moderniser le widget | Non | `StopsWidgetProvider.kt`, `res/layout/widget_*` | Fait | Redesign des RemoteViews avec coins arrondis et style Material You. |
+| **BUS-28** | Bug | Bug general d'affichage / crash ponctuel | Non | Plusieurs fragments | en cours | Diagnostic et correction selon les logs de crash. |
+| **BUS-29** | Story | Rechargement auto des horaires au retour sur l'app | Non | `MainActivity.kt`, `DetailsFragment.kt` | Fait | Declencher le rafraichissement dans la methode `onResume()` des fragments actifs. |
+| **BUS-30** | Bug | Consommation batterie excessive (8% pour 5min d'ecran) | Non | `TrackingService.kt`, `MapFragment.kt` | Fait | Reduire la frequence de rafraichissement GPS et suspendre les coroutines inactives. |
+| **BUS-31** | Story | Periode vacances scolaires | Non | `Alert.kt`, `AlertManager.kt` | Fait | Integration du calendrier des vacances pour desactiver automatiquement les alertes `NO_SCHOOL_HOLIDAYS`. |
+| **BUS-32** | Bug | Oblige de mettre les accents dans la recherche | Non | `SearchFragment.kt`, `StopListFragment.kt` | Fait | Normaliser les chaines avec `java.text.Normalizer` pour ignorer les diacritiques. |
+| **BUS-33** | Bug | En ligne alors que API temporairement indisponible (doublon) | Non | `IdelisApi.kt` | Fait | Fusionner avec le traitement du ticket BUS-34. |
+| **BUS-34** | Bug | En ligne alors que l'API est temporairement indisponible | Non | `IdelisApi.kt`, `DetailsFragment.kt` | Fait | Gestion d'erreur HTTP 5xx/SocketTimeout avec bandeau "API indisponible" explicite. |
+| **BUS-35** | Bug | Arrets du FeBus (F) en orange alors qu'il n'y passe pas | Non | `AppData.kt`, `MapFragment.kt` | Fait | Correction du filtrage des lignes associees aux marqueurs d'arrets du FeBus. |
+| **BUS-36** | Story | Ajouter un toast quand alerte ajoutee | Non | `AddAlertDialog.kt`, `AlertsFragment.kt` | Fait | Affichage d'un `Toast.makeText(context, R.string.alert_added, Toast.LENGTH_SHORT).show()`. |
+| **BUS-37** | Story | Ajouter bandeau d'information en ligne CE | Oui | `LinesFragment.kt`, `LineDetailFragment.kt` | en cours | Composant Marquee / Banner affichant les perturbations du reseau envoyees par l'API. |
+| **BUS-38** | Story | Degrade en haut de l'arret avec les couleurs des bus y passant | Non | `DetailsFragment.kt` | Fait | Generation dynamique d'un `GradientDrawable` base sur les couleurs des badges de ligne. |
 | **BUS-39** | Bug | Marque en avance alors qu'en retard de 7 min. CE | Oui | `PassageHelper.kt`, `IdelisApi.kt` | A faire | Corriger le calcul de l'ecart `ecartMin` et le mapping de l'enum `PassageStatut`. |
-| **BUS-40** | Bug | Le bus ne passe pas sur la route CE | Oui | `LineMapFragment.kt`, `AppData.kt` | A faire | Corriger les coordonnees GPS du trace de ligne pour coller au reseau routier OSM. |
-| **BUS-41** | Story | Ajouter le nom des terminus sur la carte de l'itineraire. CE | Oui | `LineMapFragment.kt` | A faire | Ajouter des marqueurs textuels aux coordonnees de depart et d'arrivee du trace `Polyline`. |
+| **BUS-40** | Bug | Le bus ne passe pas sur la route CE | Oui | `LineMapFragment.kt`, `AppData.kt` | en cours | Corriger les coordonnees GPS du trace de ligne pour coller au reseau routier OSM. |
+| **BUS-41** | Story | Ajouter le nom des terminus sur la carte de l'itineraire. CE | Oui | `LineMapFragment.kt` | Fait | Ajouter des marqueurs textuels aux coordonnees de depart et d'arrivee du trace `Polyline`. |
 | **BUS-42** | Bug | Quand bus en retard, horloge en noir et donc illisible pour le theme sombre. Solution : la mettre en orange. CE | Oui | `PassageHelper.kt`, `DetailsFragment.kt` | A faire | Passer la couleur de l'horloge / icone de retard en orange adaptatif au theme sombre. |
-| **BUS-43** | Story | Option de commander l'app avec l'Assistant Google ? | Non | `AndroidManifest.xml`, `actions.xml` | A faire | Ajout des App Actions / Shortcuts Google Assistant pour les commandes vocales. |
-| **BUS-44** | Bug | Widget actif sans l'etre (batterie) + faux statut hors-ligne | Non | `StopsWidgetProvider.kt`, `WidgetListService.kt` | A faire | Ajuster la frequence d'actualisation du widget et corriger le check reseau. |
-| **BUS-45** | Story | Google Analytics sur les onglets | Non | `MainActivity.kt` | A faire | Integration de Firebase Analytics / Google Analytics pour tracer les changements d'onglets. |
-| **BUS-46** | Story | Animation et texte "Recherche d'arrets les plus proches en cours" au clic bouton | Non | `MapFragment.kt`, `StopListFragment.kt` | A faire | Afficher un loader / dialog avec message de recherche active lors du clic sur la localisation. |
+| **BUS-43** | Story | Option de commander l'app avec l'Assistant Google ? | Non | `AndroidManifest.xml`, `res/xml/shortcuts.xml`, `MainActivity.kt` | Fait | Ajout des App Actions / Shortcuts Google Assistant pour les commandes vocales. |
+| **BUS-44** | Bug | Widget actif sans l'etre (batterie) + faux statut hors-ligne | Non | `StopsWidgetProvider.kt`, `WidgetListService.kt` | Fait | Ajuster la frequence d'actualisation du widget et corriger le check reseau. |
+| **BUS-45** | Story | Google Analytics sur les onglets | Non | `MainActivity.kt` | Fait | Integration de Firebase Analytics / Google Analytics pour tracer les changements d'onglets. |
+| **BUS-46** | Story | Animation et texte "Recherche d'arrets les plus proches en cours" au clic bouton | Non | `MapFragment.kt`, `StopListFragment.kt` | Fait | Afficher un loader / dialog avec message de recherche active lors du clic sur la localisation. |
 
 #### Tickets termines
 

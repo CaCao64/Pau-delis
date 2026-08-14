@@ -15,6 +15,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import java.text.Normalizer
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import com.pau.busapp.databinding.FragmentMapBinding
@@ -334,8 +335,8 @@ class MapFragment : Fragment() {
 
         // Mises à jour en continu
         if (!gpsListening) {
-            if (hasFine)   lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,     10000L, 15f, gpsListener)
-            if (hasCoarse) lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 10000L, 15f, gpsListener)
+            if (hasFine)   lm.requestLocationUpdates(LocationManager.GPS_PROVIDER,     20000L, 20f, gpsListener)
+            if (hasCoarse) lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 20000L, 25f, gpsListener)
             gpsListening = true
         }
     }
@@ -401,10 +402,14 @@ class MapFragment : Fragment() {
     // ── Marker builders ───────────────────────────────────────────────────────
 
     private fun stopColors(stop: BusStop): List<Int> {
+        val stopKey = normalizeTransitName(stop.name)
         val colors = stop.lines
-            .filter { num ->
+            .filter { num -> 
                 val line = AppData.busLines.find { it.number == num }
-                line != null && (line.stopsDir1.contains(stop.name) || line.stopsDir2.contains(stop.name))
+                line != null && (
+                    line.stopsDir1.any { normalizeTransitName(it) == stopKey || normalizeTransitName(it).contains(stopKey) || stopKey.contains(normalizeTransitName(it)) } ||
+                    line.stopsDir2.any { normalizeTransitName(it) == stopKey || normalizeTransitName(it).contains(stopKey) || stopKey.contains(normalizeTransitName(it)) }
+                )
             }
             .mapNotNull { num -> AppData.busLines.find { it.number == num }?.color }
         return colors.ifEmpty { listOf(0xFF_00843D.toInt()) }
@@ -561,6 +566,13 @@ class MapFragment : Fragment() {
         private const val ZOOM_DOTS         = 10.5
         private const val ZOOM_LABELS       = 15.0
         private const val CLUSTER_RADIUS_PX = 55.0
+    }
+
+    private fun normalizeTransitName(value: String): String {
+        val trimmed = value.replace(Regex("\\s+"), " ").trim()
+        val strippedQuai = trimmed.replace(Regex("\\s+quai\\s+[a-z0-9]+$", RegexOption.IGNORE_CASE), "")
+        val normalized = Normalizer.normalize(strippedQuai, Normalizer.Form.NFD)
+        return normalized.replace(Regex("\\p{M}+"), "").lowercase()
     }
 }
 
